@@ -1,24 +1,23 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import TopIndex from '../pages/Top.vue'
-import TaskIndex from '../pages/tasks/Task.vue'
+import * as vueRouter from 'vue-router'
+import Top from '../pages/Top.vue'
+import Task from '../pages/tasks/Task.vue'
 
 const routes = [
     {
-        path: '/top',
+        path: '/',
         name: 'Top',
-        component: TopIndex
+        component: Top
     },
     {
-        path: '/task',
+        path: '/tasks',
         name: 'Task',
-        component: TaskIndex
+        component: Task
     }
 ]
     
 
-const router = createRouter({
-    history: createWebHistory(), 
-    routes,
-    })
-    
-export default router
+const router = vueRouter.createRouter({
+    history: vueRouter.createWebHistory(),
+    routes: routes,
+  })
+  export default router
