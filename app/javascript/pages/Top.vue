@@ -10,26 +10,34 @@
                 <p>現金換算で何円分になるか計算いたします</p>
               </div>
             </div>
+            <Form @submit="handleConversion">
             <div class="card-body m-3">
               <div class="form-group mb-5">
-                <label for="posses_stone" class="mb-1">ガチャ石の個数</label>
-                <input id="posses_stone" v-model.number="gacha.posses_stone" class="form-control" type="text" style="width:75%" placeholder="現金換算したい石の個数を入力してください（個）">
+                  <label for="posses_stone" class="mb-1">ガチャ石の個数</label>
+                  <Field name="posses_stone" id="posses_stone" v-model.number="posses_stone" class="form-control" type="text" style="width:75%" placeholder="現金換算したい石の個数を入力してください（個）" :rules="isNumericRequired" />
+                  <div class="text-danger"><ErrorMessage name="posses_stone" /></div>
               </div>
               <div class="form-group my-5">
                 <label for="currency_package" class="mb-1">ガチャ石の価格</label>
-                <input id="stone_quantity" v-model.number="gacha.stone_quantity" class="form-control mb-3" type="text" style="width:75%" placeholder="購入する際の個数を入力してください（個）">
-                <input id="stone_price" v-model.number="gacha.stone_price" class="form-control" type="text" style="width:75%" placeholder="購入する際の金額を入力してください（円）">
+                <div class="mb-3">
+                <Field name="quantity" id="stone_quantity" v-model.number="stone_quantity" class="form-control" type="text" style="width:75%" placeholder="購入する際の個数を入力してください（個）" :rules="isNumericRequired" />
+                <div class="text-danger"><ErrorMessage name="quantity" /></div>
+                </div>
+                <Field name="price" id="stone_price" v-model.number="stone_price" class="form-control" type="text" style="width:75%" placeholder="購入する際の金額を入力してください（円）" :rules="isNumericRequired" />
+                <div class="text-danger"><ErrorMessage name="price" /></div>
               </div>
               <div class="form-group">
                 <label for="game" class="mb-1">ゲーム名*任意</label>
-                <input id="game" v-model="gacha.game" class="form-control" type="text" style="width:75%">
+                <input id="game" v-model="game_name" class="form-control" type="text" style="width:75%">
               </div>
             </div>
             <div class="card-footer text-center">
-              <button type="button" class="btn btn-primary my-3" @click="handleConversion">
+              <button type="submit" class="btn btn-primary my-3">
                 追加
               </button>
             </div>
+            <pre>{{ values }}</pre>
+            </Form>
           </div>
         </div>
         <div class="col-12 col-md-4">
@@ -68,9 +76,6 @@
         </div>
           <div>
             <div class="text-center">
-              <h4>{{ conversion_records_sub }}</h4>
-              <h4>{{ total }}</h4>
-              <h4>{{ store }}</h4>
               <router-link :to="{ name: 'Task' }" class="btn btn-dark mt-5">はじめる</router-link>
             </div>
         </div>
@@ -80,19 +85,25 @@
 </template>
 
 <script>
+import { Field, Form, ErrorMessage } from 'vee-validate';
+import * as yup from "yup";
+
 export default {
   name: "Top",
+  components: {
+    Field,
+    Form,
+    ErrorMessage,
+  },
   data() {
     return {
       title: "タスク管理アプリ",
       cash_conversion: 0,
       total : 0,
-      gacha: {
-        posses_stone: '',
-        stone_quantity: '',
-        stone_price: '',
-        game: ''
-      },
+      posses_stone: '',
+      stone_quantity: '',
+      stone_price: '',
+      game: '',
       conversion_records_sub: [],
       store: []
     }
@@ -104,8 +115,8 @@ export default {
   },
   methods: {
     handleConversion() {
-      this.cash_conversion = Math.round(this.gacha.stone_price/this.gacha.stone_quantity*this.gacha.posses_stone);
-      this.conversion_records_sub.push({ name: this.gacha.game, price: this.cash_conversion, posses_stone: this.gacha.posses_stone });
+      this.cash_conversion = Math.round(this.stone_price/this.stone_quantity*this.posses_stone);
+      this.conversion_records_sub.push({ name: this.game_name, price: this.cash_conversion, posses_stone: this.posses_stone });
       this.total += this.cash_conversion;
       this.store.push(this.cash_conversion);
     },
@@ -113,7 +124,16 @@ export default {
       this.conversion_records_sub.splice(index, 1);
       this.total -= this.store[index];
       this.store.splice(index, 1);
-    }
+    },
+    isNumericRequired(value) {
+      if (!value.match(/^[0-9]*$/)) {
+        return '半角数字で入力してください';
+      }
+      if (!value && !value.trim()) {
+        return '入力してください';
+      }
+      return true;
+    },
   }
 }
 </script>
