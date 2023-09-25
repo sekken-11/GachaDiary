@@ -10,17 +10,26 @@
         </ul>
     </nav>
     <nav class="navbar bg-light">
-      <div class="flex-fill bd-highlight text-center">現金換算</div>
-      <div class="flex-fill bd-highlight text-center">ガチャ記録</div>
-      <div class="flex-fill bd-highlight text-center">ゲーム記録</div>
-      <div class="flex-fill bd-highlight text-center">換算用データ</div>
-      <div class="flex-fill bd-highlight text-center">カレンダー</div>
+      <div v-for="menu in menus" :key="menu" class="flex-fill bd-highlight text-center">
+        <router-link :to="{ name: menu.link }">{{ menu.name }}</router-link>
+      </div>
     </nav>
   </header>
 </template>
 
 <script>
   export default {
-    name: "Header"
+    name: "Header",
+    data() {
+      return {
+        menus: [
+          { name: "現金換算", link: "Top" },
+          { name: "ガチャ記録", link: "Gacha" },
+          { name: "ゲーム記録", link: "Game" },
+          { name: "換算用データ", link: "ConData" },
+          { name: "カレンダー", link: "Calender" },
+        ]
+      }
+    }
   }
 </script>
