@@ -3,8 +3,8 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-md-8">
-          <div class="card bg-light">
-            <div class="card-header">
+          <div class="card bg-white shadow">
+            <div class="card-header bg-white">
               <div class="card-text text-center m-3">
                 <p>あなたの所持するガチャ石の数・ガチャ石の価格を入力してください</p>
                 <p>現金換算で何円分になるか計算いたします</p>
@@ -31,7 +31,7 @@
                 <input id="game" v-model="game_name" class="form-control" type="text" style="width:75%">
               </div>
             </div>
-            <div class="card-footer text-center">
+            <div class="card-footer text-center bg-white">
               <button type="submit" class="btn btn-primary my-3">
                 追加
               </button>
@@ -80,7 +80,6 @@
 
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
-import * as yup from "yup";
 
 export default {
   name: "Top",

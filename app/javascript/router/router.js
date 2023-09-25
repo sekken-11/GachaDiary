@@ -4,6 +4,9 @@ import Gacha from '../pages/Gacha.vue'
 import Game from '../pages/Game.vue'
 import ConData from '../pages/Conversion_Data.vue'
 import Calender from '../pages/Calender.vue'
+import SignUp from '../pages/user_session/Signup.vue'
+import SignIn from '../pages/user_session/Signin.vue' 
+
 
 
 const routes = [
@@ -31,6 +34,16 @@ const routes = [
         path: '/calender',
         name: 'Calender',
         component: Calender
+    },
+    {
+        path: '/signup',
+        name: 'SignUp',
+        component: SignUp
+    },
+    {
+        path: '/signin',
+        name: 'SignIn',
+        component: SignIn
     },
 ]
     

@@ -4,12 +4,12 @@
       <span class="navbar-brand mb-0 h1">タスク管理アプリ</span>
         <ul class="navbar-nav">
           <li class="nav-item d-flex align-items-center">
-            <div class="btn btn-primary btn-sm me-2">新規登録</div>
-            <div class="btn btn-primary btn-sm me-2">ログイン</div>
+            <router-link :to="{ name: 'SignUp' }" class="btn btn-primary btn-sm me-2">新規登録</router-link>
+            <router-link :to="{ name: 'SignIn' }" class="btn btn-primary btn-sm me-2">ログイン</router-link>
           </li>
         </ul>
     </nav>
-    <nav class="navbar bg-light">
+    <nav class="navbar bg-white border-bottom">
       <div v-for="menu in menus" :key="menu" class="flex-fill bd-highlight text-center">
         <router-link :to="{ name: menu.link }">{{ menu.name }}</router-link>
       </div>

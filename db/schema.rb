@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_19_123146) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_25_080454) do
   create_table "conversion_data", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "currency_package_id", null: false
@@ -58,6 +58,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_123146) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "crypted_password"
+    t.string "salt"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "conversion_data", "currency_packages"
