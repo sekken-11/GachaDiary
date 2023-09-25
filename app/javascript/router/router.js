@@ -1,6 +1,10 @@
 import * as vueRouter from 'vue-router'
 import Top from '../pages/Top.vue'
-import Task from '../pages/tasks/Task.vue'
+import Gacha from '../pages/Gacha.vue'
+import Game from '../pages/Game.vue'
+import ConData from '../pages/Conversion_Data.vue'
+import Calender from '../pages/Calender.vue'
+
 
 const routes = [
     {
@@ -9,10 +13,25 @@ const routes = [
         component: Top
     },
     {
-        path: '/tasks',
-        name: 'Task',
-        component: Task
-    }
+        path: '/gachas',
+        name: 'Gacha',
+        component: Gacha
+    },
+    {
+        path: '/Games',
+        name: 'Game',
+        component: Game
+    },
+    {
+        path: '/condata',
+        name: 'ConData',
+        component: ConData
+    },
+    {
+        path: '/calender',
+        name: 'Calender',
+        component: Calender
+    },
 ]
     
 
