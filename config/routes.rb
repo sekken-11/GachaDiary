@@ -4,5 +4,14 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  namespace :api do
+    resources :users do
+      collection do
+        get 'me'
+      end
+    end
+    resources :sessions
+  end
+
   get '*path', to: 'home#index'
 end
