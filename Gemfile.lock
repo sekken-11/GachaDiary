@@ -242,6 +242,7 @@ DEPENDENCIES
   debug
   importmap-rails
   jbuilder
+  jwt
   puma (~> 5.0)
   rails (~> 7.0.8)
   sorcery

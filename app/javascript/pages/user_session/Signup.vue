@@ -4,6 +4,7 @@
       <div class="card-header text-center bg-secondary text-light pt-3"><h4>新規登録</h4></div>
       <div class="card-body">
         <Form @submit="handleSignUp">
+          <div v-if="error" class="text-danger my-4">{{ error }}</div>
           <div class="form-group my-4">
             <label for="email">メールアドレス</label>
             <Field name="email" id="email" v-model="user.email" class="form-control" type="email" :rules="isEmailRequired" />
@@ -47,7 +48,8 @@ export default {
         email: '',
         password: '',
         password_confirmation: ''
-      }
+      },
+      error: '',
     }
   },
   methods: {
@@ -56,9 +58,11 @@ export default {
         .post('api/users', { user: this.user })
         .then(res => {
           this.$router.push({ name: 'SignIn' })
+          alert("ユーザー登録に成功しました")
         })
         .catch(err => {
           console.log(err)
+          this.error = '登録に失敗しました'
         })
     },
     isEmailRequired(value) {

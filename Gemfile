@@ -67,3 +67,4 @@ end
 gem "vite_rails"
 gem "bootstrap", "~> 5.0.2"
 gem "sorcery"
+gem "jwt"

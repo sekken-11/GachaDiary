@@ -3,9 +3,12 @@
     <nav class="navbar navbar-dark bg-dark">
       <span class="navbar-brand mb-0 h1">タスク管理アプリ</span>
         <ul class="navbar-nav">
-          <li class="nav-item d-flex align-items-center">
+          <li class="nav-item d-flex align-items-center" v-if="!authUser">
             <router-link :to="{ name: 'SignUp' }" class="btn btn-primary btn-sm me-2">新規登録</router-link>
             <router-link :to="{ name: 'SignIn' }" class="btn btn-primary btn-sm me-2">ログイン</router-link>
+          </li>
+          <li class="nav-item d-flex align-items-center" v-if="authUser">
+            <button class="btn-sm me-2" @click="handleSignOut">ログアウト</button>
           </li>
         </ul>
     </nav>
@@ -18,18 +21,36 @@
 </template>
 
 <script>
-  export default {
-    name: "Header",
-    data() {
-      return {
-        menus: [
-          { name: "現金換算", link: "Top" },
-          { name: "ガチャ記録", link: "Gacha" },
-          { name: "ゲーム記録", link: "Game" },
-          { name: "換算用データ", link: "ConData" },
-          { name: "カレンダー", link: "Calender" },
-        ]
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+  name: "Header",
+  computed: {
+    ...mapGetters('users', ["authUser"])
+  },
+  data() {
+    return {
+      menus: [
+        { name: "現金換算", link: "Top" },
+        { name: "ガチャ記録", link: "Gacha" },
+        { name: "ゲーム記録", link: "Game" },
+        { name: "換算用データ", link: "ConData" },
+        { name: "カレンダー", link: "Calender" },
+      ]
+    }
+  },
+  methods: {
+    ...mapActions('users', ["logoutUser"]),
+    async handleSignOut() {
+      try {
+        await this.logoutUser()
+        this.$router.push({ name: 'Top' })
+        alert("ログアウトしました。")
+      } catch (error) {
+        console.log(error)
+        alert("ログアウトできませんでした。")
       }
     }
   }
+}
 </script>
