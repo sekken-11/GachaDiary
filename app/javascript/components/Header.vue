@@ -8,6 +8,7 @@
             <router-link :to="{ name: 'SignIn' }" class="btn btn-primary btn-sm me-2">ログイン</router-link>
           </li>
           <li class="nav-item d-flex align-items-center" v-if="authUser">
+            <router-link :to="{ name: 'GachaRecordCreate' }" class="btn btn-primary btn-sm me-2">ガチャ記録作成</router-link>
             <button class="btn-sm me-2" @click="handleSignOut">ログアウト</button>
           </li>
         </ul>
@@ -34,7 +35,7 @@ export default {
         { name: "現金換算", link: "Top" },
         { name: "ガチャ記録", link: "Gacha" },
         { name: "ゲーム記録", link: "Game" },
-        { name: "換算用データ", link: "ConData" },
+        { name: "換算用データ", link: "Conversion" },
         { name: "カレンダー", link: "Calender" },
       ]
     }

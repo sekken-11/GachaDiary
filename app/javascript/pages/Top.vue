@@ -2,7 +2,7 @@
   <div class="py-3">
     <div class="container">
       <div class="row">
-        <div class="col-12 col-md-8">
+        <div class="clg-12 col-md-8">
           <div class="card bg-white shadow">
             <div class="card-header bg-white">
               <div class="card-text text-center m-3">
@@ -72,6 +72,9 @@
                 </div>
               </div>
           </div>
+          <div class="mt-3" v-if="authUser">
+            <TotalRecord></TotalRecord>
+          </div>
         </div>
       </div>
     </div>
@@ -80,6 +83,8 @@
 
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
+import { mapGetters} from 'vuex';
+import TotalRecord from '../components/TotalRecord.vue';
 
 export default {
   name: "Top",
@@ -87,6 +92,7 @@ export default {
     Field,
     Form,
     ErrorMessage,
+    TotalRecord,
   },
   data() {
     return {
@@ -105,6 +111,7 @@ export default {
     conversion_records() {
       return this.conversion_records_sub;
     },
+    ...mapGetters('users', ["authUser"])
   },
   methods: {
     handleConversion() {

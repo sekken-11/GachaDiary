@@ -3,6 +3,6 @@
 
 <script>
 export default {
-    name: "ConData",
+    name: "Conversion",
 }
 </script>

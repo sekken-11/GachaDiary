@@ -1,3 +1,3 @@
 class UserPossesStone < ApplicationRecord
-  belongs_to :conversion_data
+  belongs_to :currency_package
 end

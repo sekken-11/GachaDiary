@@ -11,6 +11,9 @@ Rails.application.routes.draw do
       end
     end
     resources :sessions
+    resources :gachas
+    resources :currency_packages
+    resources :user_posses_stones
   end
 
   get '*path', to: 'home#index'
