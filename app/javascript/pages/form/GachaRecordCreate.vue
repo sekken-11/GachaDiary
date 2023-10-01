@@ -38,8 +38,6 @@
         </div>
       </div>
     </div>
-    {{ gacha }}
-    {{ currencyPackages }}
   </div>
 </div>
 </template>
