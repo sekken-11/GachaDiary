@@ -1,5 +1,6 @@
 class Api::CurrencyPackagesController < ApplicationController
     before_action :authenticate!
+    before_action :set_currency_package, only: %i[update destroy]
 
     def index
         @currency_packages = current_user.currency_packages.all
@@ -22,10 +23,16 @@ class Api::CurrencyPackagesController < ApplicationController
     end
 
     def destroy
+        @currency_package.destroy!
+        render json: @currency_package
     end
 
     private
     def currency_package_params
         params.require(:currency_package).permit(:name, :need_one_gacha_stones, :price, :quantity)
+    end
+
+    def set_currency_package
+        @currency_package = CurrencyPackage.find(params[:id])
     end
 end

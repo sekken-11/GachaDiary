@@ -2,7 +2,8 @@ import * as vueRouter from 'vue-router'
 import Top from '../pages/Top.vue'
 import Gacha from '../pages/Gacha.vue'
 import Game from '../pages/Game.vue'
-import Conversion from '../pages/Conversion.vue'
+import Conversion from '../pages/conversions/Conversion.vue'
+import ConversionCreate from '../pages/conversions/ConversionCreate.vue'
 import Calender from '../pages/Calender.vue'
 import SignUp from '../pages/user_session/Signup.vue'
 import SignIn from '../pages/user_session/Signin.vue'
@@ -24,7 +25,7 @@ const routes = [
         meta: { requiredAuth: true },
     },
     {
-        path: '/Games',
+        path: '/games',
         name: 'Game',
         component: Game,
         meta: { requiredAuth: true },
@@ -36,6 +37,12 @@ const routes = [
         meta: { requiredAuth: true },
     },
     {
+        path: '/conversion/new',
+        name: 'ConversionCreate',
+        component: ConversionCreate,
+        meta: { requiredAuth: true },
+    },
+    {
         path: '/calender',
         name: 'Calender',
         component: Calender,
@@ -44,12 +51,14 @@ const routes = [
     {
         path: '/signup',
         name: 'SignUp',
-        component: SignUp
+        component: SignUp,
+        meta: { doNotAuth: true }
     },
     {
         path: '/signin',
         name: 'SignIn',
-        component: SignIn
+        component: SignIn,
+        meta: { doNotAuth: true }
     },
     {
         path: '/gachareco',
@@ -69,6 +78,16 @@ router.beforeEach((to, from, next) => {
     store.dispatch('users/fetchAuthUser').then((authUser) => {
         if (to.matched.some(record => record.meta.requiredAuth) && !authUser) {
             next({ name: 'SignIn' });
+        } else {
+            next();
+        }
+    })
+});
+
+router.beforeEach((to, from, next) => {
+    store.dispatch('users/fetchAuthUser').then((authUser) => {
+        if (to.matched.some(record => record.meta.doNotAuth) && authUser) {
+            next({ name: 'Top' });
         } else {
             next();
         }
