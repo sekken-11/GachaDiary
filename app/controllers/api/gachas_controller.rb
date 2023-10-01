@@ -27,6 +27,6 @@ class Api::GachasController < ApplicationController
 
     private
     def gacha_params
-        params.require(:gacha).permit(:date, :count, :description, :conversion_id)
+        params.require(:gacha).permit(:date, :count, :description, :currency_package_id)
     end
 end
