@@ -1,7 +1,9 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
     <Header class="mb-2" />
-    <router-view />
+    <div v-if="this.$route.path.match(/\/$/)">
+      <router-view />
+    </div>
     
     <div class="py-3" v-if="!this.$route.path.match(/\/$/)">
       <div class="container">
