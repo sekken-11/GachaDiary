@@ -2,10 +2,11 @@ import * as vueRouter from 'vue-router'
 import Top from '../pages/Top.vue'
 import Gacha from '../pages/Gacha.vue'
 import Game from '../pages/Game.vue'
-import ConData from '../pages/Conversion_Data.vue'
+import Conversion from '../pages/Conversion.vue'
 import Calender from '../pages/Calender.vue'
 import SignUp from '../pages/user_session/Signup.vue'
 import SignIn from '../pages/user_session/Signin.vue'
+import GachaRecordCreate from '../pages/form/GachaRecordCreate.vue'
 import store from '../store/vuex'
 
 
@@ -29,9 +30,9 @@ const routes = [
         meta: { requiredAuth: true },
     },
     {
-        path: '/condata',
-        name: 'ConData',
-        component: ConData,
+        path: '/conversion',
+        name: 'Conversion',
+        component: Conversion,
         meta: { requiredAuth: true },
     },
     {
@@ -49,6 +50,12 @@ const routes = [
         path: '/signin',
         name: 'SignIn',
         component: SignIn
+    },
+    {
+        path: '/gachareco',
+        name: 'GachaRecordCreate',
+        component: GachaRecordCreate,
+        meta: { requiredAuth: true },
     },
 ]
     
