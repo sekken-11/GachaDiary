@@ -1,6 +1,6 @@
 class Api::CurrencyPackagesController < ApplicationController
     before_action :authenticate!
-    before_action :set_currency_package, only: %i[update destroy]
+    before_action :set_currency_package, only: %i[show update destroy]
 
     def index
         @currency_packages = current_user.currency_packages.all
@@ -8,6 +8,7 @@ class Api::CurrencyPackagesController < ApplicationController
     end
 
     def show
+        render json: @currency_package
     end
 
     def create
@@ -20,6 +21,11 @@ class Api::CurrencyPackagesController < ApplicationController
     end
 
     def update
+        if @currency_package.update(currency_package_params)
+            render json: @currency_package
+        else
+            render json: @currency_package.errors, status: :bad_request
+        end
     end
 
     def destroy
@@ -33,6 +39,6 @@ class Api::CurrencyPackagesController < ApplicationController
     end
 
     def set_currency_package
-        @currency_package = CurrencyPackage.find(params[:id])
+        @currency_package = current_user.currency_packages.find(params[:id])
     end
 end

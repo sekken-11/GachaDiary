@@ -31,7 +31,7 @@ const routes = [
         meta: { requiredAuth: true },
     },
     {
-        path: '/conversion',
+        path: '/conversions',
         name: 'Conversion',
         component: Conversion,
         meta: { requiredAuth: true },

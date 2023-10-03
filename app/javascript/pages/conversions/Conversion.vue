@@ -15,7 +15,7 @@
       <div class="pt-2 px-4">
         <ul class="text-end mb-0">
           <li class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(currencyPackage)">詳細</li>
-          <li class="btn btn-sm btn-outline-success me-2" @click="handleOpen(currencyPackage)">編集</li>
+          <li class="btn btn-sm btn-outline-success me-2" @click="handleOpenEdit(currencyPackage)">編集</li>
           <li class="btn btn-sm btn-outline-danger" @click="handleOpenDelete(currencyPackage)">削除</li>
         </ul>
       </div>
@@ -24,6 +24,10 @@
 
   <transition name="fade">
     <ConversionDetailModal v-if="isVisibleDetail" :currency_package="currency_package" @Close="handleClose" />
+  </transition>
+
+  <transition name="fade">
+    <ConversionEditModal v-if="isVisibleEdit" :currency_package="currency_package" @Close="handleClose" @Edit="handleEditPackage" />
   </transition>
 
   <transition name="fade">
@@ -37,6 +41,7 @@ import { Field, Form, ErrorMessage } from 'vee-validate';
 import { mapGetters, mapActions } from 'vuex';
 import ConversionDeleteModal from './ConversionDeleteModal.vue';
 import ConversionDetailModal from './ConversionDetailModal.vue';
+import ConversionEditModal from './ConversionEditModal.vue';
 
 export default {
     name: "Conversion",
@@ -45,12 +50,14 @@ export default {
         Field,
         ErrorMessage,
         ConversionDeleteModal,
-        ConversionDetailModal
+        ConversionDetailModal,
+        ConversionEditModal
     },
     data() {
         return {
             isVisibleDetail: false,
             isVisibleDelete: false,
+            isVisibleEdit: false,
             currency_package: {},
         }
     },
@@ -63,7 +70,7 @@ export default {
     methods: {
         ...mapActions('gacha_records', [
             "fetchPackages",
-            "deletePackage",
+            "editPackage",
         ]),
         toCreate() {
             this.$router.push({ name: 'ConversionCreate' })
@@ -72,6 +79,10 @@ export default {
             this.isVisibleDetail = true;
             this.currency_package = currencyPackage;
         },
+        handleOpenEdit(currencyPackage) {
+            this.isVisibleEdit = true;
+            this.currency_package = Object.assign({}, currencyPackage);
+        },
         handleOpenDelete(currencyPackage) {
             this.isVisibleDelete = true;
             this.currency_package = currencyPackage;
@@ -79,11 +90,20 @@ export default {
         handleClose() {
             this.isVisibleDelete = false;
             this.isVisibleDetail = false;
+            this.isVisibleEdit = false;
             this.currency_package = {};
         },
         async handleDeletePackage(currency_package) {
             try {
                 await this.deletePackage(currency_package);
+                this.handleClose();
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async handleEditPackage(currency_package) {
+            try {
+                await this.editPackage(currency_package);
                 this.handleClose();
             } catch (error) {
                 console.log(error);

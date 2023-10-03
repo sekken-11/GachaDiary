@@ -18,12 +18,12 @@
       <div class="form-group m-3">
         <label>ガチャ石の価格</label>
         <div class="mb-1">
-          <Field name="quantity" v-model.number="quantity" class="form-control" :rules="isNumericRequired" placeholder="購入する際の個数を入力してください（個）" />
-          <ErrorMessage name="quantity" class="text-danger" />
-        </div>
-        <div>
           <Field name="price" v-model.number="price" class="form-control" :rules="isNumericRequired" placeholder="購入する際の金額を入力してください（円）" />
           <ErrorMessage name="price" class="text-danger" />
+        </div>
+        <div>
+          <Field name="quantity" v-model.number="quantity" class="form-control" :rules="isNumericRequired" placeholder="購入する際の個数を入力してください（個）" />
+          <ErrorMessage name="quantity" class="text-danger" />
         </div>
       </div>
       <div class="text-end m-3 mt-5">
