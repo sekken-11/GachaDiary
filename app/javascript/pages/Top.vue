@@ -14,21 +14,21 @@
             <div class="card-body m-3">
               <div class="form-group mb-5">
                   <label for="posses_stone" class="mb-1">ガチャ石の個数</label>
-                  <Field name="posses_stone" id="posses_stone" v-model.number="posses_stone" class="form-control" type="text" style="width:75%" placeholder="現金換算したい石の個数を入力してください（個）" :rules="isNumericRequired" />
+                  <Field name="posses_stone" id="posses_stone" v-model.number="posses_stone" class="form-control" type="text" placeholder="現金換算したい石の個数を入力してください（個）" :rules="isNumericRequired" />
                   <div class="text-danger"><ErrorMessage name="posses_stone" /></div>
               </div>
               <div class="form-group my-5">
                 <label for="currency_package" class="mb-1">ガチャ石の価格</label>
                 <div class="mb-3">
-                <Field name="quantity" id="stone_quantity" v-model.number="stone_quantity" class="form-control" type="text" style="width:75%" placeholder="購入する際の個数を入力してください（個）" :rules="isNumericRequired" />
-                <div class="text-danger"><ErrorMessage name="quantity" /></div>
-                </div>
-                <Field name="price" id="stone_price" v-model.number="stone_price" class="form-control" type="text" style="width:75%" placeholder="購入する際の金額を入力してください（円）" :rules="isNumericRequired" />
+                <Field name="price" id="stone_price" v-model.number="stone_price" class="form-control" type="text" placeholder="購入する際の金額を入力してください（円）" :rules="isNumericRequired" />
                 <div class="text-danger"><ErrorMessage name="price" /></div>
+                </div>
+                <Field name="quantity" id="stone_quantity" v-model.number="stone_quantity" class="form-control" type="text" placeholder="購入する際の個数を入力してください（個）" :rules="isNumericRequired" />
+                <div class="text-danger"><ErrorMessage name="quantity" /></div>
               </div>
               <div class="form-group">
                 <label for="game" class="mb-1">ゲーム名*任意</label>
-                <input id="game" v-model="game_name" class="form-control" type="text" style="width:75%">
+                <input id="game" v-model="game_name" class="form-control" type="text">
               </div>
             </div>
             <div class="card-footer text-center bg-white">
@@ -47,7 +47,7 @@
           </div>
           <div class="bg-secondary rounded shadow p-3">
             <div class="h5 text-white text-center">換算履歴</div>
-              <div v-for="(conversion_record, index) in conversion_records" :key="conversion_record" :id="'record-' + index" class="bg-white border shadow-sm rounded my-2 py-2">
+              <div v-for="(conversion_record, index) in conversion_records" :key="conversion_record" class="bg-white border shadow-sm rounded my-2 py-2">
                 <div class="container border-bottom pb-2">
                   <div class="row">
                     <div class="col-9">
