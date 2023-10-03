@@ -71,6 +71,7 @@ export default {
         ...mapActions('gacha_records', [
             "fetchPackages",
             "editPackage",
+            "deletePackage",
         ]),
         toCreate() {
             this.$router.push({ name: 'ConversionCreate' })
