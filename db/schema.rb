@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_30_033331) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_03_125004) do
   create_table "currency_packages", force: :cascade do |t|
     t.string "name", null: false
     t.integer "need_one_gacha_stones", null: false
@@ -39,7 +39,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_033331) do
     t.integer "currency_package_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["currency_package_id"], name: "index_user_posses_stones_on_currency_package_id"
+    t.index ["user_id"], name: "index_user_posses_stones_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -55,4 +57,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_30_033331) do
   add_foreign_key "gachas", "currency_packages"
   add_foreign_key "gachas", "users"
   add_foreign_key "user_posses_stones", "currency_packages"
+  add_foreign_key "user_posses_stones", "users"
 end
