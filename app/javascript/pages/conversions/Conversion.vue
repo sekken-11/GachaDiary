@@ -7,6 +7,9 @@
     <span>換算用データ 一覧</span>
   </div>
   <hr>
+  <div v-if="currencyPackages.length == 0" class="text-center text-secondary p-3">
+    <span>データがありません</span>
+  </div>
     <div v-for="currencyPackage in currencyPackages"
          :key="currencyPackage.id"
          class="bg-light border shadow-sm rounded my-2 py-2"

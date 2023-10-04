@@ -16,6 +16,9 @@
     <span>ゲームごとの石の所持データ 一覧</span>
   </div>
   <hr>
+  <div v-if="possesStones.length == 0" class="text-center text-secondary p-3">
+    <span>データがありません</span>
+  </div>
   <div v-for="possesStone in possesStones"
        :key="possesStone.id"
        class="bg-light border shadow-sm rounded my-2 py-2"
@@ -56,6 +59,10 @@
 </div>
 
   <transition name="fade">
+    <GameEditModal v-if="isVisibleEdit" :posses_stone="posses_stone" @Close="handleClose" @Edit="handleEditPossesStone" />
+  </transition>
+
+  <transition name="fade">
     <GameDeleteModal v-if="isVisibleDelete" :posses_stone="posses_stone" @Close="handleClose" @Delete="handleDeletePossesStone" />
   </transition>
 
@@ -87,7 +94,11 @@ export default {
         ...mapGetters('posses_stones', ["possesStones"]),
         totalStones() {
             const ary = this.possesStones.map(h => Math.round(h.currency_package.price/h.currency_package.quantity*h.quantity));
-            return ary.reduce((a, b) => { return a + b });
+            if (ary.length != 0) {
+                return ary.reduce((a, b) => { return a + b });
+            } else {
+                return 0;
+            }
         },
     },
     created() {
@@ -97,6 +108,7 @@ export default {
         ...mapActions('posses_stones',[
             "fetchPossesStones",
             "deletePossesStone",
+            "editPossesStone",
             ]),
         toCreate() {
             this.$router.push({ name: 'GameCreate' })
@@ -107,6 +119,7 @@ export default {
         handleClose() {
             this.isVisibleDelete = false
             this.isVisibleEdit = false
+            this.posses_stone = {}
         },
         handleOpenDelete(possesStone) {
             this.isVisibleDelete = true
@@ -119,6 +132,14 @@ export default {
         async handleDeletePossesStone(posses_stone) {
             try {
                 await this.deletePossesStone(posses_stone);
+                this.handleClose();
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async handleEditPossesStone(posses_stone) {
+            try {
+                await this.editPossesStone(posses_stone);
                 this.handleClose();
             } catch (error) {
                 console.log(error);

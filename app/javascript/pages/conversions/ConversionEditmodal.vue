@@ -1,5 +1,5 @@
 <template>
-<div id="conversion-delete-dialog">
+<div id="conversion-edit-dialog">
   <div class="modal" @click.self="handleClose">
     <div class="modal-dialog">
       <div class="modal-content">

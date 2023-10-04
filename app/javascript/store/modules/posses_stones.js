@@ -50,7 +50,7 @@ export default {
                 commit('deletePossesStone', res.data)
             })
         },
-        EditPossesStone({commit}, posses_stone) {
+        editPossesStone({commit}, posses_stone) {
             return axios.patch('user_posses_stones/' + posses_stone.id, { user_posses_stone: posses_stone })
             .then(res => {
                 commit('changePossesStone', res.data)
