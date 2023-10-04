@@ -1,7 +1,8 @@
 import * as vueRouter from 'vue-router'
 import Top from '../pages/Top.vue'
 import Gacha from '../pages/Gacha.vue'
-import Game from '../pages/Game.vue'
+import Game from '../pages//games/Game.vue'
+import GameCreate from '../pages/games/GameCreate.vue'
 import Conversion from '../pages/conversions/Conversion.vue'
 import ConversionCreate from '../pages/conversions/ConversionCreate.vue'
 import Calender from '../pages/Calender.vue'
@@ -28,6 +29,12 @@ const routes = [
         path: '/games',
         name: 'Game',
         component: Game,
+        meta: { requiredAuth: true },
+    },
+    {
+        path: '/games/new',
+        name: 'GameCreate',
+        component: GameCreate,
         meta: { requiredAuth: true },
     },
     {

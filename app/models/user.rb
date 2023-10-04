@@ -9,5 +9,6 @@ class User < ApplicationRecord
 
   has_many :gachas, dependent: :destroy
   has_many :currency_packages, dependent: :destroy
+  has_many :user_posses_stones, dependent: :destroy
 
 end

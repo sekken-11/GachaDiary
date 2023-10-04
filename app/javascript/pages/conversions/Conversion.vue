@@ -3,6 +3,10 @@
   <span class="text-white">換算用データ新規作成</span>
 </div>
 <div class="bg-white rounded shadow p-3 mb-3">
+    <div class="text-center text-secondary">
+    <span>換算用データ 一覧</span>
+  </div>
+  <hr>
     <div v-for="currencyPackage in currencyPackages"
          :key="currencyPackage.id"
          class="bg-light border shadow-sm rounded my-2 py-2"
@@ -62,13 +66,13 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('gacha_records', ["currencyPackages"])
+        ...mapGetters('currency_packages', ["currencyPackages"])
     },
     created() {
         this.fetchPackages();
     },
     methods: {
-        ...mapActions('gacha_records', [
+        ...mapActions('currency_packages', [
             "fetchPackages",
             "editPackage",
             "deletePackage",
