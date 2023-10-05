@@ -44,13 +44,13 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('currency_packages', ["currencyPackages"])
+        ...mapGetters('gachas', ["currencyPackages"])
     },
     created() {
         this.fetchPackages();
     },
     methods: {
-        ...mapActions('currency_packages', ["fetchPackages",]),
+        ...mapActions('gachas', ["fetchPackages",]),
         ...mapActions('posses_stones', ["createPossesStone"]),
         async handleCreatePossesStone(posses_stone) {
             try {
