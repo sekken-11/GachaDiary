@@ -1,6 +1,7 @@
 import * as vueRouter from 'vue-router'
 import Top from '../pages/Top.vue'
-import Gacha from '../pages/Gacha.vue'
+import Gacha from '../pages/gachas/Gacha.vue'
+import GachaEdit from '../pages/gachas/GachaEdit.vue'
 import Game from '../pages//games/Game.vue'
 import GameCreate from '../pages/games/GameCreate.vue'
 import Conversion from '../pages/conversions/Conversion.vue'
@@ -23,6 +24,12 @@ const routes = [
         path: '/gachas',
         name: 'Gacha',
         component: Gacha,
+        meta: { requiredAuth: true },
+    },
+    {
+        path: '/gachas/edit/:id',
+        name: 'GachaEdit',
+        component: GachaEdit,
         meta: { requiredAuth: true },
     },
     {

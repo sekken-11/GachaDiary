@@ -32,9 +32,10 @@ import App from '../app.vue'
 import router from '../router/router'
 import axios from '../plugins/axios'
 import store from '../store/vuex'
+import vuetify from '../plugins/vuetify'
 
 VueElement.prototype.$axios = axios
 
 document.addEventListener('DOMContentLoaded', () => {
-  createApp(App).use(router).use(store).mount('#app')
+  createApp(App).use(router).use(store).use(vuetify).mount('#app')
 })

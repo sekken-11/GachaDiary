@@ -1,4 +1,5 @@
 <template>
+<v-app class="bg-light">
   <div class="d-flex flex-column min-vh-100">
     <Header class="mb-2" />
 
@@ -29,6 +30,7 @@
 
     <Footer class="mb-3" />
   </div>
+</v-app>
 </template>
 
 <script>

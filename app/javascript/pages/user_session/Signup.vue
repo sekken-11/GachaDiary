@@ -69,7 +69,7 @@ export default {
       if (!value && !value.trim()) {
         return '入力してください';
       }
-      if (!value.match(/.+@.+\..+/)) {
+      if (!value.toString().match(/.+@.+\..+/)) {
         return '登録できないメールアドレスの形式です';
       }
       return true;
@@ -78,7 +78,7 @@ export default {
       if (!value && !value.trim()) {
         return '入力してください';
       }
-      if (!value.match(/^[ -~]*$/)) {
+      if (!value.toString().match(/^[ -~]*$/)) {
         return '半角英数字または記号のみで入力してください';
       }
       if (value.length > 16 || value.length < 6) {
