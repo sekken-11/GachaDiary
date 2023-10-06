@@ -17,10 +17,10 @@
     <div class="py-3" v-if="!this.$route.path.match(/\/$/) && !this.$route.path.match(/gachareco$/) && authUser">
       <div class="container">
         <div class="row">
-          <div class="col-12 col-md-8">
+          <div class="col-12 col-lg-8">
             <router-view />
           </div>
-          <div class="col-12 col-md-4">
+          <div class="col-12 col-lg-4">
             <TotalRecord />
           </div>
         </div>

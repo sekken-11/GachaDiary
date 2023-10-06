@@ -69,13 +69,13 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('currency_packages', ["currencyPackages"])
+        ...mapGetters('gachas', ["currencyPackages"])
     },
     created() {
         this.fetchPackages();
     },
     methods: {
-        ...mapActions('currency_packages', [
+        ...mapActions('gachas', [
             "fetchPackages",
             "editPackage",
             "deletePackage",

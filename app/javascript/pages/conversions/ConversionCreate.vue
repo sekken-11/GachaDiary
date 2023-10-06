@@ -56,10 +56,10 @@ export default {
         }
     },
     computed: {
-        ...mapGetters('currency_packages', ["currencyPackages"])
+        ...mapGetters('gachas', ["currencyPackages"])
     },
     methods: {
-        ...mapActions('currency_packages', ["createPackage",]),
+        ...mapActions('gachas', ["createPackage",]),
         async handleCreatePackage(currency_package) {
             try {
                 await this.createPackage(currency_package)

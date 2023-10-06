@@ -3,7 +3,7 @@ class Api::GachasController < ApplicationController
 
     def index
         @gachas = current_user.gachas.all
-        render json: @gachas
+        render json: @gachas, include: [:currency_package]
     end
 
     def show

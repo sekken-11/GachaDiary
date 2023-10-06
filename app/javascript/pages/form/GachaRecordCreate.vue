@@ -65,14 +65,14 @@ export default {
   },
   computed: {
     ...mapGetters('gachas', ["gachas"]),
-    ...mapGetters('currency_packages', ["currencyPackages"]),
+    ...mapGetters('gachas', ["currencyPackages"]),
   },
   created() {
     this.fetchPackages();
   },
   methods: {
     ...mapActions('gachas', ["createGacha"]),
-    ...mapActions('currency_packages', ["fetchPackages"]),
+    ...mapActions('gachas', ["fetchPackages"]),
     async handleCreateGacha(gacha) {
         try {
             await this.createGacha(gacha)
