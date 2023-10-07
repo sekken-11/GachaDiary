@@ -1,5 +1,10 @@
 <template>
 <v-btn block class="bg-info mb-3" @click="toCreate">ガチャ記録 新規作成</v-btn>
+<div class="form-row" id="search-form">
+  <div class="form-group mb-3">
+    <input type="text" v-model="searchGacha" class="form-control" id="search" placeholder="">
+  </div>
+</div>
 <div class="bg-white rounded shadow p-3 mb-3">
     <div class="text-center text-secondary">
     <span>ガチャ記録 一覧</span>
@@ -50,6 +55,7 @@ export default {
         return {
             currentPage: 1,
             perPage: 10,
+            searchGacha: ''
         }
     },
     computed: {
@@ -60,7 +66,12 @@ export default {
         getList() {
             const current = this.currentPage * this.perPage
             const start = current - this.perPage
-            return this.gachas.slice(start, current)
+            return this.filteredGachas.slice(start, current)
+        },
+        filteredGachas() {
+            return this.gachas.filter(gacha => {
+                return gacha.description.indexOf(this.searchGacha) != -1
+            })
         },
     },
     created() {
