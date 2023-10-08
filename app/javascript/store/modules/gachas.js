@@ -57,6 +57,11 @@ export default {
             })
             state.gachas.splice(index, 1, changeGacha)
         },
+        deleteGacha: (state, deleteGacha) => {
+            state.gachas = state.gachas.filter(gacha => {
+                return gacha.id != deleteGacha.id
+            })
+        },
         setPackages: (state, currency_packages) => {
             state.currency_packages = currency_packages
         },
@@ -104,6 +109,13 @@ export default {
             return axios.patch('gachas/' + gacha.id, { gacha: gacha })
             .then(res => {
                 commit('changeGacha', res.data)
+            })
+        },
+        // ガチャ記録削除
+        deleteGacha({commit}, gacha) {
+            return axios.delete('gachas/' + gacha.id)
+            .then(res => {
+                commit('deleteGacha', res.data)
             })
         },
         // 換算用データ取得

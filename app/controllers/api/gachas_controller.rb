@@ -30,6 +30,8 @@ class Api::GachasController < ApplicationController
     end
 
     def destroy
+        @gacha.destroy!
+        render json: @gacha
     end
 
     private

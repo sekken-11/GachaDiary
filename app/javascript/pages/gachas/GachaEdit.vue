@@ -66,7 +66,7 @@ export default {
     async handleEditGacha() {
         try {
             await this.editGacha(this.gacha)
-            this.$router.push({ name: 'Gacha' })
+            this.$router.push({ name: 'Gacha', query: { page: this.$route.query.page } })
         } catch (error) {
         console.log(error)
         }

@@ -2,7 +2,7 @@
 <v-btn block class="bg-info mb-3" @click="toCreate">ガチャ記録 新規作成</v-btn>
 <div class="form-row" id="search-form">
   <div class="form-group mb-3">
-    <input type="text" v-model="searchGacha" class="form-control" id="search" placeholder="">
+    <input type="text" v-model="search" class="form-control" id="search" placeholder="絞り込み">
   </div>
 </div>
 <div class="bg-white rounded shadow p-3 mb-3">
@@ -10,7 +10,7 @@
     <span>ガチャ記録 一覧</span>
   </div>
   <hr>
-  <div v-if="gachas.length == 0" class="text-center text-secondary p-3">
+  <div v-if="filteredGachas.length == 0" class="text-center text-secondary p-3">
     <span>データがありません</span>
   </div>
     <div v-for="gacha in getList"
@@ -20,48 +20,66 @@
       <div class="container border-bottom pb-2">
         <div class="row">
           <div class="col-6">{{ gacha.date }}</div>
-          <div class="col-6">ゲーム名</div>
+          <div class="col-6 text-center">3000円</div>
         </div>
       </div>
       <div class="container border-bottom py-2">
         <div class="row">
-          <div class="col-6 text-center">3000円</div>
+          <div class="col-6">ゲーム名</div>
           <div class="col-6 text-center">{{ gacha.count }}回</div>
         </div>
       </div>
       <div class="pt-2 px-4">
         <ul class="text-end mb-0">
-          <button class="btn btn-sm btn-outline-info me-2" @click="">詳細</button>
+          <button class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(gacha)">詳細</button>
           <button class="btn btn-sm btn-outline-success me-2" @click="toEdit(gacha.id)">編集</button>
-          <button class="btn btn-sm btn-outline-danger">削除</button>
+          <button class="btn btn-sm btn-outline-danger" @click="handleOpenDelete(gacha)">削除</button>
         </ul>
       </div>
     </div>
 </div>
-
 <v-pagination
- v-model="currentPage"
- :length="getPageCount"
- :click-handler="clickCallback">
+  v-model="currentPage"
+  :length="getPageCount"
+  @click="pageChange"
+>
 </v-pagination>
+
+  <transition name="fade">
+    <GachaDetailModal v-if="isVisibleDetail" :gacha="gacha" @Close="handleClose" />
+  </transition>
+
+  <transition name="fade">
+    <DeleteModal v-if="isVisibleDelete" :deleteData="gacha" @Close="handleClose" @Delete="handleDeleteGacha" />
+  </transition>
+
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import GachaDetailModal from './GachaDetailModal.vue';
+import DeleteModal from '../../components/DeleteModal.vue';
 
 export default {
     name: "Gacha",
+    components: {
+        GachaDetailModal,
+        DeleteModal,
+    },
     data() {
         return {
-            currentPage: 1,
+            currentPage: this.currentPage = this.pageNumber || 1,
             perPage: 10,
-            searchGacha: ''
+            search: '',
+            gacha: {},
+            isVisibleDetail: false,
+            isVisibleDelete: false,
         }
     },
     computed: {
         ...mapGetters('gachas', ["gachas"]),
         getPageCount() {
-            return Math.ceil(this.gachas.length/this.perPage)
+            return Math.ceil(this.filteredGachas.length/this.perPage)
         },
         getList() {
             const current = this.currentPage * this.perPage
@@ -70,23 +88,63 @@ export default {
         },
         filteredGachas() {
             return this.gachas.filter(gacha => {
-                return gacha.description.indexOf(this.searchGacha) != -1
+                return gacha.description.indexOf(this.search) != -1
             })
+        },
+        pageNumber() {
+            return this.$route.query.page
+        },
+    },
+    watch: {
+        search() {
+            this.currentPage = 1
+            this.$router.push({ name: 'Gacha', query: { page: this.currentPage } })
+        },
+        pageNumber() {
+            this.currentPage = this.pageNumber
         },
     },
     created() {
         this.fetchGachas();
+        this.pageMaintain();
     },
     methods: {
-        ...mapActions('gachas', ["fetchGachas"]),
+        ...mapActions('gachas', [
+            "fetchGachas",
+            "deleteGacha"
+        ]),
         toCreate() {
             this.$router.push({ name: 'GachaRecordCreate' })
         },
         toEdit(int) {
-            this.$router.push({ name: 'GachaEdit', params: {id: int}})
+            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage }})
         },
-        clickCallback(pageNum) {
-            this.currentPage = Number(pageNum)
+        pageChange() {
+            this.$router.push({ name: 'Gacha', query: { page: this.currentPage } })
+        },
+        pageMaintain() {
+            this.currentPage = this.$route.query.page
+        },
+        handleClose() {
+            this.isVisibleDetail = false
+            this.isVisibleDelete = false
+            this.gacha = {}
+        },
+        handleOpenDetail(gacha) {
+            this.isVisibleDetail = true
+            this.gacha = Object.assign({}, gacha)
+        },
+        handleOpenDelete(gacha) {
+            this.isVisibleDelete = true
+            this.gacha = gacha
+        },
+        async handleDeleteGacha(gacha) {
+            try {
+                await this.deleteGacha(gacha);
+                this.handleClose();
+            } catch (error) {
+                console.log(error);
+            }
         },
     },
 }
