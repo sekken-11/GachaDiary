@@ -6,6 +6,7 @@ export default {
         gachas: [],
         gacha: [],
         currency_packages: [],
+        currency_package: [],
         total_record: 0
     },
     getters: {
@@ -16,6 +17,7 @@ export default {
         },
         gacha: state => state.gacha,
         currencyPackages: state => state.currency_packages,
+        currencyPackage: state => state.currency_package,
         totalRecords(state) {
             var hash
             const games = state.currency_packages.map(
@@ -64,6 +66,9 @@ export default {
         },
         setPackages: (state, currency_packages) => {
             state.currency_packages = currency_packages
+        },
+        setPackage: (state, currency_package) => {
+            state.currency_package = currency_package
         },
         addPackage: (state, currency_package) => {
             state.currency_packages.push(currency_package)
@@ -123,6 +128,14 @@ export default {
             axios.get('currency_packages')
             .then(res => {
                 commit('setPackages', res.data)
+            })
+            .catch(err => console.log(err.response));
+        },
+        // 換算用データ取得（個別）
+        fetchPackage({commit}, id) {
+            axios.get('currency_packages/' + id)
+            .then(res => {
+                commit('setPackage', res.data)
             })
             .catch(err => console.log(err.response));
         },

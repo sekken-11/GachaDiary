@@ -49,9 +49,6 @@ export default {
         "gacha", 
         "currencyPackages"
     ]),
-    gacha_id() {
-        return this.$route.params.id
-    },
   },
   created() {
     this.fetchPackages();
