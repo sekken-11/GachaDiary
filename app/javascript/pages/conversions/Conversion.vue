@@ -38,7 +38,7 @@
   </transition>
 
   <transition name="fade">
-    <ConversionDeleteModal v-if="isVisibleDelete" :currency_package="currency_package" @Close="handleClose" @Delete="handleDeletePackage" />
+    <DeleteModal v-if="isVisibleDelete" :deleteData="currency_package" @Close="handleClose" @Delete="handleDeletePackage" />
   </transition>
     
 </template>
@@ -46,9 +46,9 @@
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import { mapGetters, mapActions } from 'vuex';
-import ConversionDeleteModal from './ConversionDeleteModal.vue';
 import ConversionDetailModal from './ConversionDetailModal.vue';
 import ConversionEditModal from './ConversionEditModal.vue';
+import DeleteModal from '../../components/DeleteModal.vue';
 
 export default {
     name: "Conversion",
@@ -56,9 +56,9 @@ export default {
         Form,
         Field,
         ErrorMessage,
-        ConversionDeleteModal,
         ConversionDetailModal,
-        ConversionEditModal
+        ConversionEditModal,
+        DeleteModal
     },
     data() {
         return {

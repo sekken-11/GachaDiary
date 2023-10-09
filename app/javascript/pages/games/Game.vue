@@ -63,7 +63,7 @@
   </transition>
 
   <transition name="fade">
-    <GameDeleteModal v-if="isVisibleDelete" :posses_stone="posses_stone" @Close="handleClose" @Delete="handleDeletePossesStone" />
+    <DeleteModal v-if="isVisibleDelete" :deleteData="posses_stone" @Close="handleClose" @Delete="handleDeletePossesStone" />
   </transition>
 
 </template>
@@ -71,8 +71,8 @@
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import { mapGetters, mapActions } from 'vuex';
-import GameDeleteModal from './GameDeleteModal.vue';
 import GameEditModal from './GameEditModal.vue';
+import DeleteModal from '../../components/DeleteModal.vue';
 
 export default {
     name: "Game",
@@ -80,8 +80,8 @@ export default {
         Field,
         Form,
         ErrorMessage,
-        GameDeleteModal,
-        GameEditModal
+        GameEditModal,
+        DeleteModal
     },
     data() {
         return {
