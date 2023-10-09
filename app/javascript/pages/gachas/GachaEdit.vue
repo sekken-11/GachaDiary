@@ -66,7 +66,15 @@ export default {
     async handleEditGacha() {
         try {
             await this.editGacha(this.gacha)
-            this.$router.push({ name: 'Gacha', query: { page: this.$route.query.page } })
+            if (!this.$route.query.search && !this.$route.query.select) {
+                this.$router.push({ name: 'Gacha', query: { page: this.currentPage } })
+            } else if (this.$route.query.search && !this.$route.query.search) {
+                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.$route.query.search } })
+            } else if (!this.$route.query.search && this.$route.query.search) {
+                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, select: this.$route.query.select } })
+            } else if (this.$route.query.search && this.$route.query.search) {
+                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.$route.query.search, select: this.$route.query.select } })
+            }
         } catch (error) {
         console.log(error)
         }

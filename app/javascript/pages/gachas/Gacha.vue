@@ -81,8 +81,8 @@ export default {
         return {
             currentPage: this.currentPage = this.pageNumber || 1,
             perPage: 10,
-            search: '',
-            select: '',
+            search: this.search = this.$route.query.search || '',
+            select: this.select = this.$route.query.select || '',
             gacha: {},
             isVisibleDetail: false,
             isVisibleDelete: false,
@@ -120,7 +120,11 @@ export default {
     watch: {
         search() {
             this.currentPage = 1
-            this.$router.push({ name: 'Gacha', query: { page: this.currentPage } })
+            this.pageChange();
+        },
+        select() {
+            this.currentPage = 1
+            this.pageChange();
         },
         pageNumber() {
             this.currentPage = this.pageNumber
@@ -139,10 +143,26 @@ export default {
             this.$router.push({ name: 'GachaRecordCreate' })
         },
         toEdit(int) {
-            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage }})
+            if (!this.search && !this.select) {
+                this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage } })
+            } else if (this.search && !this.select) {
+                this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search } })
+            } else if (!this.search && this.select) {
+                this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, select: this.select } })
+            } else if (this.search && this.select) {
+                this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, select: this.select } })
+            }
         },
         pageChange() {
-            this.$router.push({ name: 'Gacha', query: { page: this.currentPage } })
+            if (!this.search && !this.select) {
+                this.$router.push({ name: 'Gacha', query: { page: this.currentPage } })
+            } else if (this.search && !this.select) {
+                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search } })
+            } else if (!this.search && this.select) {
+                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, select: this.select } })
+            } else if (this.search && this.select) {
+                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search, select: this.select } })
+            }
         },
         pageMaintain() {
             if (this.$route.query.page) {
