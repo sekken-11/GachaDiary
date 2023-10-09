@@ -1,0 +1,93 @@
+<template>
+  <v-card class="mb-3">
+    <Form @submit="handleEditGacha">
+      <v-card-item class="bg-white py-3 border-bottom">
+        <span>ガチャ記録 編集</span>
+      </v-card-item>
+      <v-card-text>
+        <div class="form-group m-3">
+          <label for="count">ガチャ回数</label>
+          <Field name="count" v-model.number="gacha.count" class="form-control" :rules="isNumericRequired" />
+          <ErrorMessage name="count" class="text-danger" />
+        </div>
+        <div class="form-group m-3">
+          <label for="date">ガチャを引いた日付</label>
+          <Field name="date" type="date" v-model="gacha.date" class="form-control" />
+          <ErrorMessage name="date" class="text-danger" />
+        </div>
+        <div class="form-group m-3">
+          <label for="currency_package">換算用データ</label>
+          <Field as="select" name="currency_package_id" id="currency_package" v-model.number="gacha.currency_package_id" class="form-control">
+            <option v-for="(currency_package, index) in currencyPackages" :key="index" :value="currency_package.id">{{ currency_package.name }}</option>
+          </Field>
+        </div>
+        <div class="form-group m-3">
+          <label for="description">備考</label>
+          <Field as="textarea" name="description" id="description" v-model="gacha.description" style="width:100%" rows="3" />
+        </div>
+        <div class="text-end m-3 mt-5">
+          <v-btn block class="bg-success" type="submit">変更</v-btn>
+        </div>
+      </v-card-text>
+    </Form>
+  </v-card>
+</template>
+
+<script>
+import { Field, Form, ErrorMessage } from 'vee-validate';
+import { mapGetters, mapActions } from 'vuex';
+
+export default {
+  name: 'GachaDetail',
+  components: {
+    Field,
+    Form,
+    ErrorMessage
+  },
+  computed: {
+    ...mapGetters('gachas', [
+        "gacha", 
+        "currencyPackages"
+    ]),
+    gacha_id() {
+        return this.$route.params.id
+    },
+  },
+  created() {
+    this.fetchPackages();
+    this.fetchGacha(this.$route.params.id);
+  },
+  methods: {
+    ...mapActions('gachas', [
+        "fetchPackages",
+        "fetchGacha",
+        "editGacha"
+    ]),
+    async handleEditGacha() {
+        try {
+            await this.editGacha(this.gacha)
+            if (!this.$route.query.search && !this.$route.query.select) {
+                this.$router.push({ name: 'Gacha', query: { page: this.currentPage } })
+            } else if (this.$route.query.search && !this.$route.query.select) {
+                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.$route.query.search } })
+            } else if (!this.$route.query.search && this.$route.query.select) {
+                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, select: this.$route.query.select } })
+            } else if (this.$route.query.search && this.$route.query.select) {
+                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.$route.query.search, select: this.$route.query.select } })
+            }
+        } catch (error) {
+        console.log(error)
+        }
+    },
+    isNumericRequired(value) {
+      if (!value.toString().match(/^[0-9]*$/)) {
+        return '半角数字で入力してください';
+      }
+      if (!value && !value.trim()) {
+        return '入力してください';
+      }
+      return true;
+    },
+  },
+}
+</script>

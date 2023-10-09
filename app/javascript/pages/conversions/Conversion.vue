@@ -21,9 +21,9 @@
       </div>
       <div class="pt-2 px-4">
         <ul class="text-end mb-0">
-          <li class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(currencyPackage)">詳細</li>
-          <li class="btn btn-sm btn-outline-success me-2" @click="handleOpenEdit(currencyPackage)">編集</li>
-          <li class="btn btn-sm btn-outline-danger" @click="handleOpenDelete(currencyPackage)">削除</li>
+          <button class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(currencyPackage)">詳細</button>
+          <button class="btn btn-sm btn-outline-success me-2" @click="handleOpenEdit(currencyPackage)">編集</button>
+          <button class="btn btn-sm btn-outline-danger" @click="handleOpenDelete(currencyPackage)">削除</button>
         </ul>
       </div>
     </div>
@@ -38,7 +38,7 @@
   </transition>
 
   <transition name="fade">
-    <ConversionDeleteModal v-if="isVisibleDelete" :currency_package="currency_package" @Close="handleClose" @Delete="handleDeletePackage" />
+    <DeleteModal v-if="isVisibleDelete" :deleteData="currency_package" @Close="handleClose" @Delete="handleDeletePackage" />
   </transition>
     
 </template>
@@ -46,9 +46,9 @@
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import { mapGetters, mapActions } from 'vuex';
-import ConversionDeleteModal from './ConversionDeleteModal.vue';
 import ConversionDetailModal from './ConversionDetailModal.vue';
 import ConversionEditModal from './ConversionEditModal.vue';
+import DeleteModal from '../../components/DeleteModal.vue';
 
 export default {
     name: "Conversion",
@@ -56,9 +56,9 @@ export default {
         Form,
         Field,
         ErrorMessage,
-        ConversionDeleteModal,
         ConversionDetailModal,
-        ConversionEditModal
+        ConversionEditModal,
+        DeleteModal
     },
     data() {
         return {

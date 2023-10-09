@@ -50,9 +50,9 @@
     </div>
     <div class="pt-2 px-4">
       <ul class="text-end mb-0">
-        <li class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(possesStone)">詳細</li>
-        <li class="btn btn-sm btn-outline-success me-2" @click="handleOpenEdit(possesStone)">編集</li>
-        <li class="btn btn-sm btn-outline-danger" @click="handleOpenDelete(possesStone)">削除</li>
+        <button class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(possesStone)">詳細</button>
+        <button class="btn btn-sm btn-outline-success me-2" @click="handleOpenEdit(possesStone)">編集</button>
+        <button class="btn btn-sm btn-outline-danger" @click="handleOpenDelete(possesStone)">削除</button>
       </ul>
     </div>
   </div>
@@ -63,7 +63,7 @@
   </transition>
 
   <transition name="fade">
-    <GameDeleteModal v-if="isVisibleDelete" :posses_stone="posses_stone" @Close="handleClose" @Delete="handleDeletePossesStone" />
+    <DeleteModal v-if="isVisibleDelete" :deleteData="posses_stone" @Close="handleClose" @Delete="handleDeletePossesStone" />
   </transition>
 
 </template>
@@ -71,8 +71,8 @@
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import { mapGetters, mapActions } from 'vuex';
-import GameDeleteModal from './GameDeleteModal.vue';
 import GameEditModal from './GameEditModal.vue';
+import DeleteModal from '../../components/DeleteModal.vue';
 
 export default {
     name: "Game",
@@ -80,8 +80,8 @@ export default {
         Field,
         Form,
         ErrorMessage,
-        GameDeleteModal,
-        GameEditModal
+        GameEditModal,
+        DeleteModal
     },
     data() {
         return {

@@ -4,15 +4,17 @@ export default {
     namespaced: true,
     state: {
         gachas: [],
+        gacha: [],
         currency_packages: [],
         total_record: 0
     },
     getters: {
         gachas(state) {
             return state.gachas.sort((a, b) => {
-                return (a.date > b.date ? 1 : -1);
+                return (a.date < b.date ? 1 : -1);
             });
         },
+        gacha: state => state.gacha,
         currencyPackages: state => state.currency_packages,
         totalRecords(state) {
             var hash
@@ -43,8 +45,22 @@ export default {
         setGachas: (state, gachas) => {
             state.gachas = gachas
         },
+        setGacha: (state, gacha) => {
+            state.gacha = gacha
+        },
         addGacha: (state, gacha) => {
             state.gachas.push(gacha)
+        },
+        changeGacha: (state, changeGacha) => {
+            const index = state.gachas.findIndex(gacha => {
+                return gacha.id == changeGacha.id
+            })
+            state.gachas.splice(index, 1, changeGacha)
+        },
+        deleteGacha: (state, deleteGacha) => {
+            state.gachas = state.gachas.filter(gacha => {
+                return gacha.id != deleteGacha.id
+            })
         },
         setPackages: (state, currency_packages) => {
             state.currency_packages = currency_packages
@@ -73,11 +89,33 @@ export default {
             })
             .catch(err => console.log(err.response));
         },
+        // ガチャ記録取得（個別）
+        fetchGacha({commit}, id) {
+            axios.get('gachas/' + id)
+            .then(res => {
+                commit('setGacha', res.data)
+            })
+            .catch(err => console.log(err.response));
+        },
         // ガチャ記録作成
         createGacha({commit}, gacha) {
             return axios.post('gachas', { gacha: gacha })
             .then(res => {
                 commit('addGacha', res.data)
+            })
+        },
+        // ガチャ記録編集
+        editGacha({commit}, gacha) {
+            return axios.patch('gachas/' + gacha.id, { gacha: gacha })
+            .then(res => {
+                commit('changeGacha', res.data)
+            })
+        },
+        // ガチャ記録削除
+        deleteGacha({commit}, gacha) {
+            return axios.delete('gachas/' + gacha.id)
+            .then(res => {
+                commit('deleteGacha', res.data)
             })
         },
         // 換算用データ取得

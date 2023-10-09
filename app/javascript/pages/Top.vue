@@ -126,7 +126,7 @@ export default {
       this.store.splice(index, 1);
     },
     isNumericRequired(value) {
-      if (!value.match(/^[0-9]*$/)) {
+      if (!value.toString().match(/^[0-9]*$/)) {
         return '半角数字で入力してください';
       }
       if (!value && !value.trim()) {
