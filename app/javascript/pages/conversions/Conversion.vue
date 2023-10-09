@@ -22,7 +22,7 @@
       <div class="pt-2 px-4">
         <ul class="text-end mb-0">
           <button class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(currencyPackage)">詳細</button>
-          <button class="btn btn-sm btn-outline-success me-2" @click="handleOpenEdit(currencyPackage)">編集</button>
+          <button class="btn btn-sm btn-outline-success me-2" @click="toEdit(currencyPackage.id)">編集</button>
           <button class="btn btn-sm btn-outline-danger" @click="handleOpenDelete(currencyPackage)">削除</button>
         </ul>
       </div>
@@ -34,38 +34,28 @@
   </transition>
 
   <transition name="fade">
-    <ConversionEditModal v-if="isVisibleEdit" :currency_package="currency_package" @Close="handleClose" @Edit="handleEditPackage" />
-  </transition>
-
-  <transition name="fade">
     <DeleteModal v-if="isVisibleDelete" :deleteData="currency_package" @Close="handleClose" @Delete="handleDeletePackage" />
   </transition>
     
 </template>
 
 <script>
-import { Field, Form, ErrorMessage } from 'vee-validate';
 import { mapGetters, mapActions } from 'vuex';
 import ConversionDetailModal from './ConversionDetailModal.vue';
-import ConversionEditModal from './ConversionEditModal.vue';
+import ConversionEdit from './ConversionEdit.vue';
 import DeleteModal from '../../components/DeleteModal.vue';
 
 export default {
     name: "Conversion",
     components: {
-        Form,
-        Field,
-        ErrorMessage,
         ConversionDetailModal,
-        ConversionEditModal,
+        ConversionEdit,
         DeleteModal
     },
     data() {
         return {
             isVisibleDetail: false,
             isVisibleDelete: false,
-            isVisibleEdit: false,
-            currency_package: {},
         }
     },
     computed: {
@@ -77,19 +67,17 @@ export default {
     methods: {
         ...mapActions('gachas', [
             "fetchPackages",
-            "editPackage",
             "deletePackage",
         ]),
         toCreate() {
             this.$router.push({ name: 'ConversionCreate' })
         },
+        toEdit(int) {
+            this.$router.push({ name: 'ConversionEdit', params: { id: int } })
+        },
         handleOpenDetail(currencyPackage) {
             this.isVisibleDetail = true;
             this.currency_package = currencyPackage;
-        },
-        handleOpenEdit(currencyPackage) {
-            this.isVisibleEdit = true;
-            this.currency_package = Object.assign({}, currencyPackage);
         },
         handleOpenDelete(currencyPackage) {
             this.isVisibleDelete = true;

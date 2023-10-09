@@ -4,8 +4,10 @@ import Gacha from '../pages/gachas/Gacha.vue'
 import GachaEdit from '../pages/gachas/GachaEdit.vue'
 import Game from '../pages//games/Game.vue'
 import GameCreate from '../pages/games/GameCreate.vue'
+import GameEdit from '../pages/games/GameEdit.vue'
 import Conversion from '../pages/conversions/Conversion.vue'
 import ConversionCreate from '../pages/conversions/ConversionCreate.vue'
+import ConversionEdit from '../pages/conversions/ConversionEdit.vue'
 import Calender from '../pages/Calender.vue'
 import SignUp from '../pages/user_session/Signup.vue'
 import SignIn from '../pages/user_session/Signin.vue'
@@ -45,15 +47,27 @@ const routes = [
         meta: { requiredAuth: true },
     },
     {
+        path: '/games/edit/:id',
+        name: 'GameEdit',
+        component: GameEdit,
+        meta: { requiredAuth: true },
+    },
+    {
         path: '/conversions',
         name: 'Conversion',
         component: Conversion,
         meta: { requiredAuth: true },
     },
     {
-        path: '/conversion/new',
+        path: '/conversions/new',
         name: 'ConversionCreate',
         component: ConversionCreate,
+        meta: { requiredAuth: true },
+    },
+    {
+        path: '/conversions/edit/:id',
+        name: 'ConversionEdit',
+        component: ConversionEdit,
         meta: { requiredAuth: true },
     },
     {

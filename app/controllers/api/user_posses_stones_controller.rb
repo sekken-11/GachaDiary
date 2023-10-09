@@ -8,7 +8,7 @@ class Api::UserPossesStonesController < ApplicationController
     end
 
     def show
-        render json: @user_posses_stone
+        render json: @user_posses_stone, include: [:currency_package]
     end
 
     def create

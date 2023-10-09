@@ -51,16 +51,12 @@
     <div class="pt-2 px-4">
       <ul class="text-end mb-0">
         <button class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(possesStone)">詳細</button>
-        <button class="btn btn-sm btn-outline-success me-2" @click="handleOpenEdit(possesStone)">編集</button>
+        <button class="btn btn-sm btn-outline-success me-2" @click="toEdit(possesStone.id)">編集</button>
         <button class="btn btn-sm btn-outline-danger" @click="handleOpenDelete(possesStone)">削除</button>
       </ul>
     </div>
   </div>
 </div>
-
-  <transition name="fade">
-    <GameEditModal v-if="isVisibleEdit" :posses_stone="posses_stone" @Close="handleClose" @Edit="handleEditPossesStone" />
-  </transition>
 
   <transition name="fade">
     <DeleteModal v-if="isVisibleDelete" :deleteData="posses_stone" @Close="handleClose" @Delete="handleDeletePossesStone" />
@@ -69,25 +65,19 @@
 </template>
 
 <script>
-import { Field, Form, ErrorMessage } from 'vee-validate';
 import { mapGetters, mapActions } from 'vuex';
-import GameEditModal from './GameEditModal.vue';
+import GameEdit from './GameEdit.vue';
 import DeleteModal from '../../components/DeleteModal.vue';
 
 export default {
     name: "Game",
     components: {
-        Field,
-        Form,
-        ErrorMessage,
-        GameEditModal,
+        GameEdit,
         DeleteModal
     },
     data() {
         return {
             isVisibleDelete: false,
-            isVisibleEdit: false,
-            posses_stone: {},
         }
     },
     computed: {
@@ -113,6 +103,9 @@ export default {
         toCreate() {
             this.$router.push({ name: 'GameCreate' })
         },
+        toEdit(int) {
+            this.$router.push({ name: 'GameEdit', params: { id: int } })
+        },
         amount(price, quantity, stone) {
             return Math.round(price/quantity*stone)
         },
@@ -124,10 +117,6 @@ export default {
         handleOpenDelete(possesStone) {
             this.isVisibleDelete = true
             this.posses_stone = possesStone
-        },
-        handleOpenEdit(possesStone) {
-            this.isVisibleEdit = true
-            this.posses_stone = Object.assign({}, possesStone)
         },
         async handleDeletePossesStone(posses_stone) {
             try {
