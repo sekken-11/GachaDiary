@@ -1,22 +1,38 @@
 <template>
-<v-btn block id="top" class="bg-info mb-3" @click="toCreate">ガチャ記録 新規作成</v-btn>
+<div class="bg-white rounded shadow p-3 mb-3">
+  <span class="text-success">{{ currencyPackage.name }}</span>
+  <span class="text-muted"> の 記録一覧</span>
+</div>
+<div class="bg-white rounded shadow p-3 mb-3">
+  <div class="text-center mb-2">
+    <span class="text-muted">合計</span>
+  </div>
+  <div class="text-center h3">
+    <span>{{specificTotalAmount}}円</span>
+  </div>
+  <hr class="m-3">
+  <div class="text-center mb-2">
+    <span class="text-muted">現金換算データ</span>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-6 border-end text-center">
+        <span>{{ currencyPackage.price }}円／{{ currencyPackage.quantity }}個</span>
+      </div>
+      <div class="col-6 text-center">
+        <span>{{ currencyPackage.need_one_gacha_stones }}個／1回</span>
+      </div>
+    </div>
+  </div>
+</div>
+<PossesStonesPart :possesStones="specificPossesStones">石の所持データ</PossesStonesPart>
 <div class="form-row" id="search-form">
   <div class="form-group mb-3">
     <input type="text" v-model="search" class="form-control" id="search" placeholder="絞り込み">
   </div>
 </div>
-<div class="form-row" id="select-form">
-  <div class="form-group mb-3">
-    <select v-model="select" class="form-control" id="select">
-      <option value="" selected>ゲーム名を指定しない</option>
-      <option v-for="currencyPackage in currencyPackages" :key="currencyPackage.id" :value="currencyPackage.id">
-        {{ currencyPackage.name }}
-      </option>
-    </select>
-  </div>
-</div>
 <div class="bg-white rounded shadow p-3 mb-3">
-    <div class="text-center text-secondary">
+  <div class="text-center text-muted">
     <span>ガチャ記録 一覧</span>
   </div>
   <hr>
@@ -30,7 +46,7 @@
       <div class="container border-bottom pb-2">
         <div class="row">
           <div class="col-6">{{ gacha.date }}</div>
-          <div class="col-6 text-center">{{ Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count) }}円</div>
+          <div class="col-6 text-center">{{ Math.round(currencyPackage.price/currencyPackage.quantity*currencyPackage.need_one_gacha_stones*gacha.count) }}円</div>
         </div>
       </div>
       <div class="container border-bottom py-2">
@@ -68,30 +84,33 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import GachaDetailModal from './GachaDetailModal.vue';
-import DeleteModal from '../../components/DeleteModal.vue';
+import GachaDetailModal from './gachas/GachaDetailModal.vue';
+import DeleteModal from '../components/DeleteModal.vue';
+import PossesStonesPart from '../components/PossesStonesPart.vue';
 
 export default {
-    name: "Gacha",
+    name: "GameFullData",
     components: {
         GachaDetailModal,
         DeleteModal,
+        PossesStonesPart,
     },
     data() {
         return {
             currentPage: this.currentPage = this.pageNumber || 1,
-            perPage: 10,
+            perPage: 5,
             search: this.search = this.$route.query.search || '',
-            select: this.select = this.$route.query.select || '',
-            gacha: {},
             isVisibleDetail: false,
             isVisibleDelete: false,
         }
     },
     computed: {
         ...mapGetters('gachas', [
-            "gachas",
-            "currencyPackages"
+            "currencyPackage",
+            "specificGachas"
+        ]),
+        ...mapGetters('posses_stones',[
+            "possesStones",
         ]),
         getPageCount() {
             return Math.ceil(this.filteredGachas.length/this.perPage)
@@ -102,19 +121,31 @@ export default {
             return this.filteredGachas.slice(start, current)
         },
         filteredGachas() {
-            if (this.select) {
-                return this.gachas.filter(gacha => {
-                    return gacha.description.indexOf(this.search) != -1 && gacha.currency_package_id == this.select
-                })
-            } else {
-                return this.gachas.filter(gacha => {
-                    return gacha.description.indexOf(this.search) != -1
-                })
-            }
-            
+            return this.specificGachas.filter(gacha => {
+                return gacha.description.indexOf(this.search) != -1
+            })   
         },
         pageNumber() {
             return this.$route.query.page || 1 
+        },
+        gameId() {
+            return this.$route.params.id
+        },
+        specificPossesStones() {
+            return this.possesStones.filter(possesStone => {
+                return possesStone.currency_package_id == this.currencyPackage.id
+            })
+        },
+        specificTotalAmount() {
+            var amount = 0
+            const one_stone_price = this.currencyPackage.price/this.currencyPackage.quantity
+            this.filteredGachas.forEach(gacha => {
+                amount += Math.round(one_stone_price*gacha.currency_package.need_one_gacha_stones*gacha.count)
+            })
+            this.specificPossesStones.forEach(possesStone => {
+                amount += Math.round(one_stone_price*possesStone.quantity)
+            })
+            return amount
         },
     },
     watch: {
@@ -122,22 +153,30 @@ export default {
             this.currentPage = 1
             this.pageChange();
         },
-        select() {
-            this.currentPage = 1
-            this.pageChange();
-        },
         pageNumber() {
             this.currentPage = this.pageNumber
         },
+        gameId() {
+            this.fetchPackage(this.gameId);
+            this.fetchGachas();
+            this.fetchPossesStones();
+            this.search = ''
+        }
     },
     created() {
         this.fetchGachas();
         this.pageMaintain();
+        this.fetchPackage(this.$route.params.id);
+        this.fetchPossesStones();
     },
     methods: {
         ...mapActions('gachas', [
             "fetchGachas",
-            "deleteGacha"
+            "deleteGacha",
+            "fetchPackage"
+        ]),
+        ...mapActions('posses_stones',[
+            "fetchPossesStones",
         ]),
         toCreate() {
             this.$router.push({ name: 'GachaRecordCreate' })
@@ -154,14 +193,10 @@ export default {
             }
         },
         pageChange() {
-            if (!this.search && !this.select) {
-                this.$router.push({ name: 'Gacha', query: { page: this.currentPage } })
-            } else if (this.search && !this.select) {
-                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search } })
-            } else if (!this.search && this.select) {
-                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, select: this.select } })
-            } else if (this.search && this.select) {
-                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search, select: this.select } })
+            if (!this.search) {
+                this.$router.push({ name: 'GameFullData', query: { page: this.currentPage } })
+            } else if (this.search) {
+                this.$router.push({ name: 'GameFullData', query: { page: this.currentPage, search: this.search } })
             }
         },
         pageMaintain() {

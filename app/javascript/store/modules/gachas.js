@@ -7,7 +7,6 @@ export default {
         gacha: [],
         currency_packages: [],
         currency_package: [],
-        total_record: 0
     },
     getters: {
         gachas(state) {
@@ -16,6 +15,11 @@ export default {
             });
         },
         gacha: state => state.gacha,
+        specificGachas(state, getters) {
+            return getters.gachas.filter(gacha => {
+                return gacha.currency_package_id == state.currency_package.id
+            })
+        },
         currencyPackages: state => state.currency_packages,
         currencyPackage: state => state.currency_package,
         totalRecords(state) {
@@ -32,7 +36,7 @@ export default {
             });
             return games
         },
-        totalRecord(state, getters) {
+        totalAmount(state, getters) {
             const records = getters.totalRecords.map(
                 (h) => Math.round(h.gacha_count*h.need_one_gacha_price)
             );

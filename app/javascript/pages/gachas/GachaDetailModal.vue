@@ -24,7 +24,7 @@
                   <span>ゲーム名</span>
                 </div>
                 <div class="col-8 text-center">
-                  <span>？？？？？？？？</span>
+                  <span>{{ gacha.currency_package.name }}</span>
                 </div>
               </div>
             </div>
@@ -34,7 +34,7 @@
                   <span>現金換算</span>
                 </div>
                 <div class="col-8 text-center">
-                  <span>？？？？円</span>
+                  <span>{{ Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count) }}円</span>
                 </div>
               </div>
             </div>

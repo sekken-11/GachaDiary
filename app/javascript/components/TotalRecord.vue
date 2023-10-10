@@ -2,11 +2,11 @@
 <div class="bg-secondary mb-3 p-3 rounded shadow">
   <div class="h5 text-white">合計</div>
     <hr>
-    <div class="h4 text-white text-center">{{ totalRecord }}円</div>
+    <div class="h4 text-white text-center">{{ totalAmount }}円</div>
   </div>
   <div class="bg-secondary rounded shadow p-3">
     <div class="h5 text-white text-center">換算合計</div>
-    <div v-for="totalRecord in totalRecords" class="bg-white border shadow-sm rounded my-2 py-2">
+    <div v-for="totalRecord in totalRecords" class="bg-white border shadow-sm rounded my-2 py-2" @click="toGameFullData(totalRecord.id)">
       <div class="container border-bottom pb-2">
         <div class="row">
           <div>
@@ -49,7 +49,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('gachas', ["gachas", "currencyPackages", "totalRecords", "totalRecord"]),
+    ...mapGetters('gachas', ["gachas", "currencyPackages", "totalRecords", "totalAmount"]),
     total() {
         return this.total_sub
     },
@@ -63,9 +63,9 @@ export default {
     amount(gacha_count, need_one_gacha_price) {
         return Math.round(gacha_count*need_one_gacha_price)
     },
-    sum() {
-        
-    },
+    toGameFullData(int) {
+      this.$router.push({ name: 'GameFullData', params: { id: int} })
+    }
   },
 }
 </script>
