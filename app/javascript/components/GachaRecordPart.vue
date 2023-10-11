@@ -2,43 +2,47 @@
 <div class="bg-white rounded shadow p-3 mb-3">
   <div class="text-center text-muted">
     <span>ガチャ記録 一覧</span>
+    <button v-if="isVisibleGacha" class="border-0 bg-white text-muted" @click="gachaUp"><i class="bi bi-chevron-up"></i></button>
+    <button v-if="!isVisibleGacha" class="border-0 bg-white text-muted" @click="gachaDown"><i class="bi bi-chevron-down"></i></button>
   </div>
   <hr>
-  <div v-if="filteredGachas.length == 0" class="text-center text-secondary p-3">
-    <span>データがありません</span>
-  </div>
-    <div v-for="gacha in getList"
-         :key="gacha.id"
-         class="bg-light border shadow-sm rounded my-2 py-2"
-    >
-      <div class="container border-bottom pb-2">
-        <div class="row">
-          <div class="col-6">{{ gacha.date }}</div>
-          <div class="col-6 text-center">{{ Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count) }}円</div>
-        </div>
-      </div>
-      <div class="container border-bottom py-2">
-        <div class="row">
-          <div class="col-6">{{ gacha.currency_package.name }}</div>
-          <div class="col-6 text-center">{{ gacha.count }}回</div>
-        </div>
-      </div>
-      <div class="pt-2 px-4">
-        <ul class="text-end mb-0">
-          <button class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(gacha)">詳細</button>
-          <button class="btn btn-sm btn-outline-success me-2" @click="toEdit(gacha.id)">編集</button>
-          <button class="btn btn-sm btn-outline-danger" @click="handleOpenDelete(gacha)">削除</button>
-        </ul>
-      </div>
+  <div v-if="isVisibleGacha">
+    <div v-if="filteredGachas.length == 0" class="text-center text-secondary p-3">
+      <span>データがありません</span>
     </div>
+      <div v-for="gacha in getList"
+           :key="gacha.id"
+           class="bg-light border shadow-sm rounded my-2 py-2"
+      >
+        <div class="container border-bottom pb-2">
+          <div class="row">
+            <div class="col-6">{{ gacha.date }}</div>
+            <div class="col-6 text-center">{{ Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count) }}円</div>
+          </div>
+        </div>
+        <div class="container border-bottom py-2">
+          <div class="row">
+            <div class="col-6">{{ gacha.currency_package.name }}</div>
+            <div class="col-6 text-center">{{ gacha.count }}回</div>
+          </div>
+        </div>
+        <div class="pt-2 px-4">
+          <ul class="text-end mb-0">
+            <button class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(gacha)">詳細</button>
+            <button class="btn btn-sm btn-outline-success me-2" @click="toEdit(gacha.id)">編集</button>
+            <button class="btn btn-sm btn-outline-danger" @click="handleOpenDelete(gacha)">削除</button>
+          </ul>
+        </div>
+      </div>
+    <v-pagination
+      v-model="currentPage"
+      v-scroll-to="'#top'"
+      :length="getPageCount"
+      @click="pageChange"
+    >
+    </v-pagination>
+  </div>
 </div>
-<v-pagination
-  v-model="currentPage"
-  v-scroll-to="'#top'"
-  :length="getPageCount"
-  @click="pageChange"
->
-</v-pagination>
 
   <transition name="fade">
     <GachaDetailModal v-if="isVisibleDetail" :gacha="gacha" @Close="handleClose" />
@@ -73,6 +77,7 @@ export default {
             gacha: {},
             isVisibleDetail: false,
             isVisibleDelete: false,
+            isVisibleGacha: true,
         }
     },
     computed: {
@@ -186,6 +191,12 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+        },
+        gachaUp() {
+            this.isVisibleGacha = false
+        },
+        gachaDown() {
+            this.isVisibleGacha = true
         },
     },
 }
