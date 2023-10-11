@@ -48,11 +48,6 @@ export default {
   computed: {
     ...mapGetters('users', ["authUser"])
   },
-  methods: {
-    totalRecord() {
-      return !this.$route.path.match(/\/$/) && !this.$route.path.match(/\/gachareco$/) && authUser
-    }
-  }
 }
 </script>
 

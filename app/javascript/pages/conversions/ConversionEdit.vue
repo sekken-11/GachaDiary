@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="text-end m-3 mt-5">
-        <v-btn block class="bg-success" type="submit">変更</v-btn>
+        <v-btn block color="success" type="submit">変更</v-btn>
       </div>
     </Form>
   </div>

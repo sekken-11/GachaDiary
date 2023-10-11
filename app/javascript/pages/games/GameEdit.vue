@@ -52,7 +52,7 @@ export default {
         async handleEditPossesStone() {
             try {
                 await this.editPossesStone(this.possesStone)
-                this.$router.push({ name: 'Game' })
+                this.$router.back()
             } catch (error) {
             console.log(error)
             }

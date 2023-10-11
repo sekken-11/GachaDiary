@@ -12,6 +12,7 @@ import Calender from '../pages/Calender.vue'
 import SignUp from '../pages/user_session/Signup.vue'
 import SignIn from '../pages/user_session/Signin.vue'
 import GachaRecordCreate from '../pages/form/GachaRecordCreate.vue'
+import GameFullData from '../pages/GameFullData.vue'
 import store from '../store/vuex'
 
 
@@ -92,6 +93,12 @@ const routes = [
         path: '/gachareco',
         name: 'GachaRecordCreate',
         component: GachaRecordCreate,
+        meta: { requiredAuth: true },
+    },
+    {
+        path: '/gamedata/:id',
+        name: 'GameFullData',
+        component: GameFullData,
         meta: { requiredAuth: true },
     },
 ]
