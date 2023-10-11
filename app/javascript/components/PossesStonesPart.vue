@@ -2,8 +2,13 @@
 <div class="bg-white rounded shadow p-3 mb-3">
   <div class="text-center text-muted">
     <span><slot></slot></span>
+    <button v-if="isVisiblePossesStone" class="border-0 bg-white text-muted" @click="possesStoneUp"><i class="bi bi-chevron-up"></i></button>
+    <button v-if="!isVisiblePossesStone" class="border-0 bg-white text-muted" @click="possesStoneDown"><i class="bi bi-chevron-down"></i></button>
   </div>
   <hr>
+
+  <div v-if="isVisiblePossesStone">
+
   <div v-if="possesStones.length == 0" class="text-center text-secondary p-3">
     <span>データがありません</span>
   </div>
@@ -44,6 +49,9 @@
       </ul>
     </div>
   </div>
+
+  </div>
+
 </div>
 
   <transition name="fade">
@@ -67,6 +75,7 @@ export default {
     data() {
         return {
             isVisibleDelete: false,
+            isVisiblePossesStone: true,
         }
     },
     computed: {
@@ -117,6 +126,12 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+        },
+        possesStoneUp() {
+            this.isVisiblePossesStone = false
+        },
+        possesStoneDown() {
+            this.isVisiblePossesStone = true
         },
     }
 }
