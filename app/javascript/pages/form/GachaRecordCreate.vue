@@ -66,11 +66,16 @@ export default {
   computed: {
     ...mapGetters('gachas', ["gachas"]),
     ...mapGetters('gachas', ["currencyPackages"]),
+    ...mapGetters('transition', ["selectDate"]),
   },
   created() {
     this.fetchPackages();
+    this.setDate();
   },
   methods: {
+    setDate() {
+      this.gacha.date = this.selectDate || new Date().toLocaleDateString('sv-SE')
+    },
     ...mapActions('gachas', ["createGacha"]),
     ...mapActions('gachas', ["fetchPackages"]),
     async handleCreateGacha(gacha) {

@@ -36,7 +36,7 @@ export default {
         { name: "ガチャ記録", link: "Gacha" },
         { name: "ゲーム記録", link: "Game" },
         { name: "換算用データ", link: "Conversion" },
-        { name: "カレンダー", link: "Calender" },
+        { name: "カレンダー", link: "Calendar" },
       ]
     }
   },

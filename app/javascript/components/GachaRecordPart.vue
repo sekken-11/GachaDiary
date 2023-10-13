@@ -7,8 +7,8 @@
   </div>
   <hr>
   <div v-if="isVisibleGacha">
-    <div v-if="filteredGachas.length == 0" class="text-center text-secondary p-3">
-      <span>データがありません</span>
+    <div v-if="filteredGachas.length == 0" class="text-center text-muted p-3">
+      <span><slot></slot></span>
     </div>
       <div v-for="gacha in getList"
            :key="gacha.id"
@@ -94,10 +94,12 @@ export default {
                 return this.gachas.filter(gacha => {
                     return gacha.description.indexOf(this.search) != -1 && gacha.currency_package_id == this.select
                 })
-            } else {
+            } else if (this.search) {
                 return this.gachas.filter(gacha => {
                     return gacha.description.indexOf(this.search) != -1
                 })
+            } else {
+                return this.gachas
             }
         },
         pageNumber() {
