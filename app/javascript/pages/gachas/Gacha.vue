@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<GachaRecordPart :gachas="gachas" :perPage="perPage" :search="search" :select="select"></GachaRecordPart>
+<GachaRecordPart :gachas="gachas" :perPage="perPage" :search="search" :select="select">データがありません</GachaRecordPart>
 
 </template>
 
@@ -25,39 +25,39 @@ import { mapGetters, mapActions } from 'vuex';
 import GachaRecordPart from '../../components/GachaRecordPart.vue';
 
 export default {
-    name: "Gacha",
-    components: {
-        GachaRecordPart,
+  name: "Gacha",
+  components: {
+    GachaRecordPart,
+  },
+  data() {
+    return {
+      perPage: 10,
+      search: this.search = this.$route.query.search || '',
+      select: this.select = this.$route.query.select || '',
+    }
+  },
+  computed: {
+    ...mapGetters('gachas', [
+      "gachas",
+      "currencyPackages"
+    ]),
+  },
+  created() {
+    this.fetchGachas();
+    this.pageMaintain();
+  },
+  methods: {
+    ...mapActions('gachas', [
+      "fetchGachas",
+    ]),
+    toCreate() {
+      this.$router.push({ name: 'GachaRecordCreate' })
     },
-    data() {
-        return {
-            perPage: 10,
-            search: this.search = this.$route.query.search || '',
-            select: this.select = this.$route.query.select || '',
-        }
+    pageMaintain() {
+      if (this.$route.query.page) {
+        this.currentPage = this.$route.query.page
+      }
     },
-    computed: {
-        ...mapGetters('gachas', [
-            "gachas",
-            "currencyPackages"
-        ]),
-    },
-    created() {
-        this.fetchGachas();
-        this.pageMaintain();
-    },
-    methods: {
-        ...mapActions('gachas', [
-            "fetchGachas",
-        ]),
-        toCreate() {
-            this.$router.push({ name: 'GachaRecordCreate' })
-        },
-        pageMaintain() {
-            if (this.$route.query.page) {
-                this.currentPage = this.$route.query.page
-            }
-        },
-    },
+  },
 }
 </script>

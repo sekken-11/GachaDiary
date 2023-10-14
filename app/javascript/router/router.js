@@ -8,7 +8,7 @@ import GameEdit from '../pages/games/GameEdit.vue'
 import Conversion from '../pages/conversions/Conversion.vue'
 import ConversionCreate from '../pages/conversions/ConversionCreate.vue'
 import ConversionEdit from '../pages/conversions/ConversionEdit.vue'
-import Calender from '../pages/Calender.vue'
+import Calendar from '../pages/calenders/Calendar.vue'
 import SignUp from '../pages/user_session/Signup.vue'
 import SignIn from '../pages/user_session/Signin.vue'
 import GachaRecordCreate from '../pages/form/GachaRecordCreate.vue'
@@ -72,9 +72,9 @@ const routes = [
         meta: { requiredAuth: true },
     },
     {
-        path: '/calender',
-        name: 'Calender',
-        component: Calender,
+        path: '/calendars',
+        name: 'Calendar',
+        component: Calendar,
         meta: { requiredAuth: true },
     },
     {

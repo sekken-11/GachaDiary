@@ -34,7 +34,7 @@
   </div>
 </div>
 
-<GachaRecordPart :gachas="specificGachas" :perPage="perPage" :search="search"></GachaRecordPart>
+<GachaRecordPart :gachas="specificGachas" :perPage="perPage" :search="search">データがありません</GachaRecordPart>
 
 </template>
 
