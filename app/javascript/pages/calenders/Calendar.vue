@@ -3,8 +3,7 @@
   <div class="mb-4">
     <v-btn block color="success" @click="eventChange">表示切替</v-btn>
   </div>
-  <FullCalendar :options='calendarOptions'
-  />
+  <FullCalendar :options='calendarOptions' />
 </div>
 
 <GachaRecordPart :gachas="daysGachas" :perPage="perPage">日付が選択されていません</GachaRecordPart>
@@ -26,7 +25,7 @@ export default {
   },
   data() {
     return {
-      event_type: 'gacha_price',
+      event_type: 'gacha_count',
       perPage: 5,
       date: '2023-10-12',
       calendarOptions: {
@@ -39,7 +38,6 @@ export default {
         },
         eventClick: (info) => {
           this.daySelect(info.event.start)
-          this.test = info
         },
         headerToolbar: {
           left: 'prev',
@@ -61,7 +59,7 @@ export default {
   },
   watch: {
     gachas() {
-      this.calendarEvents();
+      this.calendarEvents()
     },
   },
   created() {
@@ -75,7 +73,8 @@ export default {
       this.$router.push({ name: 'GachaRecordCreate' })
     },
     calendarEvents() {
-      if (this.event_type == 'gacha_count') {
+      if (this.gachas.length > 0) {
+        if (this.event_type == 'gacha_count') {
         var array = [{ title: 0, start: this.gachas[0].date }]
         var int = 0
         this.gachas.forEach(gacha => {
@@ -109,6 +108,10 @@ export default {
         })
       }
       this.calendarOptions.events = array
+      } else if (this.gachas.length == 0) {
+        this.calendarOptions.events = []
+      }
+      
     },
     daySelect(day) {
       this.date = day.toLocaleDateString('sv-SE')
