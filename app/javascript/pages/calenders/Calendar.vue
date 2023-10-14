@@ -27,7 +27,7 @@ export default {
     return {
       event_type: 'gacha_count',
       perPage: 5,
-      date: '2023-10-12',
+      date: new Date().toLocaleDateString('sv-SE'),
       calendarOptions: {
         locale: 'ja',
         plugins: [dayGridPlugin, interactionPlugin],
@@ -64,6 +64,7 @@ export default {
   },
   created() {
     this.fetchGachas();
+    this.datePick(this.date);
   },
   methods: {
     ...mapActions('transition', ["datePick"]),
