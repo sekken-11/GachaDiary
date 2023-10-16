@@ -1,8 +1,7 @@
 <template>
-<div class="py-3">
-  <div class="container">
-    <div class="row">
-      <div class="offset-md-1 col-12 col-md-10">
+  <v-container>
+    <v-row>
+      <v-col col="12">
         <div class="card">
 
           <Form @submit="handleCreateGacha">
@@ -36,10 +35,9 @@
             </div>
           </Form>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

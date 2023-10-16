@@ -57,7 +57,7 @@ const state = {
           commit('changeProfile', res.data)
       })
     },
-    setProfile({commit}, user) {
+    setProfile({commit}) {
       return axios.get('users/me')
       .then(res => {
         commit('setUser', res.data)

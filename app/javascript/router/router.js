@@ -13,6 +13,7 @@ import SignUp from '../pages/user_session/Signup.vue'
 import SignIn from '../pages/user_session/Signin.vue'
 import GachaRecordCreate from '../pages/form/GachaRecordCreate.vue'
 import GameFullData from '../pages/GameFullData.vue'
+import MyPage from '../pages/MyPage.vue'
 import store from '../store/vuex'
 
 
@@ -99,6 +100,12 @@ const routes = [
         path: '/gamedata/:id',
         name: 'GameFullData',
         component: GameFullData,
+        meta: { requiredAuth: true },
+    },
+    {
+        path: '/mypage',
+        name: 'MyPage',
+        component: MyPage,
         meta: { requiredAuth: true },
     },
 ]
