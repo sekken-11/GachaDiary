@@ -1,13 +1,9 @@
 <template>
-<v-app class="bg-light">
+<v-app class="allcolor">
   <div class="d-flex flex-column min-vh-100">
     <Header class="mb-2" />
 
-    <div v-if="this.$route.path.match(/\/$/) && authUser">
-      <router-view />
-    </div>
-
-    <div v-if="this.$route.path.match(/gachareco$/) && authUser">
+    <div class="py-3" v-if="no_total_record && authUser">
       <router-view />
     </div>
 
@@ -15,17 +11,17 @@
       <router-view />
     </div>
     
-    <div class="py-3" v-if="!this.$route.path.match(/\/$/) && !this.$route.path.match(/gachareco$/) && authUser">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-lg-8">
+    <div class="py-3" v-if="!this.$route.path.match(/\/$/) && !this.$route.path.match(/gachareco$/) && !this.$route.path.match(/mypage$/) && authUser">
+      <v-container>
+        <v-row>
+          <v-col cols="12" md="8">
             <router-view />
-          </div>
-          <div class="col-12 col-lg-4">
+          </v-col>
+          <v-col cols="12" md="4">
             <TotalRecord />
-          </div>
-        </div>
-      </div>
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
 
     <Footer class="mb-3" />
@@ -37,7 +33,7 @@
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import TotalRecord from './components/TotalRecord.vue';
-import { mapGetters} from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -45,11 +41,21 @@ export default {
     Footer,
     TotalRecord,
   },
+  data() {
+    return {
+    }
+  },
   computed: {
-    ...mapGetters('users', ["authUser"])
+    ...mapGetters('users', ["authUser"]),
+    no_total_record() {
+      return this.$route.path.match(/\/$/) || this.$route.path.match(/gachareco$/) || this.$route.path.match(/mypage$/)
+    }
   },
 }
 </script>
 
 <style scoped>
+.allcolor {
+  background-color: lightblue;
+}
 </style>

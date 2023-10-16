@@ -9,6 +9,7 @@
           </li>
           <li class="nav-item d-flex align-items-center" v-if="authUser">
             <router-link :to="{ name: 'GachaRecordCreate' }" class="btn btn-primary btn-sm me-2">ガチャ記録作成</router-link>
+            <router-link :to="{ name: 'MyPage' }"><v-btn class="bg-success me-2">マイページ</v-btn></router-link>
             <button class="btn-sm me-2" @click="handleSignOut">ログアウト</button>
           </li>
         </ul>
