@@ -5,7 +5,7 @@
     <span class="text-muted"> の マイページ</span>
   </div>
   <v-row>
-    <v-col cols="9">
+    <v-col cols="12" md="9">
       <v-row>
         <v-col cols="12">
           <div class="bg-white rounded shadow p-3">
@@ -30,17 +30,13 @@
               <hr>
               <div v-for="sortRecord in sortRecords">
                 <v-row>
-                  <v-col cols="4">
-                    <span class="bg-info rounded px-2 py-2">
-                      {{ percentage(sortRecord.gacha_count, sortRecord.need_one_gacha_price) }}
-                    </span>
-                  </v-col>
-                  <v-col cols="4">
+                  <v-col cols="6" class="text-center">
                     <span>{{ sortRecord.game_name }}</span>
                   </v-col>
-                  <v-col cols="4">
-                    <span>{{ amount(sortRecord.gacha_count, sortRecord.need_one_gacha_price) }}円</span>
-
+                  <v-col cols="6" class="text-center">
+                    <span class="bg-warning rounded px-2 py-2">
+                      {{ percentage(sortRecord.gacha_count, sortRecord.need_one_gacha_price) }}
+                    </span>
                   </v-col>
                 </v-row>
                 <hr>
@@ -87,7 +83,7 @@
         </v-col>
       </v-row>
     </v-col>
-    <v-col cols="3">
+    <v-col cols="12" md="3">
       <div class="bg-white rounded shadow p-3 mb-3">
       </div>
     </v-col>
@@ -119,7 +115,18 @@ export default {
           {
             data: this.pieData,
             backgroundColor: [
-              '#41B883', '#E46651', '#00D8FF'
+              'antiquewhite',
+              'aqua',
+              'aquamarine',
+              'bisque',
+              'burlywood',
+              'chocolate',
+              'coral',
+              'cornflowerblue',
+              'crimson',
+              'cyan',
+              'darkcyan',
+              'darkorange',
             ],
             hoverOffset: 4,
           },
