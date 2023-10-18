@@ -14,6 +14,8 @@ import SignIn from '../pages/user_session/Signin.vue'
 import GachaRecordCreate from '../pages/form/GachaRecordCreate.vue'
 import GameFullData from '../pages/GameFullData.vue'
 import MyPage from '../pages/MyPage.vue'
+import PasswordReset from '../pages/password_reset/PasswordReset.vue'
+
 import store from '../store/vuex'
 
 
@@ -23,6 +25,11 @@ const routes = [
         path: '/',
         name: 'Top',
         component: Top
+    },
+    {
+        path: '/passreset',
+        name: 'PasswordReset',
+        component: PasswordReset
     },
     {
         path: '/gachas',

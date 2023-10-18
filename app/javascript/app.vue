@@ -11,7 +11,7 @@
       <router-view />
     </div>
     
-    <div class="py-3" v-if="!this.$route.path.match(/\/$/) && !this.$route.path.match(/gachareco$/) && !this.$route.path.match(/mypage$/) && authUser">
+    <div class="py-3" v-if="!no_total_record && authUser">
       <v-container>
         <v-row>
           <v-col cols="12" md="8">
@@ -48,7 +48,7 @@ export default {
   computed: {
     ...mapGetters('users', ["authUser"]),
     no_total_record() {
-      return this.$route.path.match(/\/$/) || this.$route.path.match(/gachareco$/) || this.$route.path.match(/mypage$/)
+      return this.$route.path.match(/\/$/) || this.$route.path.match(/gachareco$/) || this.$route.path.match(/mypage$/) || this.$route.path.match(/passreset$/)
     }
   },
 }

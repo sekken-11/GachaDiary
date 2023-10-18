@@ -2,7 +2,7 @@
   <div class="py-3 d-flex justify-content-center">
     <div class="card col-12 col-md-6 shadow">
       <div class="card-header text-center bg-secondary text-light pt-3"><h4>ログイン</h4></div>
-      <div class="card-body">
+      <div class="card-body my-4">
         <Form @submit="handleSignIn">
           <div v-if="error" class="text-danger my-4">{{ error }}</div>
           <div class="form-group my-4">
@@ -21,6 +21,11 @@
             </button>
           </div>
         </Form>
+        <div class="mt-3">
+          <router-link :to="{ name: 'PasswordReset' }">
+            <i class="bi bi-caret-right me-1"></i>パスワードを忘れた方はこちら
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
