@@ -85,6 +85,24 @@
     </v-col>
     <v-col cols="12" md="3">
       <div class="bg-white rounded shadow p-3 mb-3">
+        <div class="text-muted">
+          <h4>ユーザー情報</h4>
+            <hr>
+          <p class="mb-1">メールアドレス</p>
+          <p class="text-success">{{ authUser.email }}</p>
+            <hr>
+          <p class="mb-1">記録開始日</p>
+          <p class="text-success">{{ new Date(authUser.created_at).toLocaleDateString('sv-SE') }}</p>
+            <hr>
+        </div>
+        <div class="text-muted mt-5">
+          <h4>アカウント管理</h4>
+            <hr>
+          <v-btn block class="bg-info" @click="toPasswordReset">パスワード変更</v-btn>
+            <hr>
+          <v-btn block class="bg-info" @click="toEmailChange">メールアドレス変更</v-btn>
+            <hr>
+        </div>
       </div>
     </v-col>
   </v-row>
@@ -171,7 +189,13 @@ export default {
     },
     percentage(gacha_count, need_one_gacha_price) {
       return (gacha_count*need_one_gacha_price/this.totalAmount*100).toFixed(1) + '%'
-    }
+    },
+    toPasswordReset() {
+      this.$router.push({ name: 'PasswordReset' })
+    },
+    toEmailChange() {
+      this.$router.push({ name: 'EmailChange' })
+    },
   },
 }
 

@@ -51,10 +51,10 @@ const state = {
         return null
       }
     },
-    updateProfile({commit}, user) {
-      return axios.patch('users/' + user.id, user)
+    updateUser({commit, state}, user) {
+      return axios.patch('users/' + state.authUser.id, user)
       .then(res => {
-          commit('changeProfile', res.data)
+          commit('setUser', res.data)
       })
     },
     setProfile({commit}) {
