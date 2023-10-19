@@ -123,7 +123,9 @@ export default {
         },
         gameId() {
             this.fetchGachas();
-            this.search = ''
+            if (this.search) {
+                this.search = ''
+            }
         }
     },
     created() {
