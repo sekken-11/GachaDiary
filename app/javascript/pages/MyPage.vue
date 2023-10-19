@@ -100,7 +100,7 @@
             <hr>
           <v-btn block class="bg-info" @click="toPasswordReset">パスワード変更</v-btn>
             <hr>
-          <v-btn block class="bg-info">メールアドレス変更</v-btn>
+          <v-btn block class="bg-info" @click="toEmailChange">メールアドレス変更</v-btn>
             <hr>
         </div>
       </div>
@@ -192,6 +192,9 @@ export default {
     },
     toPasswordReset() {
       this.$router.push({ name: 'PasswordReset' })
+    },
+    toEmailChange() {
+      this.$router.push({ name: 'EmailChange' })
     },
   },
 }

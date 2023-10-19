@@ -1,10 +1,13 @@
 <template>
   <div class="py-3 d-flex justify-content-center">
     <v-card class="card col-12 col-md-6 shadow">
-      <v-card-title class="text-center bg-warning pt-3"><h4>パスワード変更</h4></v-card-title>
+      <v-card-title class="text-center bg-warning pt-3"><h4>メールアドレス変更</h4></v-card-title>
       <v-card-text>
-        <p class="my-4 text-muted">下記に入力したメールアドレスにパスワード変更用メールが送信されます。</p>
-        <Form @submit="handlePasswordResetMail">
+        <div class="my-5">
+          <p class="text-muted">現在のメールアドレス</p>
+          <h5 class="text-success">{{ this.authUser.email }}</h5>
+        </div>
+        <Form @submit="handleEmailChange">
           <div v-if="error" class="text-danger my-4">{{ error }}</div>
           <div class="form-group my-4">
             <label for="email">メールアドレス</label>
@@ -13,7 +16,7 @@
           </div>
           <div class="text-center bg-white">
             <v-btn type="submit" class="bg-dark my-3">
-              <span class="text-white">送信</span>
+              <span class="text-white">変更</span>
             </v-btn>
           </div>
         </Form>
@@ -24,15 +27,17 @@
 
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
-import axios from 'axios';
-
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: 'PasswordReset',
+  name: 'EmailChange',
   components: {
     Field,
     Form,
     ErrorMessage,
+  },
+  computed: {
+    ...mapGetters('users',["authUser"]),
   },
   data() {
     return {
@@ -43,17 +48,18 @@ export default {
     }
   },
   methods: {
-    async handlePasswordResetMail() {
-      axios
-        .post('api/password_resets', { email: this.user.email })
-        .then(res => {
-          alert("メールを送信しました")
-          this.$router.push({ name: 'SignIn' })
-        })
-        .catch(err => {
-          console.log(err)
-          this.error = 'メールを送信しました'
-        })
+    ...mapActions('users',[
+      "fetchAuthUser",
+      "updateUser",
+    ]),
+    async handleEmailChange() {
+      try {
+        await this.updateUser(this.user)
+        this.$router.push({ name: 'MyPage' })
+      } catch (error) {
+        console.log(error)
+        this.error = 'メールアドレスを変更できません'
+      }
     },
     isEmailRequired(value) {
       if (!value && !value.trim()) {
