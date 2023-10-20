@@ -30,13 +30,16 @@
               <hr>
               <div v-for="sortRecord in sortRecords">
                 <v-row>
-                  <v-col cols="6" class="text-center">
+                  <v-col cols="4" class="text-center">
                     <span>{{ sortRecord.game_name }}</span>
                   </v-col>
-                  <v-col cols="6" class="text-center">
+                  <v-col cols="4" class="text-center">
                     <span class="bg-warning rounded px-2 py-2">
                       {{ percentage(sortRecord.gacha_count, sortRecord.need_one_gacha_price) }}
                     </span>
+                  </v-col>
+                  <v-col cols="4" class="text-center">
+                    <span>{{ amount(sortRecord.gacha_count, sortRecord.need_one_gacha_price) }}円</span>
                   </v-col>
                 </v-row>
                 <hr>
@@ -53,31 +56,13 @@
             <div v-if="totalRecords.length == 0" class="text-center text-muted p-3">
               <span>データがありません</span>
             </div>
-            <div v-for="sortRecord in sortRecords" class="bg-light shadow-sm rounded my-2 p-2">
-              <v-container class="pb-2">
-                <v-row class="border-bottom">
-                  <div class="mb-2">
-                    <span>{{ sortRecord.game_name }}</span>
-                  </div>
-                </v-row>
-                <v-row class="border-bottom">
-                  <v-col cols="4" class="text-center border-end">
-                    <span>金額</span>
-                  </v-col>
-                  <v-col cols="8" class="text-center">
-                    <span>{{ amount(sortRecord.gacha_count, sortRecord.need_one_gacha_price) }}円</span>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col cols="4" class="text-center border-end">
-                    <span>回数</span>
-                  </v-col>
-                  <v-col cols="8" class="text-center">
-                    <span>{{ sortRecord.gacha_count }}回</span>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </div>
+
+            <RecordPart v-for="sortRecord in sortRecords"
+              :totalRecord="sortRecord"
+              :key="sortRecord.id"
+              :id="'record-' + sortRecord.id"
+              @toGameFullData="toGameFullData(sortRecord.id)"
+            />
 
           </div>
         </v-col>
@@ -113,6 +98,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import { Chart as ChartJS, ArcElement, Tooltip } from 'chart.js';
 import { Pie } from 'vue-chartjs';
+import RecordPart from '../components/RecordPart.vue';
 
 ChartJS.register(ArcElement, Tooltip)
 
@@ -120,6 +106,7 @@ export default {
   name: 'Mypage',
   components: {
     Pie,
+    RecordPart
   },
   computed: {
     ...mapGetters('gachas', [
@@ -183,7 +170,7 @@ export default {
       "fetchGachas",
       "fetchPackages",
     ]),
-    ...mapActions('users', ["setUser"]),
+    ...mapActions('users', ["setProfile"]),
     amount(gacha_count, need_one_gacha_price) {
       return Math.round(gacha_count*need_one_gacha_price)
     },
@@ -196,6 +183,9 @@ export default {
     toEmailChange() {
       this.$router.push({ name: 'EmailChange' })
     },
+    toGameFullData(int) {
+      this.$router.push({ name: 'GameFullData', params: { id: int} })
+    }
   },
 }
 

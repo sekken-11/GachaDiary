@@ -1,7 +1,10 @@
 <template>
 <div
-  class="records shadow-sm rounded my-2 p-2" 
-  :class="{ 'here': $route.path.slice(10) == totalRecord.id }" 
+  class="records rounded my-2 p-2" 
+  :class="{
+    'here': $route.path.slice(10) == totalRecord.id,
+    'mypage': $route.path.match(/mypage$/)
+  }" 
   @click="toGameFullData(totalRecord.id)" 
 >
   <v-container>
@@ -54,5 +57,8 @@ export default {
 }
 .here{
   background-color: silver;
+}
+.mypage{
+  background-color: whitesmoke;
 }
 </style>
