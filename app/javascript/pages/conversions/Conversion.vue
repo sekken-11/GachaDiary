@@ -12,11 +12,11 @@
          :key="currencyPackage.id"
          class="bg-light border shadow-sm rounded my-2 py-2"
     >
-      <div class="container border-bottom pb-2">
-        <div class="row">
+      <v-container>
+        <v-row class="border-bottom pb-2 mx-2">
           <span>{{ currencyPackage.name }}</span>
-        </div>
-      </div>
+        </v-row>
+      </v-container>
       <div class="pt-2 px-4">
         <ul class="text-end mb-0">
           <button class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(currencyPackage)">詳細</button>

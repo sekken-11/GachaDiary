@@ -14,16 +14,16 @@
   <div class="text-center mb-2">
     <span class="text-muted">現金換算データ</span>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-6 border-end text-center">
+  <v-container>
+    <v-row>
+      <v-col cols="6" class="border-end text-center">
         <span>{{ currencyPackage.price }}円／{{ currencyPackage.quantity }}個</span>
-      </div>
-      <div class="col-6 text-center">
+      </v-col>
+      <v-col cols="6" class="text-center">
         <span>{{ currencyPackage.need_one_gacha_stones }}個／1回</span>
-      </div>
-    </div>
-  </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </div>
 
 <PossesStonesPart :possesStones="specificPossesStones">石の所持データ</PossesStonesPart>

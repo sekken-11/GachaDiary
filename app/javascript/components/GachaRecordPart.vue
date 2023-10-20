@@ -12,20 +12,18 @@
     </div>
       <div v-for="gacha in getList"
            :key="gacha.id"
-           class="bg-light border shadow-sm rounded my-2 py-2"
+           class="bg-light border shadow-sm rounded my-2 pb-2"
       >
-        <div class="container border-bottom pb-2">
-          <div class="row">
-            <div class="col-6">{{ gacha.date }}</div>
-            <div class="col-6 text-center">{{ Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count) }}円</div>
-          </div>
-        </div>
-        <div class="container border-bottom py-2">
-          <div class="row">
-            <div class="col-6">{{ gacha.currency_package.name }}</div>
-            <div class="col-6 text-center">{{ gacha.count }}回</div>
-          </div>
-        </div>
+        <v-container class="">
+          <v-row class="border-bottom">
+            <v-col cols="6">{{ gacha.date }}</v-col>
+            <v-col cols="6" class="text-center">{{ Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count) }}円</v-col>
+          </v-row>
+          <v-row class="border-bottom">
+            <v-col cols="6">{{ gacha.currency_package.name }}</v-col>
+            <v-col cols="6" class="text-center">{{ gacha.count }}回</v-col>
+          </v-row>
+        </v-container>
         <div class="pt-2 px-4">
           <ul class="text-end mb-0">
             <button class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(gacha)">詳細</button>

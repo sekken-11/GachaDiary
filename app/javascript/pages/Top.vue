@@ -43,29 +43,27 @@
           </div>
           <div class="bg-secondary rounded shadow p-3">
             <div class="h5 text-white text-center">換算履歴</div>
-              <div v-for="(conversion_record, index) in conversion_records" :key="conversion_record" class="bg-white border shadow-sm rounded my-2 py-2">
-                <div class="container border-bottom pb-2">
-                  <div class="row">
-                    <div class="col-9">
+              <div v-for="(conversion_record, index) in conversion_records" :key="conversion_record" class="bg-white border shadow-sm rounded my-2">
+                <v-container>
+                  <v-row class="border-bottom pb-2">
+                    <v-col cols="9">
                       <span>{{ conversion_record.name }}</span>
-                    </div>
-                    <div class="col-3">
+                    </v-col>
+                    <v-col cols="3">
                       <div class="d-flex justify-content-end">
                         <button type="button" class="btn-close" @click="handleDelete(index)"></button>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="container pt-2">
-                  <div class="row">
-                    <div class="col-6 text-center border-end">
+                    </v-col>
+                  </v-row>
+                  <v-row class="pt-2">
+                    <v-col cols="6" class="text-center border-end">
                       <span>{{ conversion_record.price }}円</span>
-                    </div>
-                    <div class="col-6 text-center">
+                    </v-col>
+                    <v-col cols="6" class="text-center">
                       <span>{{ conversion_record.posses_stone }}個</span>
-                    </div>
-                  </div>
-                </div>
+                    </v-col>
+                  </v-row>
+                </v-container>
               </div>
           </div>
           <div class="mt-3" v-if="authUser">
