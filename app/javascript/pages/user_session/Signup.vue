@@ -21,9 +21,7 @@
             <div class="text-danger"><ErrorMessage name="password_confirmation" /></div>
           </div>
           <div class="text-center bg-white">
-            <button type="submit" class="btn btn-dark my-3">
-              登録
-            </button>
+            <v-btn type="submit" class="my-3" color="info">登録</v-btn>
           </div>
         </Form>
       </div>

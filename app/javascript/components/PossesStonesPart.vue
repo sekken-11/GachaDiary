@@ -9,7 +9,7 @@
 
   <div v-if="isVisiblePossesStone">
 
-  <div v-if="possesStones.length == 0" class="text-center text-secondary p-3">
+  <div v-if="possesStones.length == 0" class="text-center text-muted p-3">
     <span>データがありません</span>
   </div>
   <div v-for="possesStone in possesStones"

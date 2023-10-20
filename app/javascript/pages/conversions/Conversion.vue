@@ -1,13 +1,11 @@
 <template>
-<div class="btn-primary rounded mb-3 p-2 text-center" @click="toCreate">
-  <span class="text-white">換算用データ新規作成</span>
-</div>
+<v-btn block class="mb-3 p-2" color="info" @click="toCreate">換算用データ 作成</v-btn>
 <div class="bg-white rounded shadow p-3 mb-3">
-    <div class="text-center text-secondary">
+    <div class="text-center text-muted">
     <span>換算用データ 一覧</span>
   </div>
   <hr>
-  <div v-if="currencyPackages.length == 0" class="text-center text-secondary p-3">
+  <div v-if="currencyPackages.length == 0" class="text-center text-muted p-3">
     <span>データがありません</span>
   </div>
     <div v-for="currencyPackage in currencyPackages"

@@ -16,9 +16,7 @@
             <div class="text-danger"><ErrorMessage name="password" /></div>
           </div>
           <div class="text-center bg-white">
-            <button type="submit" class="btn btn-dark my-3">
-              ログイン
-            </button>
+            <v-btn type="submit" class="my-3" color="info">ログイン</v-btn>
           </div>
         </Form>
         <div class="mt-3">

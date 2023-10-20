@@ -32,9 +32,7 @@
               </div>
             </div>
             <div class="card-footer text-center bg-white">
-              <button type="submit" class="btn btn-primary my-3">
-                追加
-              </button>
+              <v-btn type="submit" class="my-3" color="primary">追加</v-btn>
             </div>
             </Form>
           </div>
