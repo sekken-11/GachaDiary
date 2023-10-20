@@ -1,9 +1,9 @@
 <template>
-<div class="card shadow mb-3">
-  <div class="card-header bg-white py-3">
+<v-card class="shadow mb-3">
+  <v-card-title class="bg-white py-3">
     <span>換算用データ 編集</span>
-  </div>
-  <div class="card-body">
+  </v-card-title>
+  <v-card-text>
     <Form @submit="handleEditPackage">
       <div class="form-group m-3">
         <label for="name">ゲーム名</label>
@@ -30,8 +30,8 @@
         <v-btn block color="success" type="submit">変更</v-btn>
       </div>
     </Form>
-  </div>
-</div>
+  </v-card-text>
+</v-card>
 </template>
 
 <script>

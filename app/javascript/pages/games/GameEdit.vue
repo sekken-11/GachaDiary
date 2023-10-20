@@ -1,9 +1,9 @@
 <template>
-<div class="card shadow mb-3">
-  <div class="card-header bg-white py-3">
+<v-card class="shadow mb-3">
+  <v-card-title class="bg-white py-3">
     <span>ゲームごとの石の所持データ 編集</span>
-  </div>
-  <div class="card-body">
+  </v-card-title>
+  <v-card-text>
     <Form @submit="handleEditPossesStone">
       <div class="form-group m-3">
         <label for="quantity">石の所持数</label>
@@ -20,8 +20,8 @@
         <v-btn block class="bg-success" type="submit">変更</v-btn>
       </div>
     </Form>
-  </div>
-</div>
+  </v-card-text>
+</v-card>
 </template>
 
 <script>

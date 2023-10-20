@@ -1,8 +1,10 @@
 <template>
   <div class="py-3 d-flex justify-content-center">
-    <div class="card col-12 col-md-6 shadow">
-      <div class="card-header text-center bg-secondary text-light pt-3"><h4>新規登録</h4></div>
-      <div class="card-body">
+    <v-card class="col-12 col-md-6 shadow">
+      <v-card-title class="signup-title">
+        <h4>新規登録</h4>
+      </v-card-title>
+      <v-card-text>
         <Form @submit="handleSignUp">
           <div v-if="error" class="text-danger my-4">{{ error }}</div>
           <div class="form-group my-4">
@@ -21,11 +23,11 @@
             <div class="text-danger"><ErrorMessage name="password_confirmation" /></div>
           </div>
           <div class="text-center bg-white">
-            <v-btn type="submit" class="my-3" color="info">登録</v-btn>
+            <v-btn block type="submit" class="my-3" color="info">登録</v-btn>
           </div>
         </Form>
-      </div>
-    </div>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -94,3 +96,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.signup-title{
+  background-color: cornflowerblue;
+  color: white;
+  padding-top: 1rem;
+  text-align: center;
+}
+</style>

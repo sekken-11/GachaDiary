@@ -1,43 +1,41 @@
 <template>
   <div class="py-3">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 col-md-8">
-          <div class="card bg-white shadow">
-            <div class="card-header bg-white">
-              <div class="card-text text-center m-3">
-                <p>あなたの所持するガチャ石の数・ガチャ石の価格を入力してください</p>
-                <p>現金換算で何円分になるか計算いたします</p>
-              </div>
-            </div>
+    <v-container>
+      <v-row>
+        <v-col cols="12" md="8">
+          <v-card class="bg-white shadow">
+            <v-card-title class="text-center my-3 text-muted">
+              <p>あなたの所持するガチャ石の数・ガチャ石の価格を入力してください</p>
+              <p>現金換算で何円分になるか計算いたします</p>
+            </v-card-title>
             <Form @submit="handleConversion">
-            <div class="card-body m-3">
-              <div class="form-group mb-5">
-                  <label for="posses_stone" class="mb-1">ガチャ石の個数</label>
-                  <Field name="posses_stone" id="posses_stone" v-model.number="posses_stone" class="form-control" type="text" placeholder="現金換算したい石の個数を入力してください（個）" :rules="isNumericRequired" />
-                  <div class="text-danger"><ErrorMessage name="posses_stone" /></div>
-              </div>
-              <div class="form-group my-5">
-                <label for="currency_package" class="mb-1">ガチャ石の価格</label>
-                <div class="mb-3">
-                <Field name="price" id="stone_price" v-model.number="stone_price" class="form-control" type="text" placeholder="購入する際の金額を入力してください（円）" :rules="isNumericRequired" />
-                <div class="text-danger"><ErrorMessage name="price" /></div>
+              <v-card-text class="m-3">
+                <div class="form-group mb-5">
+                    <label for="posses_stone" class="mb-1">ガチャ石の個数</label>
+                    <Field name="posses_stone" id="posses_stone" v-model.number="posses_stone" class="form-control" type="text" placeholder="現金換算したい石の個数を入力してください（個）" :rules="isNumericRequired" />
+                    <div class="text-danger"><ErrorMessage name="posses_stone" /></div>
                 </div>
-                <Field name="quantity" id="stone_quantity" v-model.number="stone_quantity" class="form-control" type="text" placeholder="購入する際の個数を入力してください（個）" :rules="isNumericRequired" />
-                <div class="text-danger"><ErrorMessage name="quantity" /></div>
-              </div>
-              <div class="form-group">
-                <label for="game" class="mb-1">ゲーム名*任意</label>
-                <input id="game" v-model="game_name" class="form-control" type="text">
-              </div>
-            </div>
-            <div class="card-footer text-center bg-white">
-              <v-btn type="submit" class="my-3" color="primary">追加</v-btn>
-            </div>
+                <div class="form-group my-5">
+                  <label for="currency_package" class="mb-1">ガチャ石の価格</label>
+                  <div class="mb-3">
+                    <Field name="price" id="stone_price" v-model.number="stone_price" class="form-control" type="text" placeholder="購入する際の金額を入力してください（円）" :rules="isNumericRequired" />
+                    <div class="text-danger"><ErrorMessage name="price" /></div>
+                  </div>
+                    <Field name="quantity" id="stone_quantity" v-model.number="stone_quantity" class="form-control" type="text" placeholder="購入する際の個数を入力してください（個）" :rules="isNumericRequired" />
+                    <div class="text-danger"><ErrorMessage name="quantity" /></div>
+                  </div>
+                <div class="form-group">
+                  <label for="game" class="mb-1">ゲーム名*任意</label>
+                  <input id="game" v-model="game_name" class="form-control" type="text">
+                </div>
+                <div class="text-center">
+                  <v-btn block type="submit" class="mt-5" color="primary">追加</v-btn>
+                </div>
+              </v-card-text>
             </Form>
-          </div>
-        </div>
-        <div class="col-12 col-md-4">
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="4">
           <div class="bg-secondary mb-3 p-3 rounded shadow">
             <div class="h5 text-white">合計</div>
             <hr>
@@ -73,9 +71,9 @@
           <div class="mt-3" v-if="authUser">
             <TotalRecord />
           </div>
-        </div>
-      </div>
-    </div>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
