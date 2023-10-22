@@ -1,5 +1,5 @@
 <template>
-<v-app class="allcolor">
+<v-app class="bgcolor">
   <div class="d-flex flex-column min-vh-100">
     <Header class="mb-2" />
 
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style scoped>
-.allcolor {
-  background-color: lightblue;
+.bgcolor {
+  background-color: aliceblue;
 }
 </style>

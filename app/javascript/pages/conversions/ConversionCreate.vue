@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="m-3 mt-5">
-        <v-btn block color="info">作成</v-btn>
+        <v-btn block color="info" type="submit">作成</v-btn>
       </div>
     </Form>
   </v-card-text>
