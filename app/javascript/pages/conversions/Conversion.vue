@@ -1,24 +1,22 @@
 <template>
-<div class="btn-primary rounded mb-3 p-2 text-center" @click="toCreate">
-  <span class="text-white">換算用データ新規作成</span>
-</div>
+<v-btn block class="mb-3 p-2" color="info" @click="toCreate">換算用データ 作成</v-btn>
 <div class="bg-white rounded shadow p-3 mb-3">
-    <div class="text-center text-secondary">
+    <div class="text-center text-muted">
     <span>換算用データ 一覧</span>
   </div>
   <hr>
-  <div v-if="currencyPackages.length == 0" class="text-center text-secondary p-3">
+  <div v-if="currencyPackages.length == 0" class="text-center text-muted p-3">
     <span>データがありません</span>
   </div>
     <div v-for="currencyPackage in currencyPackages"
          :key="currencyPackage.id"
          class="bg-light border shadow-sm rounded my-2 py-2"
     >
-      <div class="container border-bottom pb-2">
-        <div class="row">
+      <v-container>
+        <v-row class="border-bottom pb-2 mx-2">
           <span>{{ currencyPackage.name }}</span>
-        </div>
-      </div>
+        </v-row>
+      </v-container>
       <div class="pt-2 px-4">
         <ul class="text-end mb-0">
           <button class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(currencyPackage)">詳細</button>

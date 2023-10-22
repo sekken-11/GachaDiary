@@ -1,6 +1,6 @@
 <template>
   <div class="py-3 d-flex justify-content-center">
-    <v-card class="card col-12 col-md-6 shadow">
+    <v-card class="col-12 col-md-6 shadow">
       <v-card-title class="text-center bg-warning pt-3"><h4>メールアドレス変更</h4></v-card-title>
       <v-card-text>
         <div class="my-5">

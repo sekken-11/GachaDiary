@@ -1,9 +1,9 @@
 <template>
-<div class="card shadow mb-3">
-  <div class="card-header bg-white py-3">
+<v-card class="shadow mb-3">
+  <v-card-title class="bg-white py-3">
     <span>換算用データ作成</span>
-  </div>
-  <div class="card-body">
+  </v-card-title>
+  <v-card-text>
     <Form @submit="handleCreatePackage">
       <div class="form-group m-3">
         <label for="name">ゲーム名</label>
@@ -26,12 +26,12 @@
           <ErrorMessage name="quantity" class="text-danger" />
         </div>
       </div>
-      <div class="text-end m-3 mt-5">
-        <button class="btn btn-primary">作成</button>
+      <div class="m-3 mt-5">
+        <v-btn block color="info" type="submit">作成</v-btn>
       </div>
     </Form>
-  </div>
-</div>
+  </v-card-text>
+</v-card>
 </template>
 
 <script>

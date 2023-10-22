@@ -2,13 +2,13 @@
   <v-container>
     <v-row>
       <v-col col="12">
-        <div class="card">
+        <v-card>
 
           <Form @submit="handleCreateGacha">
-            <div class="card-header bg-white py-3">
+            <v-card-title class="bg-white py-3">
               <span>ガチャ記録作成</span>
-            </div>
-            <div class="card-body">
+            </v-card-title>
+            <v-card-text>
               <div class="form-group m-3">
                 <label for="count">ガチャ回数</label>
                 <Field name="count" v-model.number="gacha.count" class="form-control" :rules="isNumericRequired" />
@@ -29,12 +29,12 @@
                 <label for="description">備考</label>
                 <Field as="textarea" name="description" id="description" v-model="gacha.description" style="width:100%" rows="3" />
               </div>
-              <div class="text-end m-3 mt-5">
-                <button class="btn btn-primary">作成</button>
+              <div class="m-3 mt-5">
+                <v-btn block color="info" type="submit">作成</v-btn>
               </div>
-            </div>
+            </v-card-text>
           </Form>
-        </div>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>

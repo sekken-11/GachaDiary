@@ -1,9 +1,7 @@
 <template>
-<div class="btn-primary rounded mb-3 p-2 text-center" @click="toCreate">
-  <span class="text-white">ゲームごとの石の所持データ 新規作成</span>
-</div>
+<v-btn block class="mb-3 p-2" color="info" @click="toCreate">ゲームごとの石の所持データ 作成</v-btn>
 <div class="bg-white rounded shadow p-3 mb-3">
-  <div class="text-secondary">
+  <div class="text-muted">
     <span>合計</span>
   </div>
   <hr>
