@@ -68,6 +68,8 @@ export default {
         'perPage',
         'search',
         'select',
+        'from_date',
+        'to_date',
     ],
     data() {
         return {
@@ -89,15 +91,49 @@ export default {
         },
         filteredGachas() {
             if (this.select) {
-                return this.gachas.filter(gacha => {
-                    return gacha.description.indexOf(this.search) != -1 && gacha.currency_package_id == this.select
-                })
-            } else if (this.search) {
-                return this.gachas.filter(gacha => {
-                    return gacha.description.indexOf(this.search) != -1
-                })
-            } else {
-                return this.gachas
+                if (this.from_date) {
+                    if (this.to_date) {
+                        return this.gachas.filter(gacha => {
+                            return gacha.description.indexOf(this.search) != -1 && gacha.currency_package_id == this.select && gacha.date >= this.from_date && gacha.date <= this.to_date
+                        })
+                    } else if (!this.to_date) {
+                        return this.gachas.filter(gacha => {
+                            return gacha.description.indexOf(this.search) != -1 && gacha.currency_package_id == this.select && gacha.date >= this.from_date
+                        })
+                    }
+                } else if (!this.from_date) {
+                    if (this.to_date) {
+                        return this.gachas.filter(gacha => {
+                            return gacha.description.indexOf(this.search) != -1 && gacha.currency_package_id == this.select && gacha.date <= this.to_date
+                        })
+                    } else if (!this.to_date) {
+                        return this.gachas.filter(gacha => {
+                            return gacha.description.indexOf(this.search) != -1 && gacha.currency_package_id == this.select
+                        })
+                    }
+                }
+            } else if (!this.select) {
+                if (this.from_date) {
+                    if (this.to_date) {
+                        return this.gachas.filter(gacha => {
+                            return gacha.description.indexOf(this.search) != -1 && gacha.date >= this.from_date && gacha.date <= this.to_date
+                        })
+                    } else if (!this.to_date) {
+                        return this.gachas.filter(gacha => {
+                            return gacha.description.indexOf(this.search) != -1 && gacha.date >= this.from_date
+                        })
+                    }
+                } else if (!this.from_date) {
+                    if (this.to_date) {
+                        return this.gachas.filter(gacha => {
+                            return gacha.description.indexOf(this.search) != -1 && gacha.date <= this.to_date
+                        })
+                    } else if (!this.to_date) {
+                        return this.gachas.filter(gacha => {
+                            return gacha.description.indexOf(this.search) != -1
+                        })
+                    }
+                }
             }
         },
         pageNumber() {
@@ -113,6 +149,14 @@ export default {
             this.pageChange();
         },
         select() {
+            this.currentPage = 1
+            this.pageChange();
+        },
+        from_date() {
+            this.currentPage = 1
+            this.pageChange();
+        },
+        to_date() {
             this.currentPage = 1
             this.pageChange();
         },
@@ -139,14 +183,66 @@ export default {
             this.$router.push({ name: 'GachaRecordCreate' })
         },
         toEdit(int) {
-            if (!this.search && !this.select) {
-                this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage } })
-            } else if (this.search && !this.select) {
-                this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search } })
-            } else if (!this.search && this.select) {
-                this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, select: this.select } })
-            } else if (this.search && this.select) {
-                this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, select: this.select } })
+            if (this.search) {
+                if (this.select) {
+                    if (this.from_date) {
+                        if (this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, select: this.select, from: this.from_date, to: this.to_date } })
+                        } else if (!this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, select: this.select, from: this.from_date } })
+                        }
+                    } else if (!this.from_date) {
+                        if (this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, select: this.select, to: this.to_date } })
+                        } else if (!this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, select: this.select } })
+                        }
+                    }
+                } else if (!this.select) {
+                    if (this.from_date) {
+                        if (this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, from: this.from_date, to: this.to_date } })
+                        } else if (!this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, from: this.from_date } })
+                        }
+                    } else if (!this.from_date) {
+                        if (this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, to: this.to_date } })
+                        } else if (!this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search } })
+                        }
+                    }
+                }
+            } else if (!this.search) {
+                if (this.select) {
+                    if (this.from_date) {
+                        if (this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, select: this.select, from: this.from_date, to: this.to_date } })
+                        } else if (!this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, select: this.select, from: this.from_date } })
+                        }
+                    } else if (!this.from_date) {
+                        if (this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, select: this.select, to: this.to_date } })
+                        } else if (!this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, select: this.select } })
+                        }
+                    }
+                } else if (!this.select) {
+                    if (this.from_date) {
+                        if (this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, from: this.from_date, to: this.to_date } })
+                        } else if (!this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, from: this.from_date } })
+                        }
+                    } else if (!this.from_date) {
+                        if (this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, to: this.to_date } })
+                        } else if (!this.to_date) {
+                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage } })
+                        }
+                    }
+                }
             }
         },
         pageChange() {
@@ -156,15 +252,67 @@ export default {
                 } else if (this.search) {
                     this.$router.push({ name: 'GameFullData', query: { page: this.currentPage, search: this.search } })
                 }
-            } else if (this.$route.path.match(/gacha/)) {
-                if (!this.search && !this.select) {
-                    this.$router.push({ name: 'Gacha', query: { page: this.currentPage } })
-                } else if (this.search && !this.select) {
-                    this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search } })
-                } else if (!this.search && this.select) {
-                    this.$router.push({ name: 'Gacha', query: { page: this.currentPage, select: this.select } })
-                } else if (this.search && this.select) {
-                    this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search, select: this.select } })
+            } else if (this.$route.path.match(/gachas/)) {
+                if (this.search) {
+                    if (this.select) {
+                        if (this.from_date) {
+                            if (this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search, select: this.select, from: this.from_date, to: this.to_date } })
+                            } else if (!this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search, select: this.select, from: this.from_date } })
+                            }
+                        } else if (!this.from_date) {
+                            if (this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search, select: this.select, to: this.to_date } })
+                            } else if (!this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search, select: this.select } })
+                            }
+                        }
+                    } else if (!this.select) {
+                        if (this.from_date) {
+                            if (this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search, from: this.from_date, to: this.to_date } })
+                            } else if (!this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search, from: this.from_date } })
+                            }
+                        } else if (!this.from_date) {
+                            if (this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search, to: this.to_date } })
+                            } else if (!this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, search: this.search } })
+                            }
+                        }
+                    }
+                } else if (!this.search) {
+                    if (this.select) {
+                        if (this.from_date) {
+                            if (this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, select: this.select, from: this.from_date, to: this.to_date } })
+                            } else if (!this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, select: this.select, from: this.from_date } })
+                            }
+                        } else if (!this.from_date) {
+                            if (this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, select: this.select, to: this.to_date } })
+                            } else if (!this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, select: this.select } })
+                            }
+                        }
+                    } else if (!this.select) {
+                        if (this.from_date) {
+                            if (this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, from: this.from_date, to: this.to_date } })
+                            } else if (!this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, from: this.from_date } })
+                            }
+                        } else if (!this.from_date) {
+                            if (this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage, to: this.to_date } })
+                            } else if (!this.to_date) {
+                                this.$router.push({ name: 'Gacha', query: { page: this.currentPage } })
+                            }
+                        }
+                    }
                 }
             }
         },

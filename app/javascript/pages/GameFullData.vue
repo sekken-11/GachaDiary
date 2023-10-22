@@ -28,7 +28,7 @@
 
 <PossesStonesPart :possesStones="specificPossesStones">石の所持データ</PossesStonesPart>
 
-<div class="form-row" id="search-form">
+<div id="search-form">
   <div class="form-group mb-3">
     <input type="text" v-model="search" class="form-control" id="search" placeholder="絞り込み">
   </div>
