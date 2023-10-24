@@ -1,7 +1,7 @@
 <template>
-  <header class="sticky-top">
-    <nav class="navbar navbar-dark bg-dark">
-      <span class="navbar-brand mb-0 h1">ガチャ日記</span>
+  <header>
+    <nav class="firstbar navbar border-bottom">
+      <span class="navbar-brand mb-0 ms-3 app-name">Gacha Diary</span>
         <ul class="navbar-nav">
           <li class="nav-item d-flex align-items-center" v-if="!authUser">
             <router-link :to="{ name: 'SignUp' }"><v-btn class="me-2" color="info">新規登録</v-btn></router-link>
@@ -9,40 +9,59 @@
           </li>
           <li class="nav-item d-flex align-items-center" v-if="authUser">
             <router-link :to="{ name: 'GachaRecordCreate' }"><v-btn class="me-2" color="info">ガチャ記録作成</v-btn></router-link>
-            <router-link :to="{ name: 'MyPage' }"><v-btn class="me-2" color="success">マイページ</v-btn></router-link>
-            <v-btn class="text-white me-2" color="danger" @click="handleSignOut">ログアウト</v-btn>
+            <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer" class="me-2"></v-app-bar-nav-icon>
           </li>
         </ul>
     </nav>
-    <nav class="navbar bg-white border-bottom">
-      <div v-for="menu in menus" :key="menu" class="flex-fill bd-highlight text-center">
-        <router-link :to="{ name: menu.link }">{{ menu.name }}</router-link>
+    <nav class="secondbar navbar mx-5 p-0">
+      <div v-for="menu in menus" 
+        :key="menu" 
+        class="secondbar-block flex-fill py-3" 
+        :class="{ 'here': menu.path == $route.path,
+                  'another': menu.path != $route.path }"
+        @click="toPages(menu.link)">
+        <router-link :to="{ name: menu.link }" class="secondbar-link">{{ menu.name }}</router-link>
       </div>
     </nav>
   </header>
+
+<SideBar v-model="drawer" />
+  
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import SideBar from './SideBar.vue'
+
 
 export default {
   name: "Header",
-  computed: {
-    ...mapGetters('users', ["authUser"])
+  components: {
+    SideBar
   },
   data() {
     return {
+      drawer: false,
       menus: [
-        { name: "現金換算", link: "Top" },
-        { name: "ガチャ記録", link: "Gacha" },
-        { name: "ゲーム記録", link: "Game" },
-        { name: "換算用データ", link: "Conversion" },
-        { name: "カレンダー", link: "Calendar" },
+        { name: "現金換算", link: "Top", path: "/" },
+        { name: "ガチャ記録", link: "Gacha", path: "/gachas" },
+        { name: "ゲーム記録", link: "Game", path: "/games" },
+        { name: "換算用データ", link: "Conversion", path: "/conversions" },
+        { name: "カレンダー", link: "Calendar", path: "/calendars" },
       ]
     }
   },
+  computed: {
+    ...mapGetters('users', ["authUser"])
+  },
   methods: {
     ...mapActions('users', ["logoutUser"]),
+    toMypage() {
+      this.$router.push({ name: 'MyPage' })
+    },
+    toPages(link) {
+      this.$router.push({ name: link })
+    },
     async handleSignOut() {
       var result = confirm('ログアウトしますか？');
       if (result) {
@@ -61,4 +80,34 @@ export default {
 </script>
 
 <style scoped>
+.app-name{
+  font-family: Courier;
+  font-size: 30px;
+  color: steelblue;
+}
+.firstbar{
+  background-color: white;
+  color: black;
+}
+.secondbar{
+  background-color: snow;
+}
+.secondbar-block{
+  text-align: center;
+}
+.secondbar-block:hover{
+  text-align: center;
+  background: linear-gradient(snow, lavender);
+}
+.secondbar-link{
+  color: gray;
+  text-decoration: none;
+}
+.here{
+  border-bottom: 4px solid mediumslateblue;
+  background: linear-gradient(snow, lavender);
+}
+.another{
+  border-bottom: 4px solid #efefef;
+}
 </style>

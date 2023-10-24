@@ -1,5 +1,5 @@
 <template>
-  <div class="py-3">
+  <div>
     <v-container>
       <v-row>
         <v-col cols="12" md="8">
@@ -36,12 +36,12 @@
           </v-card>
         </v-col>
         <v-col cols="12" md="4">
-          <div class="bg-secondary mb-3 p-3 rounded shadow">
+          <div class="amount mb-3 p-3 rounded shadow">
             <div class="h5 text-white">合計</div>
-            <hr>
+            <hr class="bg-white">
             <div class="h4 text-white text-center">{{ total }}円</div>
           </div>
-          <div class="bg-secondary rounded shadow p-3">
+          <div class="amount rounded shadow p-3">
             <div class="h5 text-white text-center">換算履歴</div>
               <div v-for="(conversion_record, index) in conversion_records" :key="conversion_record" class="bg-white border shadow-sm rounded my-2">
                 <v-container>
@@ -133,4 +133,7 @@ export default {
 </script>
 
 <style scoped>
+.amount{
+  background-color: steelblue;
+}
 </style>

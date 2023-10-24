@@ -56,6 +56,6 @@ export default {
 
 <style scoped>
 .bgcolor {
-  background-color: aliceblue;
+  background-color: snow;
 }
 </style>
