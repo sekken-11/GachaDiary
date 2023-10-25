@@ -16,6 +16,7 @@ import GameFullData from '../pages/GameFullData.vue'
 import MyPage from '../pages/MyPage.vue'
 import PasswordReset from '../pages/profiles/PasswordReset.vue'
 import EmailChange from '../pages/profiles/EmailChange.vue'
+import Information from '../pages/Information.vue'
 
 import store from '../store/vuex'
 
@@ -26,6 +27,11 @@ const routes = [
         path: '/',
         name: 'Top',
         component: Top
+    },
+    {
+        path: '/info',
+        name: 'Information',
+        component: Information
     },
     {
         path: '/passreset',

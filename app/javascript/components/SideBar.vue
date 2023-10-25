@@ -1,7 +1,10 @@
 <template>
 <v-navigation-drawer temporary location="end" theme="dark">
   <v-list>
-    <v-list-item @click="toMypage" class="border-bottom border-top">
+    <v-list-item @click="toInfo" class="border-bottom border-top">
+      <v-list-item-title>このサイトについて</v-list-item-title>
+    </v-list-item>
+    <v-list-item @click="toMypage" class="border-bottom border-top" v-if="authUser">
       <v-list-item-title>マイページ</v-list-item-title>
     </v-list-item>
     <v-list-item class="border-bottom border-top" @click="isVisiblePages = !isVisiblePages">
@@ -16,10 +19,15 @@
         :key="menu" :id="'page-' + index" 
         class="ms-3 py-0 border-start"
         :class="{ 'here': menu.path == $route.path }"
-        v-if="isVisiblePages"
+        v-if="isVisiblePages && authUser"
       >
         <v-list-item class="border-bottom" @click="toPages(menu.link)">
           <v-list-item-title>{{ menu.name }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+      <v-list v-if="isVisiblePages && !authUser" class="ms-3 py-0 border-start">
+        <v-list-item class="border-bottom">
+          <v-list-item-title>ログイン後に利用できます</v-list-item-title>
         </v-list-item>
       </v-list>
     <v-list-item class="border-bottom border-top" @click="isVisibleGames = !isVisibleGames">
@@ -33,10 +41,15 @@
         v-for="(totalRecord, index) in totalRecords" 
         :key="menu" :id="'game-' + index" 
         class="ms-3 py-0 border-start"
-        v-if="isVisibleGames"
+        v-if="isVisibleGames && authUser"
       >
         <v-list-item class="border-bottom" @click="toGames(totalRecord.id)">
           <v-list-item-title>{{ totalRecord.game_name }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+      <v-list v-if="isVisibleGames && !authUser" class="ms-3 py-0 border-start">
+        <v-list-item class="border-bottom">
+          <v-list-item-title>ログイン後に利用できます</v-list-item-title>
         </v-list-item>
       </v-list>
   </v-list>
@@ -72,10 +85,17 @@ export default {
   },
   computed: {
     ...mapGetters('gachas', ["totalRecords"]),
+    ...mapGetters('users', ["authUser"]),
+  },
+  created() {
+    this.fetchAuthUser();
   },
   methods: {
     ...mapActions('gachas', ["gachas"]),
-    ...mapActions('users', ["logoutUser"]),
+    ...mapActions('users', [
+      "logoutUser",
+      "fetchAuthUser",
+    ]),
     toMypage() {
       this.$router.push({ name: 'MyPage' })
     },
@@ -84,6 +104,9 @@ export default {
     },
     toGames(id) {
       this.$router.push({ name: 'GameFullData', params: { id: id } })
+    },
+    toInfo() {
+      this.$router.push({ name: 'Information' })
     },
     async handleSignOut() {
       var result = confirm('ログアウトしますか？');

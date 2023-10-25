@@ -6,6 +6,7 @@
           <li class="nav-item d-flex align-items-center" v-if="!authUser">
             <router-link :to="{ name: 'SignUp' }"><v-btn class="me-2" color="info">新規登録</v-btn></router-link>
             <router-link :to="{ name: 'SignIn' }"><v-btn class="me-2" color="info">ログイン</v-btn></router-link>
+            <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer" class="me-2"></v-app-bar-nav-icon>
           </li>
           <li class="nav-item d-flex align-items-center" v-if="authUser">
             <router-link :to="{ name: 'GachaRecordCreate' }"><v-btn class="me-2" color="info">ガチャ記録作成</v-btn></router-link>
