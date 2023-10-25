@@ -6,7 +6,7 @@
   <FullCalendar :options='calendarOptions' />
 </div>
 
-<GachaRecordPart :gachas="daysGachas" :perPage="perPage">日付が選択されていません</GachaRecordPart>
+<GachaRecordPart :gachas="daysGachas" :perPage="perPage" :search="search_null">日付が選択されていません</GachaRecordPart>
 
 </template>
 
@@ -28,6 +28,7 @@ export default {
       event_type: 'gacha_count',
       perPage: 5,
       date: new Date().toLocaleDateString('sv-SE'),
+      search_null: '',
       calendarOptions: {
         locale: 'ja',
         plugins: [dayGridPlugin, interactionPlugin],

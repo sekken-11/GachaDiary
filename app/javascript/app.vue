@@ -48,7 +48,7 @@ export default {
   computed: {
     ...mapGetters('users', ["authUser"]),
     no_total_record() {
-      return this.$route.path.match(/\/$/) || this.$route.path.match(/gachareco$/) || this.$route.path.match(/mypage$/) || this.$route.path.match(/passreset$/) || this.$route.path.match(/mailchange$/)
+      return this.$route.path.match(/\/$/) || this.$route.path.match(/gachareco$/) || this.$route.path.match(/mypage$/) || this.$route.path.match(/passreset$/) || this.$route.path.match(/mailchange$/) || this.$route.path.match(/info$/)
     }
   },
 }
@@ -56,6 +56,6 @@ export default {
 
 <style scoped>
 .bgcolor {
-  background-color: aliceblue;
+  background-color: snow;
 }
 </style>

@@ -54,6 +54,7 @@ export default {
 }
 .records:hover{
   background-color: lightgray;
+  transition: 0.5s;
 }
 .here{
   background-color: silver;
