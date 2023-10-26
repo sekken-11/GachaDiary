@@ -7,7 +7,7 @@
     <v-list-item @click="toMypage" class="border-bottom border-top" v-if="authUser">
       <v-list-item-title>マイページ</v-list-item-title>
     </v-list-item>
-    <v-list-item class="border-bottom border-top" @click="isVisiblePages = !isVisiblePages">
+    <v-list-item class="border-bottom border-top" @click="isVisiblePages = !isVisiblePages" id="page-choice">
       <v-list-item-title>
         ページ選択
         <i v-if="isVisiblePages" class="bi bi-chevron-down ms-2"></i>
@@ -30,7 +30,7 @@
           <v-list-item-title>ログイン後に利用できます</v-list-item-title>
         </v-list-item>
       </v-list>
-    <v-list-item class="border-bottom border-top" @click="isVisibleGames = !isVisibleGames">
+    <v-list-item class="border-bottom border-top" @click="isVisibleGames = !isVisibleGames" id="game-choice">
       <v-list-item-title>
         ゲーム選択
         <i v-if="isVisibleGames" class="bi bi-chevron-down ms-2"></i>
@@ -55,7 +55,7 @@
   </v-list>
 
   <template v-slot:append>
-    <div class="m-2">
+    <div class="m-2" v-if="authUser">
       <v-btn block color="danger" @click="handleSignOut">
         <span class="text-white">ログアウト</span>
       </v-btn>
@@ -128,8 +128,5 @@ export default {
 <style scoped>
 .here{
   pointer-events: none;
-}
-.sidebar:hover{
-  color: black;
 }
 </style>
