@@ -4,7 +4,6 @@ RSpec.describe 'ユーザー機能', type: :system do
 
   before do
     visit root_path
-    create(:user)
   end
 
   context '未ログイン' do
@@ -24,9 +23,11 @@ RSpec.describe 'ユーザー機能', type: :system do
       end
       page.accept_confirm
       expect(page).to have_current_path('/signin'), 'ログインページに遷移できていません'
+      post api_sessions_path, params: {"email"=>"test@example.com", "password"=>"password", "session"=>{"email"=>"test@example.com", "password"=>"password"}}
+      expect(response).to have_http_status(200)
     end
 
-    xit '登録済みユーザーでログインできる' do
+    it '登録済みユーザーでログインできる' do
       visit '/signin'
       within "#signin-form" do
         fill_in 'メールアドレス', with: user.email
@@ -34,6 +35,20 @@ RSpec.describe 'ユーザー機能', type: :system do
         click_button 'ログイン'
       end
       expect(page).to have_current_path('/'), '現金換算ページに遷移できていません'
+    end
+
+    it '登録済みユーザーでapi/sessionsのPOSTメソッドができる' do
+      click_button '新規登録'
+      within "#signup-form" do
+        fill_in 'メールアドレス', with: 'test@example.com'
+        fill_in 'パスワード', with: 'password'
+        fill_in 'パスワード（再入力）', with: 'password'
+        click_button '登録'
+      end
+      page.accept_confirm
+      expect(page).to have_current_path('/signin'), 'ログインページに遷移できていません'
+      post api_sessions_path, params: {"email"=>"test@example.com", "password"=>"password", "session"=>{"email"=>"test@example.com", "password"=>"password"}}
+      expect(response).to have_http_status(200)
     end
 
     it '登録済みメールアドレスでユーザー登録できない' do

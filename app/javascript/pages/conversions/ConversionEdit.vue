@@ -4,26 +4,27 @@
     <span>換算用データ 編集</span>
   </v-card-title>
   <v-card-text>
-    <Form @submit="handleEditPackage">
+    <Form @submit="handleEditPackage" id="currency_package-form">
       <div class="form-group m-3">
         <label for="name">ゲーム名</label>
-        <Field name="name" v-model="currencyPackage.name" class="form-control" :rules="isRequired" />
-        <ErrorMessage name="name" class="text-danger" />
+        <Field name="name" id="name" v-model="currencyPackage.name" class="form-control" :rules="isRequired" />
+        <ErrorMessage name="name" id="name_error" class="text-danger" />
       </div>
       <div class="form-group m-3">
-        <label for="name">ガチャ一回に必要なガチャ石</label>
-        <Field name="need_one_gacha_stones" v-model.number="currencyPackage.need_one_gacha_stones" class="form-control" :rules="isNumericRequired" />
-        <ErrorMessage name="need_one_gacha_stones" class="text-danger" />
+        <label for="need_one_gacha_stones">ガチャ一回に必要なガチャ石</label>
+        <Field name="need_one_gacha_stones" id="need_one_gacha_stones" v-model.number="currencyPackage.need_one_gacha_stones" class="form-control" :rules="isNumericRequired" />
+        <ErrorMessage name="need_one_gacha_stones" id="need_one_gacha_stones_error" class="text-danger" />
       </div>
       <div class="form-group m-3">
-        <label>ガチャ石の価格</label>
-        <div class="mb-1">
-          <Field name="price" v-model.number="currencyPackage.price" class="form-control" :rules="isNumericRequired" placeholder="購入する際の金額を入力してください（円）" />
-          <ErrorMessage name="price" class="text-danger" />
+        <div>
+          <label for="stone_price">ガチャ石の価格</label>
+          <Field name="price" id="stone_price" v-model.number="currencyPackage.price" class="form-control" :rules="isNumericRequired" placeholder="購入する際の金額を入力してください（円）" />
+          <ErrorMessage name="price" id="stone_price_error" class="text-danger" />
         </div>
         <div>
-          <Field name="quantity" v-model.number="currencyPackage.quantity" class="form-control" :rules="isNumericRequired" placeholder="購入する際の個数を入力してください（個）" />
-          <ErrorMessage name="quantity" class="text-danger" />
+          <label for="stone_quantity"></label>
+          <Field name="quantity" id="stone_quantity" v-model.number="currencyPackage.quantity" class="form-control" :rules="isNumericRequired" placeholder="購入する際の個数を入力してください（個）" />
+          <ErrorMessage name="quantity" id="stone_quantity_error" class="text-danger" />
         </div>
       </div>
       <div class="text-end m-3 mt-5">

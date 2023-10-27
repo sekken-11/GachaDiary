@@ -39,7 +39,6 @@
     </v-container>
     <div class="pt-2 px-4">
       <ul class="text-end mb-0">
-        <button class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(possesStone)">詳細</button>
         <button class="btn btn-sm btn-outline-success me-2" @click="toEdit(possesStone.id)">編集</button>
         <button class="btn btn-sm btn-outline-danger" @click="handleOpenDelete(possesStone)">削除</button>
       </ul>

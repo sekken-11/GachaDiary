@@ -6,10 +6,10 @@
   </div>
   <div class="bg rounded shadow p-3">
     <div class="h5 text-white text-center">換算合計</div>
-      <RecordPart v-for="totalRecord in totalRecords"
+      <RecordPart v-for="(totalRecord, index) in totalRecords"
         :totalRecord="totalRecord"
         :key="totalRecord.id"
-        :id="'record-' + totalRecord.id"
+        :id="'totalrecord-' + index"
         @toGameFullData="toGameFullData(totalRecord.id)"
       />
   </div>

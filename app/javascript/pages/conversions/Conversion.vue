@@ -8,8 +8,9 @@
   <div v-if="currencyPackages.length == 0" class="text-center text-muted p-3">
     <span>データがありません</span>
   </div>
-    <div v-for="currencyPackage in currencyPackages"
+    <div v-for="(currencyPackage, index) in currencyPackages"
          :key="currencyPackage.id"
+         :id="'package-' + index"
          class="bg-light border shadow-sm rounded my-2 py-2"
     >
       <v-container>
