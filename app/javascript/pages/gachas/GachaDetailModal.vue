@@ -1,7 +1,7 @@
 <template>
 <div id="gacha-detail-dialog">
   <div class="modal" @click.self="handleClose">
-    <div class="modal-dialog">
+    <div class="modal-dialog" id="gacha_modal">
       <div class="modal-content">
         <div class="modal-header">
           <span>ガチャ記録 詳細</span>

@@ -1,5 +1,5 @@
 <template>
-<div class="bg-white rounded shadow p-3 mb-3">
+<div id="calendar" class="bg-white rounded shadow p-3 mb-3">
   <div class="mb-4">
     <v-btn block color="success" @click="eventChange">表示切替</v-btn>
   </div>

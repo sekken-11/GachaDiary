@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  #match '*path' => 'options_request#preflight', via: :options
-
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end

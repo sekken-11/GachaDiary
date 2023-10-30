@@ -4,11 +4,11 @@
     <span>ゲームごとの石の所持データ 編集</span>
   </v-card-title>
   <v-card-text>
-    <Form @submit="handleEditPossesStone">
+    <Form @submit="handleEditPossesStone" id="posses-edit-form">
       <div class="form-group m-3">
         <label for="quantity">石の所持数</label>
-        <Field name="quantity" v-model.number="possesStone.quantity" class="form-control" :rules="isNumericRequired" />
-        <ErrorMessage name="quantity" class="text-danger" />
+        <Field name="quantity" id="quantity" v-model.number="possesStone.quantity" class="form-control" :rules="isNumericRequired" />
+        <ErrorMessage name="quantity" id="quantity_error" class="text-danger" />
       </div>
       <div class="form-group m-3">
         <label for="currency_package">換算用データ</label>

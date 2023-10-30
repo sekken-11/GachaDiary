@@ -42,7 +42,7 @@
           </div>
           <div class="amount rounded shadow p-3">
             <div class="h5 text-white text-center">換算履歴</div>
-              <div v-for="(conversion_record, index) in conversion_records" :id="'record-' + index" :key="conversion_record" class="bg-white border shadow-sm rounded my-2">
+              <div v-for="(conversion_record, index) in conversion_records" :id="'record-' + (index + 1)" :key="conversion_record" class="bg-white border shadow-sm rounded my-2">
                 <v-container>
                   <v-row class="border-bottom pb-2">
                     <v-col cols="9">
@@ -50,7 +50,7 @@
                     </v-col>
                     <v-col cols="3">
                       <div class="d-flex justify-content-end">
-                        <button type="button" class="btn-close" @click="handleDelete(index)" :id="'delete-' + index"></button>
+                        <button type="button" class="btn-close" @click="handleDelete(index)" :id="'delete-' + (index + 1)"></button>
                       </div>
                     </v-col>
                   </v-row>

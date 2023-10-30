@@ -7,6 +7,7 @@ class Api::SessionsController < ApplicationController
       render json: { token: token }
     else
       head :unauthorized
+      byebug
     end
   end
 

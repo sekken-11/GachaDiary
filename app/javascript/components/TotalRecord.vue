@@ -9,7 +9,7 @@
       <RecordPart v-for="(totalRecord, index) in totalRecords"
         :totalRecord="totalRecord"
         :key="totalRecord.id"
-        :id="'totalrecord-' + index"
+        :id="'totalrecord-' + (index + 1)"
         @toGameFullData="toGameFullData(totalRecord.id)"
       />
   </div>

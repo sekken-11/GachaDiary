@@ -16,7 +16,7 @@
     </v-list-item>
       <v-list 
         v-for="(menu, index) in menus" 
-        :key="menu" :id="'page-' + index" 
+        :key="menu" :id="'page-' + (index + 1)" 
         class="ms-3 py-0 border-start"
         :class="{ 'here': menu.path == $route.path }"
         v-if="isVisiblePages && authUser"
@@ -39,7 +39,7 @@
     </v-list-item>
       <v-list 
         v-for="(totalRecord, index) in totalRecords" 
-        :key="menu" :id="'game-' + index" 
+        :key="menu" :id="'game-' + (index + 1)" 
         class="ms-3 py-0 border-start"
         v-if="isVisibleGames && authUser"
       >

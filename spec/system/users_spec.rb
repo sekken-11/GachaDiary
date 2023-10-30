@@ -31,9 +31,10 @@ RSpec.describe 'ユーザー機能', type: :system do
       visit '/signin'
       within "#signin-form" do
         fill_in 'メールアドレス', with: user.email
-        fill_in 'パスワード', with: 'password'
+        fill_in 'パスワード', with: '12345678'
         click_button 'ログイン'
       end
+      page.accept_confirm
       expect(page).to have_current_path('/'), '現金換算ページに遷移できていません'
     end
 
@@ -154,17 +155,19 @@ RSpec.describe 'ユーザー機能', type: :system do
 
   context 'ログイン済み' do
 
-    xit 'ログイン状態でログアウトできる' do
+    it 'ログイン状態でログアウトできる' do
       login_as(user)
       find('#sidebar').click
       expect(page).to have_content('ログアウト'), 'ログイン状態でサイドバーに「ログアウト」ボタンが表示されていません'
       click_button 'ログアウト'
+      page.accept_confirm
+      page.accept_confirm
       expect(page).to have_current_path('/'), '現金換算に遷移できていません'
       expect(page).to have_content('新規登録'), '未ログイン状態でヘッダーに「新規登録」ボタンが表示されていません'
       expect(page).to have_content('ログイン'), '未ログイン状態でヘッダーに「ログイン」ボタンが表示されていません'
     end
 
-    xit 'ログイン状態で各ページに遷移したら、当該ページが表示される' do
+    it 'ログイン状態で各ページに遷移したら、当該ページが表示される' do
       login_as(user)
       visit root_path
       click_on 'ガチャ記録'

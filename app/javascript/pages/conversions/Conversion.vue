@@ -10,7 +10,7 @@
   </div>
     <div v-for="(currencyPackage, index) in currencyPackages"
          :key="currencyPackage.id"
-         :id="'package-' + index"
+         :id="'package-' + (index + 1)"
          class="bg-light border shadow-sm rounded my-2 py-2"
     >
       <v-container>

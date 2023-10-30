@@ -16,6 +16,11 @@ const state = {
   
   const actions = {
     async loginUser({ commit }, user) {
+      // テスト用
+      //axios.defaults.headers.common['Access-Control-Allow-Headers'] = 'Accept,Origin,Content-Type,Authorization'
+      //axios.defaults.headers.common['Content-Type'] = 'application/json;charset=utf-8'
+      //axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+      //axios.defaults.headers.post['Access-Control-Allow-Methods'] = 'GET, OPTIONS, PUT, DELETE, POST'
       // ログイン
       const sessionsResponse = await axios.post('sessions', user)
       localStorage.auth_token = sessionsResponse.data.token
