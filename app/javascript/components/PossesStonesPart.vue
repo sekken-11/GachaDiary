@@ -1,5 +1,5 @@
 <template>
-<div class="bg-white rounded shadow p-3 mb-3" id="posses_stones">
+<div id="posses_stones" class="bg-white rounded shadow p-3 mb-3">
   <div class="text-center text-muted">
     <span><slot></slot></span>
     <button v-if="isVisiblePossesStone" class="border-0 bg-white text-muted" @click="possesStoneUp"><i class="bi bi-chevron-up"></i></button>

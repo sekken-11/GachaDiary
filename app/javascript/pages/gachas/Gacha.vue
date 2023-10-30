@@ -7,12 +7,12 @@
   <v-row>
     <v-col cols="6">
       <div class="form-group">
-        <input type="date" v-model="from_date" class="form-control">
+        <input id="from_date" type="date" v-model="from_date" class="form-control">
       </div>
     </v-col>
     <v-col cols="6">
       <div class="form-group">
-        <input type="date" v-model="to_date" class="form-control">
+        <input id="to_date" type="date" v-model="to_date" class="form-control">
       </div>
     </v-col>
   </v-row>

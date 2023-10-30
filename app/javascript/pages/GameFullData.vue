@@ -1,9 +1,9 @@
 <template>
-<div class="bg-white rounded shadow p-3 mb-3">
+<div id="gamename" class="bg-white rounded shadow p-3 mb-3">
   <span class="text-success">{{ currencyPackage.name }}</span>
   <span class="text-muted"> の 記録一覧</span>
 </div>
-<div class="bg-white rounded shadow p-3 mb-3">
+<div id="gamedata" class="bg-white rounded shadow p-3 mb-3">
   <div class="text-center mb-2">
     <span class="text-muted">合計</span>
   </div>

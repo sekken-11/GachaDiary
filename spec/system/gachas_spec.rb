@@ -91,6 +91,50 @@ RSpec.describe 'ガチャ記録機能', type: :system do
     end
 
     it 'ガチャ記録を備考から絞り込める' do
+      fill_in 'search', with: 'test'
+      within '#gacharecord-1' do
+        expect(page).to have_content('2023-08-15'), '検索結果が正しくない'
+        expect(page).to have_content('3000円'), '検索結果が正しくない'
+        expect(page).to have_content('ゲーム2'), '検索結果が正しくない'
+        expect(page).to have_content('10回'), '検索結果が正しくない'
+      end
+      expect(page).not_to have_selector('#gacharecord-2'), '検索結果が正しくない'
+    end
+
+    it 'ガチャ記録を換算用データから絞り込める' do
+      find("option[value='2']").select_option
+      within '#gacharecord-1' do
+        expect(page).to have_content('2023-08-15'), '検索結果が正しくない'
+        expect(page).to have_content('3000円'), '検索結果が正しくない'
+        expect(page).to have_content('ゲーム2'), '検索結果が正しくない'
+        expect(page).to have_content('10回'), '検索結果が正しくない'
+      end
+      expect(page).not_to have_selector('#gacharecord-2'), '検索結果が正しくない'
+    end
+
+    it 'ガチャ記録を日付から絞り込める' do
+      fill_in 'from_date', with: Date.new(2023, 7, 15)
+      within '#gacharecord-1' do
+        expect(page).to have_content('2023-08-15'), '検索結果が正しくない'
+        expect(page).to have_content('3000円'), '検索結果が正しくない'
+        expect(page).to have_content('ゲーム2'), '検索結果が正しくない'
+        expect(page).to have_content('10回'), '検索結果が正しくない'
+      end
+      within '#gacharecord-2' do
+        expect(page).to have_content('2023-07-15'), '検索結果が正しくない'
+        expect(page).to have_content('2400円'), '検索結果が正しくない'
+        expect(page).to have_content('ゲーム'), '検索結果が正しくない'
+        expect(page).to have_content('10回'), '検索結果が正しくない'
+      end
+      expect(page).not_to have_selector('#gacharecord-3'), '検索結果が正しくない'
+      fill_in 'to_date', with: Date.new(2023, 7, 15)
+      within '#gacharecord-1' do
+        expect(page).to have_content('2023-07-15'), '検索結果が正しくない'
+        expect(page).to have_content('2400円'), '検索結果が正しくない'
+        expect(page).to have_content('ゲーム'), '検索結果が正しくない'
+        expect(page).to have_content('10回'), '検索結果が正しくない'
+      end
+      expect(page).not_to have_selector('#gacharecord-2'), '検索結果が正しくない'
     end
 
   end
