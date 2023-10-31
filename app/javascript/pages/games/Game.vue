@@ -1,6 +1,6 @@
 <template>
 <v-btn block class="mb-3 p-2" color="info" @click="toCreate">ゲームごとの石の所持データ 作成</v-btn>
-<div class="bg-white rounded shadow p-3 mb-3">
+<div id="posses-total" class="bg-white rounded shadow p-3 mb-3">
   <div class="text-muted">
     <span>合計</span>
   </div>

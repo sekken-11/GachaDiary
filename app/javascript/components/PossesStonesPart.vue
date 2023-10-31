@@ -1,5 +1,5 @@
 <template>
-<div class="bg-white rounded shadow p-3 mb-3">
+<div id="posses_stones" class="bg-white rounded shadow p-3 mb-3">
   <div class="text-center text-muted">
     <span><slot></slot></span>
     <button v-if="isVisiblePossesStone" class="border-0 bg-white text-muted" @click="possesStoneUp"><i class="bi bi-chevron-up"></i></button>
@@ -12,8 +12,9 @@
   <div v-if="possesStones.length == 0" class="text-center text-muted p-3">
     <span>データがありません</span>
   </div>
-  <div v-for="possesStone in possesStones"
+  <div v-for="(possesStone, index) in possesStones"
        :key="possesStone.id"
+       :id="'posses_stone_record-' + (index + 1)"
        class="bg-light border shadow-sm rounded my-2 p-2"
   >
     <v-container>
@@ -39,7 +40,6 @@
     </v-container>
     <div class="pt-2 px-4">
       <ul class="text-end mb-0">
-        <button class="btn btn-sm btn-outline-info me-2" @click="handleOpenDetail(possesStone)">詳細</button>
         <button class="btn btn-sm btn-outline-success me-2" @click="toEdit(possesStone.id)">編集</button>
         <button class="btn btn-sm btn-outline-danger" @click="handleOpenDelete(possesStone)">削除</button>
       </ul>

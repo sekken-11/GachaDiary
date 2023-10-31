@@ -1,19 +1,19 @@
 <template>
   <v-card class="mb-3">
-    <Form @submit="handleEditGacha">
+    <Form @submit="handleEditGacha" id="gacha-edit-form">
       <v-card-item class="bg-white py-3 border-bottom">
         <span>ガチャ記録 編集</span>
       </v-card-item>
       <v-card-text>
         <div class="form-group m-3">
           <label for="count">ガチャ回数</label>
-          <Field name="count" v-model.number="gacha.count" class="form-control" :rules="isNumericRequired" />
-          <ErrorMessage name="count" class="text-danger" />
+          <Field name="count" id="count" v-model.number="gacha.count" class="form-control" :rules="isNumericRequired" />
+          <ErrorMessage name="count" id="count_error" class="text-danger" />
         </div>
         <div class="form-group m-3">
           <label for="date">ガチャを引いた日付</label>
-          <Field name="date" type="date" v-model="gacha.date" class="form-control" />
-          <ErrorMessage name="date" class="text-danger" />
+          <Field name="date" id="date" type="date" v-model="gacha.date" class="form-control" />
+          <ErrorMessage name="date" id="date" class="text-danger" />
         </div>
         <div class="form-group m-3">
           <label for="currency_package">換算用データ</label>

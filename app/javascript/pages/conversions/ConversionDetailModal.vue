@@ -1,7 +1,7 @@
 <template>
 <div id="conversion-detail-dialog">
   <div class="modal" @click.self="handleClose">
-    <div class="modal-dialog">
+    <div class="modal-dialog" id="conversion_modal">
       <div class="modal-content">
         <div class="modal-header">
           <span>換算用データ詳細</span>

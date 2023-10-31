@@ -1,5 +1,5 @@
 <template>
-<div class="bg-white rounded shadow p-3 mb-3">
+<div id="gacharecords" class="bg-white rounded shadow p-3 mb-3">
   <div class="text-center text-muted">
     <span>ガチャ記録 一覧</span>
     <button v-if="isVisibleGacha" class="border-0 bg-white text-muted" @click="gachaUp"><i class="bi bi-chevron-up"></i></button>
@@ -10,11 +10,12 @@
     <div v-if="filteredGachas.length == 0" class="text-center text-muted p-3">
       <span><slot></slot></span>
     </div>
-      <div v-for="gacha in getList"
+      <div v-for="(gacha, index) in getList"
            :key="gacha.id"
+           :id="'gacharecord-' + (index + 1)"
            class="bg-light border shadow-sm rounded my-2 pb-2"
       >
-        <v-container class="">
+        <v-container>
           <v-row class="border-bottom">
             <v-col cols="6">{{ gacha.date }}</v-col>
             <v-col cols="6" class="text-center">{{ Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count) }}円</v-col>

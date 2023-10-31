@@ -1,5 +1,5 @@
 <template>
-<div id="conversion-delete-dialog">
+<div id="delete-dialog">
   <div class="modal" @click.self="handleClose">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -8,7 +8,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-outline-info" @click="handleClose">戻る</button>
-          <button class="btn btn-outline-danger" @click="handleDelete">削除</button>
+          <button id="delete-button" class="btn btn-outline-danger" @click="handleDelete">削除</button>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="py-3 d-flex justify-content-center">
-    <v-card class="col-12 col-md-6 shadow">
+    <v-card class="col-12 col-md-6 shadow" id="signup-form">
       <v-card-title class="signup-title">
         <h4>新規登録</h4>
       </v-card-title>

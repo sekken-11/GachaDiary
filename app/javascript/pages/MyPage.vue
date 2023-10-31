@@ -8,7 +8,7 @@
     <v-col cols="12" md="9">
       <v-row>
         <v-col cols="12">
-          <div class="bg-white rounded shadow p-3">
+          <div id="total" class="bg-white rounded shadow p-3">
             <div class="text-center mb-2">
               <span class="text-muted">ガチャ記録合計</span>
             </div>
@@ -18,7 +18,7 @@
           </div>
         </v-col>
         <v-col cols="12">
-          <div class="bg-white rounded shadow p-3">
+          <div id="chart" class="bg-white rounded shadow p-3">
             <div class="h5 text-center my-2">
               <span class="text-muted">ゲームごとの割合</span>
             </div>
@@ -26,9 +26,11 @@
               <span>ガチャ記録がありません</span>
             </div>
             <div v-if="gachas.length != 0">
-              <div><Pie :data="chartData" :options="chartOptions" class="p-4" /></div>
+              <div id="pie-chart">
+                <Pie :data="chartData" :options="chartOptions" class="p-4" />
+              </div>
               <hr>
-              <div v-for="sortRecord in sortRecords">
+              <div v-for="(sortRecord, index) in sortRecords" :id="'game-' + (index + 1)">
                 <v-row>
                   <v-col cols="4" class="text-center">
                     <span>{{ sortRecord.game_name }}</span>
@@ -48,7 +50,7 @@
           </div>
         </v-col>
         <v-col cols="12">
-          <div class="bg-white rounded shadow p-3 mb-3">
+          <div id="totalrecords" class="bg-white rounded shadow p-3 mb-3">
             <div class="text-center text-muted">
               <span>換算合計一覧</span>
             </div>
@@ -69,7 +71,7 @@
       </v-row>
     </v-col>
     <v-col cols="12" md="3">
-      <div class="bg-white rounded shadow p-3 mb-3">
+      <div id="user-info" class="bg-white rounded shadow p-3 mb-3">
         <div class="text-muted">
           <h4>ユーザー情報</h4>
             <hr>
