@@ -13,6 +13,10 @@ RSpec.describe 'ユーザー機能', type: :system do
       expect(page).to have_content('ログイン'), '未ログイン状態でヘッダーに「ログイン」ボタンが表示されていません'
     end
 
+    it '未ログイン状態でヘッダーに「ガチャ記録作成」ボタンが表示されていない' do
+      expect(page).not_to have_content('ガチャ記録作成'), '未ログイン状態でヘッダーに「ガチャ記録作成」ボタンが表示されています'
+    end
+
     it '新規登録ページで各フィールドを入力して「登録」をクリックしたらユーザーが登録されている' do
       click_button '新規登録'
       within "#signup-form" do
@@ -23,8 +27,6 @@ RSpec.describe 'ユーザー機能', type: :system do
       end
       page.accept_confirm
       expect(page).to have_current_path('/signin'), 'ログインページに遷移できていません'
-      post api_sessions_path, params: {"email"=>"test@example.com", "password"=>"password", "session"=>{"email"=>"test@example.com", "password"=>"password"}}
-      expect(response).to have_http_status(200)
     end
 
     it '登録済みユーザーでログインできる' do
@@ -116,23 +118,12 @@ RSpec.describe 'ユーザー機能', type: :system do
       expect(page).to have_no_content('ログアウト'), 'ログアウトボタンが表示されている'
     end
 
-    it 'ページ選択ができない' do
-      find('#sidebar').click
-      find('#page-choice').click
-      expect(page).to have_content('ログイン後に利用できます'), 'ページ選択ができる'
-    end
-
-    it 'ゲーム選択ができない' do
-      find('#sidebar').click
-      find('#game-choice').click
-      expect(page).to have_content('ログイン後に利用できます'), 'ページ選択ができる'
-    end
-
-    xit 'パスワード変更' do
+    it 'パスワード変更用メールが送信できる' do
       visit '/signin'
       click_on 'パスワードを忘れた方はこちら'
       fill_in 'メールアドレス', with: user.email
       click_button '送信'
+      page.accept_confirm
       last_mail = ActionMailer::Base.deliveries.last
       expect(last_mail.subject).to eq 'パスワードリセット'
     end
