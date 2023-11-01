@@ -56,16 +56,16 @@ RSpec.describe 'サイドメニュー機能', type: :system do
     end
 
     it '換算用データが存在するとき、サイドメニューから各ゲームページに遷移できる' do
-      create(:currency_package, user: @login_user)
-      create(:currency_package, user: @login_user)
+      @package1 = create(:currency_package, user: @login_user)
+      @package2 = create(:currency_package, user: @login_user)
       visit current_path
       find('#sidebar').click
       find('#game-choice').click
       find('#game-button-1').click
-      expect(page).to have_current_path('/gamedata/1'), 'ゲームデータページに遷移できなていない'
+      expect(page).to have_current_path("/gamedata/#{@package1.id}"), 'ゲームデータページに遷移できていない'
       find('#sidebar').click
       find('#game-button-2').click
-      expect(page).to have_current_path('/gamedata/2'), 'ゲームデータページに遷移できていない'
+      expect(page).to have_current_path("/gamedata/#{@package2.id}"), 'ゲームデータページに遷移できていない'
     end
 
     it '換算用データが存在しないとき、サイドメニューにその旨が表示される' do

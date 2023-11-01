@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe 'ガチャ記録機能', type: :system do
+RSpec.describe 'ゲーム記録機能', type: :system do
 
   before do
     @login_user = create(:user)
@@ -38,7 +38,7 @@ RSpec.describe 'ガチャ記録機能', type: :system do
       end
       within '#posses-edit-form' do
         expect(find_field('石の所持数').value).to eq '10000'
-        expect(find_field('換算用データ').value).to eq '1'
+        expect(find_field('換算用データ').value).to eq "#{@package1.id}"
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe 'ガチャ記録機能', type: :system do
       end
       within '#posses-edit-form' do
         fill_in '石の所持数', with: '20000'
-        find("option[value='2']").select_option
+        select 'ゲーム2', from: 'currency_package_id'
         click_button '変更'
       end
       expect(find('#posses-total')).to have_content('40000円'), '変更データが合計に反映されていない'
@@ -67,7 +67,7 @@ RSpec.describe 'ガチャ記録機能', type: :system do
       click_button 'ゲームごとの石の所持データ 作成'
       within '#posses-form' do
         fill_in '石の所持数', with: '10000'
-        find("option[value='1']").select_option
+        select 'ゲーム', from: 'currency_package_id'
         click_button '作成'
       end
       expect(find('#posses-total')).to have_content('16000円'), 'データが合計に反映されていない'

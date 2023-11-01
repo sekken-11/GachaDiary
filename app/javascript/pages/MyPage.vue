@@ -59,10 +59,10 @@
               <span>データがありません</span>
             </div>
 
-            <RecordPart v-for="sortRecord in sortRecords"
+            <RecordPart v-for="(sortRecord, index) in sortRecords"
               :totalRecord="sortRecord"
               :key="sortRecord.id"
-              :id="'record-' + sortRecord.id"
+              :id="'record-' + (index + 1)"
               @toGameFullData="toGameFullData(sortRecord.id)"
             />
 
