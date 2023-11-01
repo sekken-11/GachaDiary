@@ -11,12 +11,15 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_10_17_094346) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "currency_packages", force: :cascade do |t|
     t.string "name", null: false
     t.integer "need_one_gacha_stones", null: false
     t.integer "price", null: false
     t.integer "quantity", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_currency_packages_on_user_id"
@@ -26,8 +29,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_094346) do
     t.date "date", null: false
     t.integer "count"
     t.string "description"
-    t.integer "user_id", null: false
-    t.integer "currency_package_id"
+    t.bigint "user_id", null: false
+    t.bigint "currency_package_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["currency_package_id"], name: "index_gachas_on_currency_package_id"
@@ -36,10 +39,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_094346) do
 
   create_table "user_posses_stones", force: :cascade do |t|
     t.integer "quantity"
-    t.integer "currency_package_id"
+    t.bigint "currency_package_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["currency_package_id"], name: "index_user_posses_stones_on_currency_package_id"
     t.index ["user_id"], name: "index_user_posses_stones_on_user_id"
   end

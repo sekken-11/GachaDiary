@@ -80,3 +80,5 @@ gem "bootstrap", "~> 5.0.2"
 gem "sorcery"
 gem "jwt"
 gem "config"
+
+gem 'pg'

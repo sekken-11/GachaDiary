@@ -61,7 +61,7 @@ RSpec.describe 'ガチャ記録機能', type: :system do
       within '#gacha-edit-form' do
         expect(find_field('ガチャ回数').value).to eq '10'
         expect(find_field('ガチャを引いた日付').value).to eq '2023-08-15'
-        expect(find_field('換算用データ').value).to eq '2'
+        expect(find_field('換算用データ').value).to eq "#{@package2.id}"
         expect(find_field('備考').value).to eq 'test'
       end
     end
@@ -73,7 +73,7 @@ RSpec.describe 'ガチャ記録機能', type: :system do
       within '#gacha-edit-form' do
         fill_in 'ガチャ回数', with: '20'
         fill_in 'ガチャを引いた日付', with: Date.new(2023, 7, 15)
-        find("option[value='2']").select_option
+        select 'ゲーム2', from: 'currency_package_id'
         fill_in '備考', with: 'テスト'
         click_button '変更'
       end
@@ -102,7 +102,7 @@ RSpec.describe 'ガチャ記録機能', type: :system do
     end
 
     it 'ガチャ記録を換算用データから絞り込める' do
-      find("option[value='2']").select_option
+      select 'ゲーム2', from: 'select'
       within '#gacharecord-1' do
         expect(page).to have_content('2023-08-15'), '検索結果が正しくない'
         expect(page).to have_content('3000円'), '検索結果が正しくない'
@@ -146,7 +146,7 @@ RSpec.describe 'ガチャ記録機能', type: :system do
       within '#gacha-form' do
         fill_in 'ガチャ回数', with: '10'
         fill_in 'ガチャを引いた日付', with: Date.new(2023, 6, 15)
-        find("option[value='1']").select_option
+        select 'ゲーム', from: 'currency_package_id'
         fill_in '備考', with: ''
         click_button '作成'
       end
