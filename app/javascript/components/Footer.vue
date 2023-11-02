@@ -4,12 +4,15 @@
       <div class="secondbar-block flex-fill py-3" @click="toPages(Information)">
         <router-link :to="{ name: Information }" class="secondbar-link">このサイトについて</router-link>
       </div>
-      <div class="secondbar-block flex-fill py-3 border-end border-start" @click="toPages(menu.link)">
+      <div class="secondbar-block flex-fill py-3 border-end border-start" @click="toPages(Terms)">
         <router-link :to="{ name: Terms }" class="secondbar-link">利用規約</router-link>
       </div>
-      <div class="secondbar-block flex-fill py-3" @click="toPages(menu.link)">
+      <div class="secondbar-block flex-fill py-3" @click="toPages(Policy)">
         <router-link :to="{ name: Policy }" class="secondbar-link">プライバシーポリシー</router-link>
       </div>
+    </nav>
+    <nav class="navbar">
+      <small class="flex-fill text-muted pb-3">&copy; 2023 gachadiary38971 All Rights Reserved.</small>
     </nav>
   </footer>
 </template>
@@ -57,12 +60,5 @@ export default {
 .secondbar-link{
   color: gray;
   text-decoration: none;
-}
-.here{
-  border-bottom: 4px solid mediumslateblue;
-  background: linear-gradient(snow, lavender);
-}
-.another{
-  border-bottom: 4px solid #efefef;
 }
 </style>
