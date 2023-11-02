@@ -2,9 +2,9 @@ import * as vueRouter from 'vue-router'
 import Top from '../pages/Top.vue'
 import Gacha from '../pages/gachas/Gacha.vue'
 import GachaEdit from '../pages/gachas/GachaEdit.vue'
-import Game from '../pages//games/Game.vue'
-import GameCreate from '../pages/games/GameCreate.vue'
-import GameEdit from '../pages/games/GameEdit.vue'
+import Posses from '../pages//posses/Posses.vue'
+import PossesCreate from '../pages/posses/PossesCreate.vue'
+import PossesEdit from '../pages/posses/PossesEdit.vue'
 import Conversion from '../pages/conversions/Conversion.vue'
 import ConversionCreate from '../pages/conversions/ConversionCreate.vue'
 import ConversionEdit from '../pages/conversions/ConversionEdit.vue'
@@ -69,21 +69,21 @@ const routes = [
         meta: { requiredAuth: true },
     },
     {
-        path: '/games',
-        name: 'Game',
-        component: Game,
+        path: '/posses',
+        name: 'Posses',
+        component: Posses,
         meta: { requiredAuth: true },
     },
     {
-        path: '/games/new',
-        name: 'GameCreate',
-        component: GameCreate,
+        path: '/posses/new',
+        name: 'PossesCreate',
+        component: PossesCreate,
         meta: { requiredAuth: true },
     },
     {
-        path: '/games/edit/:id',
-        name: 'GameEdit',
-        component: GameEdit,
+        path: '/posses/edit/:id',
+        name: 'PossesEdit',
+        component: PossesEdit,
         meta: { requiredAuth: true },
     },
     {

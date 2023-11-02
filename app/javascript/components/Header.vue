@@ -46,7 +46,7 @@ export default {
       menus: [
         { name: "現金換算", link: "Top", path: "/" },
         { name: "ガチャ記録", link: "Gacha", path: "/gachas" },
-        { name: "ゲーム記録", link: "Game", path: "/games" },
+        { name: "所持ガチャ石", link: "Posses", path: "/posses" },
         { name: "換算用データ", link: "Conversion", path: "/conversions" },
         { name: "カレンダー", link: "Calendar", path: "/calendars" },
       ]

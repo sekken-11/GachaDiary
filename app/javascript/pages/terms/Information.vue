@@ -33,7 +33,7 @@
           </v-col>
           <v-col cols="12" md="4">
             <div>
-              <h5 class="page-title">ゲーム記録</h5>
+              <h5 class="page-title">所持ガチャ石</h5>
               <p class="px-2">
                 <span class="contents-name">現金換算</span>と同様に、入力したガチャ石が現金何円分か計算します。<br>
                 この記録は保持し続けることができます。

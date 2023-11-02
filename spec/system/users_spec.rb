@@ -54,7 +54,7 @@ RSpec.describe 'ユーザー機能', type: :system do
     it '未ログイン状態で現金換算ページ以外に遷移したら、ログインページにリダイレクトされる' do
       click_on 'ガチャ記録'
       expect(page).to have_current_path('/signin'), 'ログインページに遷移できていません'
-      click_on 'ゲーム記録'
+      click_on '所持ガチャ石'
       expect(page).to have_current_path('/signin'), 'ログインページに遷移できていません'
       click_on '換算用データ'
       expect(page).to have_current_path('/signin'), 'ログインページに遷移できていません'
@@ -149,8 +149,8 @@ RSpec.describe 'ユーザー機能', type: :system do
       visit root_path
       click_on 'ガチャ記録'
       expect(page).to have_current_path('/gachas'), 'ガチャ記録ページに遷移できていません'
-      click_on 'ゲーム記録'
-      expect(page).to have_current_path('/games'), 'ゲーム記録ページに遷移できていません'
+      click_on '所持ガチャ石'
+      expect(page).to have_current_path('/posses'), '所持ガチャ石ページに遷移できていません'
       click_on '換算用データ'
       expect(page).to have_current_path('/conversions'), '換算用データページに遷移できていません'
       click_on 'カレンダー'

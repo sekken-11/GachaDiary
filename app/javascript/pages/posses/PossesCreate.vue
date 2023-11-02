@@ -1,23 +1,23 @@
 <template>
 <v-card class="shadow mb-3">
   <v-card-title class="bg-white py-3">
-    <span>ゲームごとの石の所持データ 編集</span>
+    <span>ゲームごとの石の所持データ作成</span>
   </v-card-title>
   <v-card-text>
-    <Form @submit="handleEditPossesStone" id="posses-edit-form">
+    <Form @submit="handleCreatePossesStone" id="posses-form">
       <div class="form-group m-3">
         <label for="quantity">石の所持数</label>
-        <Field name="quantity" id="quantity" v-model.number="possesStone.quantity" class="form-control" :rules="isNumericRequired" />
+        <Field name="quantity" id="quantity" v-model.number="user_posses_stone.quantity" class="form-control" :rules="isNumericRequired" />
         <ErrorMessage name="quantity" id="quantity_error" class="text-danger" />
       </div>
       <div class="form-group m-3">
         <label for="currency_package">換算用データ</label>
-        <Field as="select" name="currency_package_id" id="currency_package" v-model.number="possesStone.currency_package_id" class="form-control">
+        <Field as="select" name="currency_package_id" id="currency_package" v-model.number="user_posses_stone.currency_package_id" class="form-control">
           <option v-for="(currency_package, index) in currencyPackages" :key="index" :value="currency_package.id">{{ currency_package.name }}</option>
         </Field>
       </div>
       <div class="text-end m-3 mt-5">
-        <v-btn block class="bg-success" type="submit">変更</v-btn>
+        <v-btn block color="info" type="submit">作成</v-btn>
       </div>
     </Form>
   </v-card-text>
@@ -29,30 +29,33 @@ import { Field, Form, ErrorMessage } from 'vee-validate';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-    name: "GameEdit",
+    name: "PossesCreate",
     components: {
         Form,
         Field,
         ErrorMessage
     },
+    data() {
+        return {
+            user_posses_stone: {
+                quantity: '',
+                currency_package_id: '',
+            },
+        }
+    },
     computed: {
-        ...mapGetters('gachas', ["currencyPackages"]),
-        ...mapGetters('posses_stones', ["possesStone"])
+        ...mapGetters('gachas', ["currencyPackages"])
     },
     created() {
         this.fetchPackages();
-        this.fetchPossesStone(this.$route.params.id);
     },
     methods: {
         ...mapActions('gachas', ["fetchPackages",]),
-        ...mapActions('posses_stones', [
-            "editPossesStone",
-            "fetchPossesStone",
-        ]),
-        async handleEditPossesStone() {
+        ...mapActions('posses_stones', ["createPossesStone"]),
+        async handleCreatePossesStone(posses_stone) {
             try {
-                await this.editPossesStone(this.possesStone)
-                this.$router.back()
+                await this.createPossesStone(posses_stone)
+                this.$router.push({ name: 'Posses' })
             } catch (error) {
             console.log(error)
             }

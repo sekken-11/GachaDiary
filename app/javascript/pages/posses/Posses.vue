@@ -20,7 +20,7 @@ import PossesStonesPart from '../../components/PossesStonesPart.vue';
 
 
 export default {
-    name: "Game",
+    name: "Posses",
     components: {
         PossesStonesPart
     },
@@ -43,7 +43,7 @@ export default {
             "fetchPossesStones",
             ]),
         toCreate() {
-            this.$router.push({ name: 'GameCreate' })
+            this.$router.push({ name: 'PossesCreate' })
         },
         amount(price, quantity, stone) {
             return Math.round(price/quantity*stone)

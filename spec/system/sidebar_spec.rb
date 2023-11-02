@@ -42,8 +42,8 @@ RSpec.describe 'サイドメニュー機能', type: :system do
       find('#Gacha-button').click
       expect(page).to have_current_path('/gachas'), 'ガチャ記録ページに遷移できなていない'
       find('#sidebar').click
-      find('#Game-button').click
-      expect(page).to have_current_path('/games'), 'ゲーム記録ページに遷移できなていない'
+      find('#Posses-button').click
+      expect(page).to have_current_path('/posses'), '所持ガチャ石ページに遷移できなていない'
       find('#sidebar').click
       find('#Conversion-button').click
       expect(page).to have_current_path('/conversions'), '換算用データページに遷移できなていない'

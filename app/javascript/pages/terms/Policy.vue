@@ -116,7 +116,8 @@
           <v-col cols="12" md="4">
             <div>
               <h5 class="page-title">第10条（お問い合わせ窓口）</h5>
-              <p class="px-2">本ポリシーに関するお問い合わせは，下記の窓口までお願いいたします。</p>
+              <p class="px-2">本ポリシーに関するお問い合わせは，下記のX(旧Twitter)アカウントまでお願いいたします。</p>
+              <p class="px-2"><a href="https://twitter.com/gachadiary38971">GachaDiary管理用アカウント</a></p>
             </div>
           </v-col>
         </v-row>
