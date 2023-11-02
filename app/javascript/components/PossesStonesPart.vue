@@ -58,14 +58,14 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import GameEdit from '../pages/games/GameEdit.vue';
+import PossesEdit from '../pages/posses/PossesEdit.vue';
 import DeleteModal from './DeleteModal.vue';
 
 export default {
     name: "PossesStonesPart",
     props: ['possesStones'],
     components: {
-        GameEdit,
+        PossesEdit,
         DeleteModal
     },
     data() {
@@ -90,10 +90,10 @@ export default {
             "editPossesStone",
             ]),
         toCreate() {
-            this.$router.push({ name: 'GameCreate' })
+            this.$router.push({ name: 'PossesCreate' })
         },
         toEdit(int) {
-            this.$router.push({ name: 'GameEdit', params: { id: int } })
+            this.$router.push({ name: 'PossesEdit', params: { id: int } })
         },
         amount(price, quantity, stone) {
             return Math.round(price/quantity*stone)

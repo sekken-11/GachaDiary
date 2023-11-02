@@ -1,12 +1,12 @@
 require 'rails_helper'
-RSpec.describe 'ゲーム記録機能', type: :system do
+RSpec.describe '所持ガチャ石機能', type: :system do
 
   before do
     @login_user = create(:user)
     login_as(@login_user)
     @package1 = create(:currency_package, name: 'ゲーム', need_one_gacha_stones: '150', price: '160', quantity: '100', user: @login_user)
     @package2 = create(:currency_package, name: 'ゲーム2', need_one_gacha_stones: '300', price: '100', quantity: '100', user: @login_user)
-    click_link 'ゲーム記録'
+    click_link '所持ガチャ石'
   end
 
   context '石の所持データが存在する状態' do

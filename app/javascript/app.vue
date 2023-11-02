@@ -24,7 +24,7 @@
       </v-container>
     </div>
 
-    <Footer class="mb-3" />
+    <Footer />
   </div>
 </v-app>
 </template>
@@ -48,7 +48,14 @@ export default {
   computed: {
     ...mapGetters('users', ["authUser"]),
     no_total_record() {
-      return this.$route.path.match(/\/$/) || this.$route.path.match(/gachareco$/) || this.$route.path.match(/mypage$/) || this.$route.path.match(/passreset$/) || this.$route.path.match(/mailchange$/) || this.$route.path.match(/info$/)
+      return this.$route.path.match(/\/$/) 
+      || this.$route.path.match(/gachareco$/) 
+      || this.$route.path.match(/mypage$/) 
+      || this.$route.path.match(/passreset$/) 
+      || this.$route.path.match(/mailchange$/) 
+      || this.$route.path.match(/info$/)
+      || this.$route.path.match(/terms$/)
+      || this.$route.path.match(/policy$/)
     }
   },
 }
