@@ -78,7 +78,7 @@ export default {
   align-items: center;
   text-align: center;
   color: gray;
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
   letter-spacing: 0.3em;
 }
 .info-title::before,

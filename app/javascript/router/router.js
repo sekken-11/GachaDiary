@@ -16,7 +16,9 @@ import GameFullData from '../pages/GameFullData.vue'
 import MyPage from '../pages/MyPage.vue'
 import PasswordReset from '../pages/profiles/PasswordReset.vue'
 import EmailChange from '../pages/profiles/EmailChange.vue'
-import Information from '../pages/Information.vue'
+import Information from '../pages/terms/Information.vue'
+import Policy from '../pages/terms/Policy.vue'
+import Terms from '../pages/terms/Terms.vue'
 
 import store from '../store/vuex'
 
@@ -32,6 +34,16 @@ const routes = [
         path: '/info',
         name: 'Information',
         component: Information
+    },
+    {
+        path: '/policy',
+        name: 'Policy',
+        component: Policy
+    },
+    {
+        path: '/terms',
+        name: 'Terms',
+        component: Terms
     },
     {
         path: '/passreset',
