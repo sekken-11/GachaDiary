@@ -3,11 +3,7 @@ module JwtToken
 
     class_methods do
         def decode(token)
-            if Rails.env.development? || Rails.env.test? 
-                JWT.decode token, Rails.application.secrets.secret_key_base
-            else
-                JWT.decode token, Rails.application.credentials.secret_key_base
-            end
+            JWT.decode token, Rails.application.secrets.secret_key_base
         end
     end
 
