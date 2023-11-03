@@ -3,7 +3,7 @@ module JwtToken
 
     class_methods do
         def decode(token)
-            JWT.decode token, Rails.application.secrets.secret_key_base
+            JWT.decode token, Rails.application.credentials.secret_key_base
         end
     end
 
