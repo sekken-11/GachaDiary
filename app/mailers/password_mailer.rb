@@ -9,7 +9,7 @@ class PasswordMailer < ApplicationMailer
     @user = User.find(user.id)
     @url = edit_api_password_reset_url(@user.reset_password_token)
     mail(:to => user.email,
-      :subject => "パスワードリセット"
+      :subject => "パスワードリセット用メール"
     )
   end
 end
