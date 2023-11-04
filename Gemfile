@@ -82,3 +82,5 @@ gem "jwt"
 gem "config"
 
 gem 'pg'
+
+gem 'dotenv-rails'
