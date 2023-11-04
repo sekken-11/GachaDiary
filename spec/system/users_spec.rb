@@ -125,7 +125,7 @@ RSpec.describe 'ユーザー機能', type: :system do
       click_button '送信'
       page.accept_confirm
       last_mail = ActionMailer::Base.deliveries.last
-      expect(last_mail.subject).to eq 'パスワードリセット'
+      expect(last_mail.subject).to eq 'パスワードリセット用メール'
     end
   
   end
