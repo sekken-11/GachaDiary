@@ -90,4 +90,20 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  #メールの設定
+  config.action_mailer.default_url_options = { protocol: 'https', host:'gachadiary-dcdc260b5bc7.herokuapp.com'}
+  
+  config.action_mailer.delivery_method = :smtp
+  
+  config.action_mailer.smtp_settings = {
+    port: 587,
+    address:"smtp.gmail.com",
+    domain: 'gmail.com', 
+    user_name: ENV['GMAIL_ADDRESS'],
+    password: ENV['GMAIL_PASSWORD'],
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
+
 end
