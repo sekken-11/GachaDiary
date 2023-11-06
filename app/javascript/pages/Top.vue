@@ -4,10 +4,10 @@
       <v-row>
         <v-col cols="12" md="8">
           <v-card class="bg-white shadow" id="top-form">
-            <v-card-title class="text-center my-3 text-muted">
+            <v-card-text class="text-center my-3 text-muted">
               <p>あなたの所持するガチャ石の数・ガチャ石の価格を入力してください</p>
               <p>現金換算で何円分になるか計算いたします</p>
-            </v-card-title>
+            </v-card-text>
             <Form @submit="handleConversion">
               <v-card-text class="m-3">
                 <div class="form-group mb-5">
