@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe 'ガチャ記録機能', type: :system do
+RSpec.describe 'ゲーム記録機能', type: :system do
 
   before do
     @login_user = create(:user)
@@ -8,7 +8,7 @@ RSpec.describe 'ガチャ記録機能', type: :system do
     @package1 = create(:currency_package, name: 'ゲーム', need_one_gacha_stones: '200', price: '200', quantity: '200', user: @login_user)
     @package2 = create(:currency_package, name: 'ゲーム2', need_one_gacha_stones: '300', price: '100', quantity: '100', user: @login_user)
 
-    visit root_path
+    click_link 'ガチャ記録'
   end
 
   it 'ゲーム名が表示されている' do

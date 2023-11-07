@@ -37,20 +37,25 @@ RSpec.describe 'サイドメニュー機能', type: :system do
     end
 
     it 'サイドメニューから各機能ページに遷移できる' do
+      visit current_path
       find('#sidebar').click
       find('#page-choice').click
       find('#Gacha-button').click
       expect(page).to have_current_path('/gachas'), 'ガチャ記録ページに遷移できなていない'
       find('#sidebar').click
+      find('#page-choice').click
       find('#Posses-button').click
       expect(page).to have_current_path('/posses'), '所持ガチャ石ページに遷移できなていない'
       find('#sidebar').click
+      find('#page-choice').click
       find('#Conversion-button').click
       expect(page).to have_current_path('/conversions'), '換算用データページに遷移できなていない'
       find('#sidebar').click
+      find('#page-choice').click
       find('#Calendar-button').click
       expect(page).to have_current_path('/calendars'), 'カレンダーページに遷移できなていない'
       find('#sidebar').click
+      find('#page-choice').click
       find('#Top-button').click
       expect(page).to have_current_path('/'), '現金換算ページに遷移できなていない'
     end
@@ -59,11 +64,13 @@ RSpec.describe 'サイドメニュー機能', type: :system do
       @package1 = create(:currency_package, user: @login_user)
       @package2 = create(:currency_package, user: @login_user)
       visit current_path
+      click_link '換算用データ'
       find('#sidebar').click
       find('#game-choice').click
       find('#game-button-1').click
       expect(page).to have_current_path("/gamedata/#{@package1.id}"), 'ゲームデータページに遷移できていない'
       find('#sidebar').click
+      find('#game-choice').click
       find('#game-button-2').click
       expect(page).to have_current_path("/gamedata/#{@package2.id}"), 'ゲームデータページに遷移できていない'
     end
