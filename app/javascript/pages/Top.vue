@@ -65,9 +65,6 @@
                 </v-container>
               </div>
           </div>
-          <div class="mt-3" v-if="authUser">
-            <TotalRecord />
-          </div>
         </v-col>
       </v-row>
     </v-container>

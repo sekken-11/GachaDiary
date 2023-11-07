@@ -129,3 +129,20 @@ export default {
   },
 }
 </script>
+
+<style>
+@media (max-width:767px) {
+  .fc-daygrid-body {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .fc-col-header {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .fc-scrollgrid-sync-table {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+</style>

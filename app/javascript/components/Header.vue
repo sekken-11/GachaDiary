@@ -26,7 +26,7 @@
     </nav>
   </header>
 
-<SideBar v-model="drawer" />
+<SideBar v-model="drawer" v-if="drawer" />
   
 </template>
 
