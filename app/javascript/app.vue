@@ -1,6 +1,6 @@
 <template>
 <v-app class="bgcolor">
-  <div class="d-flex flex-column min-vh-100">
+  <div class="d-flex flex-column min-vh-100 smart-size">
     <Header class="mb-2" />
 
     <div class="py-3" v-if="no_total_record && authUser">
@@ -64,5 +64,13 @@ export default {
 <style scoped>
 .bgcolor {
   background-color: snow;
+}
+@media (max-width:767px) {
+  .smart-size {
+    transform: scale(0.6);
+    transform-origin: left top;
+    height: calc(100% / 0.6);
+    width: calc(100% / 0.6);
+  }
 }
 </style>

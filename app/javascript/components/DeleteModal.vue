@@ -36,4 +36,8 @@ export default {
 .modal {
   display: block;
 }
+.modal-backdrop {
+  width: 100% !important;
+  height: 100% !important;
+}
 </style>
