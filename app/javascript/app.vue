@@ -65,12 +65,4 @@ export default {
 .bgcolor {
   background-color: snow;
 }
-@media (max-width:767px) {
-  .smart-size {
-    transform: scale(0.6);
-    transform-origin: left top;
-    height: calc(100% / 0.6);
-    width: calc(100% / 0.6);
-  }
-}
 </style>
