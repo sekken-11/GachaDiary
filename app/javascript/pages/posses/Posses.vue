@@ -27,9 +27,12 @@ export default {
     computed: {
         ...mapGetters('posses_stones', ["possesStones"]),
         totalStones() {
-            const ary = this.possesStones.map(h => Math.round(h.currency_package.price/h.currency_package.quantity*h.quantity));
+            var ary = this.possesStones.filter(possesStone => {
+              return possesStone.currency_package_id != null
+            })
+            const ary2 = ary.map(h => Math.round(h.currency_package.price/h.currency_package.quantity*h.quantity));
             if (ary.length != 0) {
-                return ary.reduce((a, b) => { return a + b });
+                return ary2.reduce((a, b) => { return a + b });
             } else {
                 return 0;
             }
