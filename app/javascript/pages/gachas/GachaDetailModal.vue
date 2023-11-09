@@ -22,7 +22,8 @@
                   <span>ゲーム名</span>
                 </v-col>
                 <v-col cols="8" class="text-center">
-                  <span>{{ gacha.currency_package.name }}</span>
+                  <span v-if="gacha.currency_package">{{ gacha.currency_package.name }}</span>
+                  <span v-if="!gacha.currency_package">未設定</span>
                 </v-col>
               </v-row>
               <v-row class="border-bottom">
@@ -30,7 +31,8 @@
                   <span>現金換算</span>
                 </v-col>
                 <v-col cols="8" class="text-center">
-                  <span>{{ Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count) }}円</span>
+                  <span v-if="gacha.currency_package">{{ Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count) }}円</span>
+                  <span v-if="!gacha.currency_package">未設定</span>
                 </v-col>
               </v-row>
               <v-row class="border-bottom">

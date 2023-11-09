@@ -23,6 +23,7 @@
     <option v-for="currencyPackage in currencyPackages" :key="currencyPackage.id" :value="currencyPackage.id">
       {{ currencyPackage.name }}
     </option>
+    <option value="null" selected>未設定</option>
   </select>
 </div>
 

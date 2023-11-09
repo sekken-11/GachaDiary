@@ -18,10 +18,13 @@
         <v-container>
           <v-row class="border-bottom">
             <v-col cols="6">{{ gacha.date }}</v-col>
-            <v-col cols="6" class="text-center">{{ Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count) }}円</v-col>
+            <v-col cols="6" class="text-center"><span v-if="gacha.currency_package">{{ Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count) }}円</span></v-col>
           </v-row>
           <v-row class="border-bottom">
-            <v-col cols="6">{{ gacha.currency_package.name }}</v-col>
+            <v-col cols="6">
+                <span v-if="gacha.currency_package">{{ gacha.currency_package.name }}</span>
+                <span v-if="!gacha.currency_package">未設定</span>
+            </v-col>
             <v-col cols="6" class="text-center">{{ gacha.count }}回</v-col>
           </v-row>
         </v-container>
@@ -91,7 +94,7 @@ export default {
             return this.filteredGachas.slice(start, current)
         },
         filteredGachas() {
-            if (this.select) {
+            if (this.select && this.select != "null") {
                 if (this.from_date) {
                     if (this.to_date) {
                         return this.gachas.filter(gacha => {
@@ -132,6 +135,28 @@ export default {
                     } else if (!this.to_date) {
                         return this.gachas.filter(gacha => {
                             return gacha.description.indexOf(this.search) != -1
+                        })
+                    }
+                }
+            } else if (this.select == "null") {
+                if (this.from_date) {
+                    if (this.to_date) {
+                        return this.gachas.filter(gacha => {
+                            return gacha.description.indexOf(this.search) != -1 && gacha.currency_package_id == null  && gacha.date >= this.from_date && gacha.date <= this.to_date
+                        })
+                    } else if (!this.to_date) {
+                        return this.gachas.filter(gacha => {
+                            return gacha.description.indexOf(this.search) != -1 && gacha.currency_package_id == null && gacha.date >= this.from_date
+                        })
+                    }
+                } else if (!this.from_date) {
+                    if (this.to_date) {
+                        return this.gachas.filter(gacha => {
+                            return gacha.description.indexOf(this.search) != -1 && gacha.currency_package_id == null && gacha.date <= this.to_date
+                        })
+                    } else if (!this.to_date) {
+                        return this.gachas.filter(gacha => {
+                            return gacha.description.indexOf(this.search) != -1 && gacha.currency_package_id == null
                         })
                     }
                 }
@@ -213,7 +238,7 @@ export default {
                             this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search } })
                         }
                     }
-                }
+                } 
             } else if (!this.search) {
                 if (this.select) {
                     if (this.from_date) {

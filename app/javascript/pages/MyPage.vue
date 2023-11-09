@@ -25,7 +25,10 @@
             <div v-if="gachas.length == 0" class="text-center text-muted my-5 h3">
               <span>ガチャ記録がありません</span>
             </div>
-            <div v-if="gachas.length != 0">
+            <div v-if="noPackage" class="text-center text-muted my-5 h3">
+              <span>現金換算できる記録がありません</span>
+            </div>
+            <div v-if="gachas.length != 0 && !noPackage">
               <div id="pie-chart">
                 <Pie :data="chartData" :options="chartOptions" class="p-4" />
               </div>
@@ -161,6 +164,16 @@ export default {
         return sortRecord.game_name
       });
     },
+    noPackage() {
+      const ary = this.gachas.filter(gacha => {
+        return gacha.currency_package != null
+      })
+      if (ary.length == 0) {
+        return true
+      } else if (ary.length != 0) {
+        return false
+      }
+    }
   },
   created() {
     this.fetchGachas();

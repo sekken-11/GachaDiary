@@ -97,11 +97,19 @@ export default {
         var int = 0
         this.gachas.forEach(gacha => {
           if (array[int].start == gacha.date) {
-            array[int].title += Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count)
+            if (gacha.currency_package_id) {
+              array[int].title += Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count)
+            } else if (!gacha.currency_package_id) {
+              array[int].title += 0
+            }
           } else if (array[int].start != gacha.date) {
             if (!array[int + 1]) {
               int += 1
-              array.push({ title: Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count), start: gacha.date })
+              if (gacha.currency_package) {
+                array.push({ title: Math.round(gacha.currency_package.price/gacha.currency_package.quantity*gacha.currency_package.need_one_gacha_stones*gacha.count), start: gacha.date })
+              } else if (!gacha.currency_package) {
+                array.push({ title: 0, start: gacha.date })
+              }
             }
           }
         });

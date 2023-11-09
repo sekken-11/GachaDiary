@@ -19,14 +19,16 @@
   >
     <v-container>
       <v-row class="border-bottom pb-2">
-        <span>{{ possesStone.currency_package.name }}</span>
+        <span v-if="possesStone.currency_package">{{ possesStone.currency_package.name }}</span>
+        <span v-if="!possesStone.currency_package">データ未設定</span>
       </v-row>
       <v-row class="border-bottom">
         <v-col cols="4" class="text-center border-end">
           <span>現金換算</span>
         </v-col>
         <v-col cols="8" class="text-center">
-          <span>{{ amount(possesStone.currency_package.price, possesStone.currency_package.quantity, possesStone.quantity) }}円</span>
+          <span v-if="possesStone.currency_package">{{ amount(possesStone.currency_package.price, possesStone.currency_package.quantity, possesStone.quantity) }}円</span>
+          <span v-if="!possesStone.currency_package">データ未設定</span>
         </v-col>
       </v-row>
       <v-row class="border-bottom">
@@ -73,16 +75,6 @@ export default {
             isVisibleDelete: false,
             isVisiblePossesStone: true,
         }
-    },
-    computed: {
-        totalStones() {
-            const ary = this.possesStones.map(h => Math.round(h.currency_package.price/h.currency_package.quantity*h.quantity));
-            if (ary.length != 0) {
-                return ary.reduce((a, b) => { return a + b });
-            } else {
-                return 0;
-            }
-        },
     },
     methods: {
         ...mapActions('posses_stones',[
