@@ -157,5 +157,8 @@ export default {
   .calendar {
     zoom: calc(1.0 / 0.6) !important;
   }
+  .fc-media-screen {
+    height: 500px;
+  }
 }
 </style>
