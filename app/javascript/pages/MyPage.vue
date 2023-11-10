@@ -78,19 +78,38 @@
         <div class="text-muted">
           <h4>ユーザー情報</h4>
             <hr>
-          <p class="mb-1">メールアドレス</p>
-          <p class="text-success">{{ authUser.email }}</p>
+              <p class="mb-1">ランク</p>
+              <div v-if="stars">
+                <div>
+                  <i v-for="small_star in stars.milliom_stars" class="bi bi-star-fill" style="color:gold; font-size:200%;"></i>
+                </div>
+                <div>
+                  <i v-for="small_star in stars.big_stars" class="bi bi-star-fill" style="color:gold; font-size:150%;"></i>
+                </div>
+                <div>
+                  <i v-for="small_star in stars.small_stars" class="bi bi-star-fill" style="color:gold;"></i>
+                </div>
+                <div v-if="stars.milliom_stars == 0 && stars.big_stars == 0 && stars.small_stars == 0">
+                  <i class="bi bi-star-half" style="color:gold;"></i>
+                </div>
+              </div>
+              <div v-if="!stars">
+                <i class="bi bi-star"></i>
+              </div>
             <hr>
-          <p class="mb-1">記録開始日</p>
-          <p class="text-success">{{ new Date(authUser.created_at).toLocaleDateString('sv-SE') }}</p>
+              <p class="mb-1">メールアドレス</p>
+              <p class="text-success">{{ authUser.email }}</p>
+            <hr>
+              <p class="mb-1">記録開始日</p>
+              <p class="text-success">{{ new Date(authUser.created_at).toLocaleDateString('sv-SE') }}</p>
             <hr>
         </div>
         <div class="text-muted mt-5">
           <h4>アカウント管理</h4>
             <hr>
-          <v-btn block class="bg-info" @click="toPasswordReset">パスワード変更</v-btn>
+              <v-btn block class="bg-info" @click="toPasswordReset">パスワード変更</v-btn>
             <hr>
-          <v-btn block class="bg-info" @click="toEmailChange">メールアドレス変更</v-btn>
+              <v-btn block class="bg-info" @click="toEmailChange">メールアドレス変更</v-btn>
             <hr>
         </div>
       </div>
@@ -173,7 +192,17 @@ export default {
       } else if (ary.length != 0) {
         return false
       }
-    }
+    },
+    stars() {
+      if (this.totalAmount == 0) {
+        return false
+      } else if (this.totalAmount != 0) {
+        const milliom_stars = Math.floor(this.totalAmount / 1000000)
+        const big_stars = Math.floor((this.totalAmount % 1000000) / 100000)
+        const small_stars = Math.floor((this.totalAmount % 100000) / 10000)
+        return { "milliom_stars": milliom_stars, "big_stars": big_stars, "small_stars": small_stars }
+      }
+    },
   },
   created() {
     this.fetchGachas();
