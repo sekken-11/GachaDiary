@@ -3,6 +3,21 @@
 <div class="form-group mb-3" id="search-form">
   <input type="text" v-model="search" class="form-control" id="search" placeholder="備考で絞り込み">
 </div>
+<div class="form-group mb-3" id="search-form">
+  <input type="checkbox" id="checkbox" v-model="checked" />
+  <label for="checkbox"><span class="text-muted ms-1">備考から正確な検索を行う</span></label>
+  <v-autocomplete
+    v-if="checked"
+    v-model="search"
+    class="form-control mt-1"
+    id="search"
+    :items="descriptions"
+    color="white"
+    hide-no-data="true"
+    label="備考で絞り込み"
+  >
+  </v-autocomplete>
+</div>
 <div class="mb-3" id="date-form">
   <v-row>
     <v-col cols="6">
@@ -47,6 +62,7 @@ export default {
       select: this.select = this.$route.query.select || '',
       from_date: this.from_date = this.$route.query.from || '',
       to_date: this.to_date = this.$route.query.to || '',
+      checked: false,
     }
   },
   computed: {
@@ -54,6 +70,9 @@ export default {
       "gachas",
       "currencyPackages"
     ]),
+    descriptions() {
+      return this.gachas.map(gacha => gacha.description)
+    },
   },
   created() {
     this.fetchGachas();

@@ -53,12 +53,15 @@ export default {
       "updateUser",
     ]),
     async handleEmailChange() {
-      try {
-        await this.updateUser(this.user)
-        this.$router.push({ name: 'MyPage' })
-      } catch (error) {
-        console.log(error)
-        this.error = 'メールアドレスを変更できません'
+      var result = confirm('変更してもよろしいですか？');
+      if (result) {
+        try {
+          await this.updateUser(this.user)
+          this.$router.push({ name: 'MyPage' })
+        } catch (error) {
+          console.log(error)
+          this.error = 'メールアドレスを変更できません'
+        }
       }
     },
     isEmailRequired(value) {
