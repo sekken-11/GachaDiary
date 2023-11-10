@@ -3,7 +3,9 @@
   <div class="mb-4">
     <v-btn block color="success" @click="eventChange">表示切替</v-btn>
   </div>
-  <FullCalendar :options='calendarOptions' />
+  <div class="calendar">
+    <FullCalendar :options='calendarOptions' />
+  </div>
 </div>
 
 <GachaRecordPart :gachas="daysGachas" :perPage="perPage" :search="search_null">日付が選択されていません</GachaRecordPart>
@@ -151,6 +153,9 @@ export default {
   .fc-scrollgrid-sync-table {
     width: 100% !important;
     height: 100% !important;
+  }
+  .calendar {
+    zoom: calc(1.0 / 0.6) !important;
   }
 }
 </style>
