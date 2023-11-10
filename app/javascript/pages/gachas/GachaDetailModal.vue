@@ -84,4 +84,7 @@ export default {
   width: 100% !important;
   height: 100% !important;
 }
+span {
+  white-space: pre-line;
+}
 </style>
