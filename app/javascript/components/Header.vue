@@ -1,7 +1,9 @@
 <template>
   <header>
     <nav class="firstbar navbar border-bottom">
-      <span class="navbar-brand mb-0 ms-3 app-name">Gacha Diary</span>
+      <div @click="toInfo">
+        <span class="navbar-brand mb-0 ms-3 app-name">Gacha Diary</span>
+      </div>
         <ul class="navbar-nav">
           <li class="nav-item d-flex align-items-center" v-if="!authUser">
             <router-link :to="{ name: 'SignUp' }"><v-btn class="me-2" color="info">新規登録</v-btn></router-link>
@@ -63,18 +65,8 @@ export default {
     toPages(link) {
       this.$router.push({ name: link })
     },
-    async handleSignOut() {
-      var result = confirm('ログアウトしますか？');
-      if (result) {
-        try {
-          await this.logoutUser()
-          this.$router.push({ name: 'Top' })
-          alert("ログアウトしました。")
-        } catch (error) {
-          console.log(error)
-          alert("ログアウトできませんでした。")
-        }
-      }
+    toInfo() {
+      this.$router.push({ name: 'Information' })
     }
   }
 }
