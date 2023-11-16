@@ -1,6 +1,7 @@
 <template>
 <v-app class="bgcolor">
   <div class="d-flex flex-column min-vh-100 smart-size">
+    <Message />
     <Header class="mb-2" />
 
     <div class="py-3" v-if="no_total_record && authUser">
@@ -33,6 +34,7 @@
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import TotalRecord from './components/TotalRecord.vue';
+import Message from './components/FlashMessage.vue';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -40,6 +42,7 @@ export default {
     Header,
     Footer,
     TotalRecord,
+    Message,
   },
   data() {
     return {

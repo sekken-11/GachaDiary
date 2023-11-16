@@ -25,7 +25,7 @@
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import axios from 'axios';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 
 export default {
@@ -50,11 +50,15 @@ export default {
     this.setEmail();
   },
   methods: {
+    ...mapActions('transition', ["addMessage"]),
     async handlePasswordResetMail() {
       axios
         .post('api/password_resets', { email: this.user.email })
         .then(res => {
-          alert("メールを送信しました")
+          this.addMessage({
+            message: "メールを送信しました",
+            messageType: "success"
+          })
           this.$router.push({ name: 'SignIn' })
         })
         .catch(err => {

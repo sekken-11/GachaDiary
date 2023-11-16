@@ -34,6 +34,7 @@
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import axios from 'axios';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'SignUp',
@@ -53,16 +54,23 @@ export default {
     }
   },
   methods: {
+    ...mapActions('transition', ["addMessage"]),
     handleSignUp() {
       axios
         .post('api/users', { user: this.user })
         .then(res => {
           this.$router.push({ name: 'SignIn' })
-          alert("ユーザー登録に成功しました")
+          this.addMessage({
+            message: "ユーザー登録に成功しました",
+            messageType: "success"
+          })
         })
         .catch(err => {
           console.log(err)
-          this.error = '登録に失敗しました'
+          this.addMessage({
+            message: "ユーザー登録に失敗しました",
+            messageType: "danger"
+          })
         })
     },
     isEmailRequired(value) {

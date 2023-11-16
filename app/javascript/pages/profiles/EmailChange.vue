@@ -52,12 +52,17 @@ export default {
       "fetchAuthUser",
       "updateUser",
     ]),
+    ...mapActions('transition', ["addMessage"]),
     async handleEmailChange() {
       var result = confirm('変更してもよろしいですか？');
       if (result) {
         try {
           await this.updateUser(this.user)
           this.$router.push({ name: 'MyPage' })
+          this.addMessage({
+            message: "メールアドレスを変更しました",
+            messageType: "success"
+          })
         } catch (error) {
           console.log(error)
           this.error = 'メールアドレスを変更できません'
