@@ -24,7 +24,6 @@ const state = {
       // ログインユーザー情報のセット
       const userResponse = await axios.get('users/me')
       commit('setUser', userResponse.data)
-      alert("ログインに成功しました。")
     },
     logoutUser({ commit }) {
       // ログアウト

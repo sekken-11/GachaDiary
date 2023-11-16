@@ -101,6 +101,7 @@ export default {
       "logoutUser",
       "fetchAuthUser",
     ]),
+    ...mapActions('transition', ["addMessage"]),
     toMypage() {
       this.$router.push({ name: 'MyPage' })
     },
@@ -119,10 +120,16 @@ export default {
         try {
           await this.logoutUser()
           this.$router.push({ name: 'Top' })
-          alert("ログアウトしました。")
+          this.addMessage({
+            message: "ログアウトしました",
+            messageType: "success"
+          })
         } catch (error) {
           console.log(error)
-          alert("ログアウトできませんでした。")
+          this.addMessage({
+            message: "ログアウトできませんでした",
+            messageType: "danger"
+          })
         }
       }
     },

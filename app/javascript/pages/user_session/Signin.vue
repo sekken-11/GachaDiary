@@ -56,13 +56,21 @@ export default {
       'loginUser',
       'fetchAuthUser',
     ]),
+    ...mapActions('transition', ["addMessage"]),
     async handleSignIn() {
       try {
         await this.loginUser(this.user);
         this.$router.push({ name: 'Top' })
+        this.addMessage({
+          message: "ログインしました",
+          messageType: "success"
+        })
       } catch (error) {
         console.log(error);
-        this.error = 'ログインに失敗しました'
+        this.addMessage({
+          message: "ログインに失敗しました",
+          messageType: "danger"
+        })
       }
     },
     isEmailRequired(value) {
