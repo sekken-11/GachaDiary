@@ -99,11 +99,13 @@ export default {
     },
     created() {
         this.fetchPackages();
+        this.fetchGachas();
     },
     methods: {
         ...mapActions('gachas', [
             "fetchPackages",
             "deletePackage",
+            "fetchGachas",
         ]),
         toCreate() {
             this.$router.push({ name: 'ConversionCreate' })
