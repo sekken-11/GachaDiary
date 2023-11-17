@@ -91,7 +91,10 @@ export default {
           return this.currencyPackages.slice(0,11)
         },
         userAddPackages() {
-          return this.currencyPackages.slice(11)
+          var packages = this.currencyPackages.slice(11)
+          return packages.sort((a, b) => {
+            return (a.name > b.name ? 1 : -1)
+          });
         },
     },
     created() {
