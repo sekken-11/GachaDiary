@@ -66,7 +66,7 @@ export default {
   },
   watch: {
     editPathNumber() {
-      if (this.$route.path.match(/conversions\/edit\/[1-11]/)) {
+      if (this.$route.path.match(/conversions\/edit\/[1-11]$/) || this.$route.path.match(/conversions\/edit\/[1-11]\/$/)) {
         this.$router.push({ name: 'Conversion'})
       }
     },
