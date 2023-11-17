@@ -23,9 +23,18 @@
                     <Field name="quantity" id="stone_quantity" v-model.number="stone_quantity" class="form-control" type="text" placeholder="購入する際の個数を入力してください（個）" :rules="isNumericRequired" />
                     <div class="text-danger"><ErrorMessage name="quantity" id="stone_quantity_error" /></div>
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-5">
                   <label for="game" class="mb-1">ゲーム名*任意</label>
                   <input id="game" v-model="game_name" class="form-control" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="game_select" class="mb-1">ゲーム選択</label>
+                  <select v-model="select" class="form-control" id="select">
+                    <option value="" selected>ゲームを選択しない</option>
+                    <option v-for="initialPackage in initialPackages" :key="initialPackage.id" :value="initialPackage.id">
+                      {{ initialPackage.name }}
+                    </option>
+                  </select>
                 </div>
                 <div class="text-center">
                   <v-btn block type="submit" class="mt-5" color="primary">追加</v-btn>
@@ -73,7 +82,7 @@
 
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate';
-import { mapGetters} from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import TotalRecord from '../components/TotalRecord.vue';
 
 export default {
@@ -92,18 +101,32 @@ export default {
       posses_stone: '',
       stone_quantity: '',
       stone_price: '',
-      game: '',
+      game_name: '',
       conversion_records_sub: [],
-      store: []
+      store: [],
+      select: ''
     }
   },
   computed: {
     conversion_records() {
       return this.conversion_records_sub;
     },
-    ...mapGetters('users', ["authUser"])
+    ...mapGetters('users', ["authUser"]),
+    ...mapGetters('gachas', ["initialPackages"]),
+  },
+  created() {
+    this.fetchInitialPackages();
+  },
+  watch: {
+    select() {
+      const set_package = this.initialPackages[this.select - 1]
+      this.stone_price = set_package.price
+      this.stone_quantity = set_package.quantity
+      this.game_name = set_package.name
+    },
   },
   methods: {
+    ...mapActions('gachas', ["fetchInitialPackages"]),
     handleConversion() {
       this.cash_conversion = Math.round(this.stone_price/this.stone_quantity*this.posses_stone);
       this.conversion_records_sub.push({ name: this.game_name, price: this.cash_conversion, posses_stone: this.posses_stone });

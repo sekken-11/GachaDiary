@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_17_094346) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_16_134127) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,10 +19,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_094346) do
     t.integer "need_one_gacha_stones", null: false
     t.integer "price", null: false
     t.integer "quantity", null: false
-    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_currency_packages_on_user_id"
   end
 
   create_table "gachas", force: :cascade do |t|
@@ -35,6 +33,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_094346) do
     t.datetime "updated_at", null: false
     t.index ["currency_package_id"], name: "index_gachas_on_currency_package_id"
     t.index ["user_id"], name: "index_gachas_on_user_id"
+  end
+
+  create_table "user_packages", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "currency_package_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["currency_package_id"], name: "index_user_packages_on_currency_package_id"
+    t.index ["user_id", "currency_package_id"], name: "index_user_packages_on_user_id_and_currency_package_id", unique: true
+    t.index ["user_id"], name: "index_user_packages_on_user_id"
   end
 
   create_table "user_posses_stones", force: :cascade do |t|
@@ -61,9 +69,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_094346) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
   end
 
-  add_foreign_key "currency_packages", "users"
   add_foreign_key "gachas", "currency_packages"
   add_foreign_key "gachas", "users"
+  add_foreign_key "user_packages", "currency_packages"
+  add_foreign_key "user_packages", "users"
   add_foreign_key "user_posses_stones", "currency_packages"
   add_foreign_key "user_posses_stones", "users"
 end

@@ -17,7 +17,11 @@ Rails.application.routes.draw do
     end
     resources :sessions
     resources :gachas
-    resources :currency_packages
+    resources :currency_packages do
+      collection do
+        get 'initial_packages'
+      end
+    end
     resources :user_posses_stones
   end
 

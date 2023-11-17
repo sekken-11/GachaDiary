@@ -25,7 +25,6 @@ RSpec.describe 'ユーザー機能', type: :system do
         fill_in 'パスワード（再入力）', with: 'password'
         click_button '登録'
       end
-      page.accept_confirm
       expect(page).to have_current_path('/signin'), 'ログインページに遷移できていません'
     end
 
@@ -36,7 +35,6 @@ RSpec.describe 'ユーザー機能', type: :system do
         fill_in 'パスワード', with: '12345678'
         click_button 'ログイン'
       end
-      page.accept_confirm
       expect(page).to have_current_path('/'), '現金換算ページに遷移できていません'
     end
 
@@ -123,7 +121,6 @@ RSpec.describe 'ユーザー機能', type: :system do
       click_on 'パスワードを忘れた方はこちら'
       fill_in 'メールアドレス', with: user.email
       click_button '送信'
-      page.accept_confirm
       last_mail = ActionMailer::Base.deliveries.last
       expect(last_mail.subject).to eq 'パスワードリセット用メール'
     end
@@ -137,7 +134,6 @@ RSpec.describe 'ユーザー機能', type: :system do
       find('#sidebar').click
       expect(page).to have_content('ログアウト'), 'ログイン状態でサイドバーに「ログアウト」ボタンが表示されていません'
       click_button 'ログアウト'
-      page.accept_confirm
       page.accept_confirm
       expect(page).to have_current_path('/'), '現金換算に遷移できていません'
       expect(page).to have_content('新規登録'), '未ログイン状態でヘッダーに「新規登録」ボタンが表示されていません'

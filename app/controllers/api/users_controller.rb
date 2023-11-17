@@ -1,6 +1,7 @@
 class Api::UsersController < ApplicationController
     def create
         user = User.new(user_params)
+        user.currency_package_ids = [*1..11]
         if user.save
           render json: user
         else

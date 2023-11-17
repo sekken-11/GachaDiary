@@ -9,7 +9,8 @@ class User < ApplicationRecord
   validates :reset_password_token, uniqueness: true, allow_nil: true
 
   has_many :gachas, dependent: :destroy
-  has_many :currency_packages, dependent: :destroy
   has_many :user_posses_stones, dependent: :destroy
 
+  has_many :user_packages
+  has_many :currency_packages, through: :user_packages
 end

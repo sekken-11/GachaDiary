@@ -59,7 +59,17 @@ export default {
       || this.$route.path.match(/info$/)
       || this.$route.path.match(/terms$/)
       || this.$route.path.match(/policy$/)
+    },
+    editPathNumber() {
+      return this.$route.path
     }
+  },
+  watch: {
+    editPathNumber() {
+      if (this.$route.path.match(/conversions\/edit\/[1-11]/)) {
+        this.$router.push({ name: 'Conversion'})
+      }
+    },
   },
 }
 </script>
