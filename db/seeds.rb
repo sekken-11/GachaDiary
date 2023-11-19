@@ -64,5 +64,11 @@ CurrencyPackage.create!([
     need_one_gacha_stones: 3,
     price: 10000,
     quantity: 168,
+  },
+  {
+    name: "ブルーアーカイブ",
+    need_one_gacha_stones: 120,
+    price: 10000,
+    quantity: 4800,
   }
 ])

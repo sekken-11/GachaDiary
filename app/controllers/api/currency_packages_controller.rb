@@ -61,12 +61,21 @@ class Api::CurrencyPackagesController < ApplicationController
             gachas.each { |gacha| 
                 gacha.update(currency_package_id: @currency_package_exist.id)
             }
+            # 元データを換算用データに設定していた所持ガチャ石の換算用データを、変更後のデータ（既に存在したデータ）に変更
+            posses_stones = current_user.user_posses_stones.where(currency_package_id: @currency_package.id)
+            posses_stones.each { |posses_stone| 
+                posses_stone.update(currency_package_id: @currency_package_exist.id)
+            }
         else
             # 存在しなかった場合、新しく登録
             if @currency_package_update.save
                 gachas = current_user.gachas.where(currency_package_id: @currency_package.id)
                 gachas.each { |gacha| 
                     gacha.update(currency_package_id: @currency_package_update.id)
+                }
+                posses_stones = current_user.user_posses_stones.where(currency_package_id: @currency_package.id)
+                posses_stones.each { |posses_stone| 
+                    posses_stone.update(currency_package_id: @currency_package_exist.id)
                 }
                 render json: @currency_package_update
             else
@@ -92,7 +101,7 @@ class Api::CurrencyPackagesController < ApplicationController
     end
 
     def initial_packages
-        @initial_packages = CurrencyPackage.limit(11)
+        @initial_packages = CurrencyPackage.limit(12)
         render json: @initial_packages
     end
 

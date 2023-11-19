@@ -88,10 +88,10 @@ export default {
     computed: {
         ...mapGetters('gachas', ["currencyPackages"]),
         initialPackages() {
-          return this.currencyPackages.slice(0,11)
+          return this.currencyPackages.slice(0,12)
         },
         userAddPackages() {
-          var packages = this.currencyPackages.slice(11)
+          var packages = this.currencyPackages.slice(12)
           return packages.sort((a, b) => {
             return (a.name > b.name ? 1 : -1)
           });
