@@ -209,67 +209,7 @@ export default {
             this.$router.push({ name: 'GachaRecordCreate' })
         },
         toEdit(int) {
-            if (this.search) {
-                if (this.select) {
-                    if (this.from_date) {
-                        if (this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, select: this.select, from: this.from_date, to: this.to_date } })
-                        } else if (!this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, select: this.select, from: this.from_date } })
-                        }
-                    } else if (!this.from_date) {
-                        if (this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, select: this.select, to: this.to_date } })
-                        } else if (!this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, select: this.select } })
-                        }
-                    }
-                } else if (!this.select) {
-                    if (this.from_date) {
-                        if (this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, from: this.from_date, to: this.to_date } })
-                        } else if (!this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, from: this.from_date } })
-                        }
-                    } else if (!this.from_date) {
-                        if (this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search, to: this.to_date } })
-                        } else if (!this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, search: this.search } })
-                        }
-                    }
-                } 
-            } else if (!this.search) {
-                if (this.select) {
-                    if (this.from_date) {
-                        if (this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, select: this.select, from: this.from_date, to: this.to_date } })
-                        } else if (!this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, select: this.select, from: this.from_date } })
-                        }
-                    } else if (!this.from_date) {
-                        if (this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, select: this.select, to: this.to_date } })
-                        } else if (!this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, select: this.select } })
-                        }
-                    }
-                } else if (!this.select) {
-                    if (this.from_date) {
-                        if (this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, from: this.from_date, to: this.to_date } })
-                        } else if (!this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, from: this.from_date } })
-                        }
-                    } else if (!this.from_date) {
-                        if (this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage, to: this.to_date } })
-                        } else if (!this.to_date) {
-                            this.$router.push({ name: 'GachaEdit', params: {id: int}, query: { page: this.currentPage } })
-                        }
-                    }
-                }
-            }
+            this.$router.push({ name: 'GachaEdit',params: { id: int } })
         },
         pageChange() {
             if (this.$route.path.match(/gamedata/)) {

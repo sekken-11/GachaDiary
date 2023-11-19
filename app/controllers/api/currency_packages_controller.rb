@@ -57,26 +57,14 @@ class Api::CurrencyPackagesController < ApplicationController
                 end
             end
             # 元データを換算用データに設定していたガチャ記録の換算用データを、変更後のデータ（既に存在したデータ）に変更
-            gachas = current_user.gachas.where(currency_package_id: @currency_package.id)
-            gachas.each { |gacha| 
-                gacha.update(currency_package_id: @currency_package_exist.id)
-            }
+            gacha_package_change(@currency_package, @currency_package_exist)
             # 元データを換算用データに設定していた所持ガチャ石の換算用データを、変更後のデータ（既に存在したデータ）に変更
-            posses_stones = current_user.user_posses_stones.where(currency_package_id: @currency_package.id)
-            posses_stones.each { |posses_stone| 
-                posses_stone.update(currency_package_id: @currency_package_exist.id)
-            }
+            posses_stone_package_change(@currency_package, @currency_package_exist)
         else
             # 存在しなかった場合、新しく登録
             if @currency_package_update.save
-                gachas = current_user.gachas.where(currency_package_id: @currency_package.id)
-                gachas.each { |gacha| 
-                    gacha.update(currency_package_id: @currency_package_update.id)
-                }
-                posses_stones = current_user.user_posses_stones.where(currency_package_id: @currency_package.id)
-                posses_stones.each { |posses_stone| 
-                    posses_stone.update(currency_package_id: @currency_package_exist.id)
-                }
+                gacha_package_change(@currency_package, @currency_package_update)
+                posses_stone_package_change(@currency_package, @currency_package_update)
                 render json: @currency_package_update
             else
                 render json: @currency_package_update.errors, status: :bad_request
@@ -119,6 +107,24 @@ class Api::CurrencyPackagesController < ApplicationController
           return true
         else
           return false
+        end
+    end
+
+    def gacha_package_change(currency_package, currency_package_exist)
+        gachas = current_user.gachas.where(currency_package_id: currency_package.id)
+        if gachas
+            gachas.each { |gacha| 
+                gacha.update(currency_package_id: currency_package_exist.id)
+            }
+        end
+    end
+
+    def posses_stone_package_change(currency_package, currency_package_exist)
+        posses_stones = current_user.user_posses_stones.where(currency_package_id: currency_package.id)
+        if posses_stones
+            posses_stones.each { |posses_stone| 
+                posses_stone.update(currency_package_id: currency_package_exist.id)
+            }
         end
     end
 end
