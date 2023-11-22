@@ -5,8 +5,11 @@ RSpec.describe 'カレンダー機能', type: :system do
     @login_user = create(:user)
     login_as(@login_user)
 
-    @package1 = create(:currency_package, name: 'ゲーム', need_one_gacha_stones: '300', price: '100', quantity: '100', user: @login_user)
-    @package2 = create(:currency_package, name: 'ゲーム2', need_one_gacha_stones: '300', price: '100', quantity: '100', user: @login_user)
+    @package1 = create(:currency_package, name: 'ゲーム', need_one_gacha_stones: '300', price: '100', quantity: '100')
+    @package2 = create(:currency_package, name: 'ゲーム2', need_one_gacha_stones: '300', price: '100', quantity: '100')
+
+    create(:user_package, user: @login_user, currency_package: @package1)
+    create(:user_package, user: @login_user, currency_package: @package2)
 
     create(:gacha, date: Date.today.last_month.beginning_of_month.change(day: 15).strftime("%F"), count: '10', user: @login_user, currency_package: @package1)
     create(:gacha, date: Date.today.beginning_of_month.change(day: 15).strftime("%F"), count: '20', user: @login_user, currency_package: @package1)

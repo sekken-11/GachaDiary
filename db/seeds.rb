@@ -1,7 +1,86 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+CurrencyPackage.create!([
+  {
+    name: "モンスターストライク",
+    need_one_gacha_stones: 5,
+    price: 10000,
+    quantity: 180,
+    category: 1,
+  },
+  {
+    name: "プロ野球スピリッツA",
+    need_one_gacha_stones: 25,
+    price: 10000,
+    quantity: 760,
+    category: 1,
+  },
+  {
+    name: "パズル&ドラゴンズ",
+    need_one_gacha_stones: 5,
+    price: 5000,
+    quantity: 85,
+    category: 1,
+  },
+  {
+    name: "原神",
+    need_one_gacha_stones: 160,
+    price: 12000,
+    quantity: 8080,
+    category: 1,
+  },
+  {
+    name: "勝利の女神：NIKKE",
+    need_one_gacha_stones: 300,
+    price: 12800,
+    quantity: 7700,
+    category: 1,
+  },
+  {
+    name: "アークナイツ",
+    need_one_gacha_stones: 600,
+    price: 10000,
+    quantity: 31500,
+    category: 1,
+  },
+  {
+    name: "ウマ娘 プリティダービー",
+    need_one_gacha_stones: 150,
+    price: 10000,
+    quantity: 5000,
+    category: 1,
+  },
+  {
+    name: "あんさんぶるスターズ!!MUSIC",
+    need_one_gacha_stones: 35,
+    price: 5500,
+    quantity: 800,
+    category: 1,
+  },
+  {
+    name: "崩壊：スターレイル",
+    need_one_gacha_stones: 160,
+    price: 12000,
+    quantity: 8080,
+    category: 1,
+  },
+  {
+    name: "プロジェクトセカイ",
+    need_one_gacha_stones: 300,
+    price: 10000,
+    quantity: 10500,
+    category: 1,
+  },
+  {
+    name: "Fate/GrandOrder",
+    need_one_gacha_stones: 3,
+    price: 10000,
+    quantity: 168,
+    category: 1,
+  },
+  {
+    name: "ブルーアーカイブ",
+    need_one_gacha_stones: 120,
+    price: 10000,
+    quantity: 4800,
+    category: 1,
+  }
+])

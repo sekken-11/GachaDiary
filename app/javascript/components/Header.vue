@@ -19,6 +19,7 @@
     <nav class="secondbar navbar mx-5 p-0">
       <div v-for="menu in menus" 
         :key="menu" 
+        :id="menu.link + '-link'"
         class="secondbar-block flex-fill py-3" 
         :class="{ 'here': menu.path == $route.path,
                   'another': menu.path != $route.path }"

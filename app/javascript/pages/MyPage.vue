@@ -53,7 +53,7 @@
           </div>
         </v-col>
         <v-col cols="12">
-          <div id="totalrecords" class="bg-white rounded shadow p-3 mb-3">
+          <div id="mypage-records" class="bg-white rounded shadow p-3 mb-3">
             <div class="text-center text-muted">
               <span>換算合計一覧</span>
             </div>

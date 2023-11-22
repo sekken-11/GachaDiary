@@ -7,6 +7,7 @@ export default {
         gacha: [],
         currency_packages: [],
         currency_package: [],
+        initial_packages: [],
     },
     getters: {
         gachas(state) {
@@ -34,7 +35,9 @@ export default {
                     }
                 });
             });
-            return games
+            return games.filter(game => {
+                return game.gacha_count != 0
+            })
         },
         totalAmount(state, getters) {
             const records = getters.totalRecords.map(
@@ -46,6 +49,7 @@ export default {
                 return 0
             }
         },
+        initialPackages: state => state.initial_packages,
     },
     mutations: {
         setGachas: (state, gachas) => {
@@ -82,11 +86,14 @@ export default {
                 return currency_package.id != deletePackage.id
             })
         },
-        changePackage: (state,changePackage) => {
+        changePackage: (state, changePackage) => {
             const index = state.currency_packages.findIndex(currency_package => {
                 return currency_package.id == changePackage.id
             })
             state.currency_packages.splice(index, 1, changePackage)
+        },
+        setInitialPackages: (state, initialPackages) => {
+            state.initial_packages = initialPackages
         },
     },
     actions: {
@@ -163,6 +170,14 @@ export default {
             .then(res => {
                 commit('changePackage', res.data)
             })
+        },
+        // 初期換算用データ取得
+        fetchInitialPackages({commit}) {
+            axios.get('currency_packages/initial_packages')
+            .then(res => {
+                commit('setInitialPackages', res.data)
+            })
+            .catch(err => console.log(err.response));
         },
     }
 }

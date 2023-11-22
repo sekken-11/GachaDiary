@@ -2,7 +2,6 @@ require 'rails_helper'
 RSpec.describe '現金換算機能', type: :system do
   before do
     visit root_path
-    create(:user)
   end
 
   context '未ログイン' do
@@ -49,6 +48,16 @@ RSpec.describe '現金換算機能', type: :system do
       expect(find('#posses_stone_error')).to have_content('半角数字で入力してください'), 'エラーメッセージがありません'
       expect(find('#stone_price_error')).to have_content('半角数字で入力してください'), 'エラーメッセージがありません'
       expect(find('#stone_quantity_error')).to have_content('半角数字で入力してください'), 'エラーメッセージがありません'
+    end
+
+    it '初期登録換算用データを選択した場合、自動でその数値が入力される' do
+      package1 = create(:currency_package, category: "initial")
+      visit root_path
+      select "#{package1.name}", from: 'select'
+      expect(find_field('ガチャ石の個数').value).to eq ''
+      expect(find_field('ガチャ石の価格').value).to eq "#{package1.price}"
+      expect(find_field('stone_quantity').value).to eq "#{package1.quantity}"
+      expect(find_field('ゲーム名*任意').value).to eq "#{package1.name}"
     end
 
   end

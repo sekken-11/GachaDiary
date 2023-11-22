@@ -3,7 +3,7 @@
   <div class="d-flex flex-column min-vh-100 smart-size">
     <Message />
     <Header class="mb-2" />
-
+{{ids}}
     <div class="py-3" v-if="no_total_record && authUser">
       <router-view />
     </div>
@@ -59,7 +59,7 @@ export default {
       || this.$route.path.match(/info$/)
       || this.$route.path.match(/terms$/)
       || this.$route.path.match(/policy$/)
-    }
+    },
   },
 }
 </script>

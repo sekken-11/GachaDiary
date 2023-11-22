@@ -1,10 +1,10 @@
 <template>
-<div class="bg mb-3 p-3 rounded shadow">
-  <div class="h5 text-white">合計</div>
-    <hr class="bg-white">
-    <div class="h4 text-white text-center">{{ totalAmount }}円</div>
+  <div class="bg mb-3 p-3 rounded shadow">
+    <div class="h5 text-white">合計</div>
+      <hr class="bg-white">
+      <div class="h4 text-white text-center">{{ totalAmount }}円</div>
   </div>
-  <div class="bg rounded shadow p-3">
+  <div id="totalrecords" class="bg rounded shadow p-3">
     <div class="h5 text-white text-center">換算合計</div>
       <RecordPart v-for="(totalRecord, index) in totalRecords"
         :totalRecord="totalRecord"

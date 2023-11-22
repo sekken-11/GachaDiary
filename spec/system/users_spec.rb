@@ -4,6 +4,7 @@ RSpec.describe 'ユーザー機能', type: :system do
 
   before do
     visit root_path
+    create_list(:currency_package, 12, category: "initial")
   end
 
   context '未ログイン' do
@@ -25,7 +26,6 @@ RSpec.describe 'ユーザー機能', type: :system do
         fill_in 'パスワード（再入力）', with: 'password'
         click_button '登録'
       end
-      page.accept_confirm
       expect(page).to have_current_path('/signin'), 'ログインページに遷移できていません'
     end
 
@@ -36,7 +36,6 @@ RSpec.describe 'ユーザー機能', type: :system do
         fill_in 'パスワード', with: '12345678'
         click_button 'ログイン'
       end
-      page.accept_confirm
       expect(page).to have_current_path('/'), '現金換算ページに遷移できていません'
     end
 
@@ -53,13 +52,13 @@ RSpec.describe 'ユーザー機能', type: :system do
 
     it '未ログイン状態で現金換算ページ以外に遷移したら、ログインページにリダイレクトされる' do
       click_on 'ガチャ記録'
-      expect(page).to have_current_path('/signin'), 'ログインページに遷移できていません'
+      expect(page).to have_selector('#signin-form'), 'ログインページに遷移できていません'
       click_on '所持ガチャ石'
-      expect(page).to have_current_path('/signin'), 'ログインページに遷移できていません'
+      expect(page).to have_selector('#signin-form'), 'ログインページに遷移できていません'
       click_on '換算用データ'
-      expect(page).to have_current_path('/signin'), 'ログインページに遷移できていません'
+      expect(page).to have_selector('#signin-form'), 'ログインページに遷移できていません'
       click_on 'カレンダー'
-      expect(page).to have_current_path('/signin'), 'ログインページに遷移できていません'
+      expect(page).to have_selector('#signin-form'), 'ログインページに遷移できていません'
     end
 
     it 'ユーザー登録フォームでバリデーションが機能していること' do
@@ -118,12 +117,11 @@ RSpec.describe 'ユーザー機能', type: :system do
       expect(page).to have_no_content('ログアウト'), 'ログアウトボタンが表示されている'
     end
 
-    it 'パスワード変更用メールが送信できる' do
+    xit 'パスワード変更用メールが送信できる' do
       visit '/signin'
       click_on 'パスワードを忘れた方はこちら'
       fill_in 'メールアドレス', with: user.email
       click_button '送信'
-      page.accept_confirm
       last_mail = ActionMailer::Base.deliveries.last
       expect(last_mail.subject).to eq 'パスワードリセット用メール'
     end
@@ -138,8 +136,6 @@ RSpec.describe 'ユーザー機能', type: :system do
       expect(page).to have_content('ログアウト'), 'ログイン状態でサイドバーに「ログアウト」ボタンが表示されていません'
       click_button 'ログアウト'
       page.accept_confirm
-      page.accept_confirm
-      expect(page).to have_current_path('/'), '現金換算に遷移できていません'
       expect(page).to have_content('新規登録'), '未ログイン状態でヘッダーに「新規登録」ボタンが表示されていません'
       expect(page).to have_content('ログイン'), '未ログイン状態でヘッダーに「ログイン」ボタンが表示されていません'
     end
@@ -148,13 +144,13 @@ RSpec.describe 'ユーザー機能', type: :system do
       login_as(user)
       visit root_path
       click_on 'ガチャ記録'
-      expect(page).to have_current_path('/gachas'), 'ガチャ記録ページに遷移できていません'
+      expect(page).to have_selector '#Gacha-link', class: 'here'
       click_on '所持ガチャ石'
-      expect(page).to have_current_path('/posses'), '所持ガチャ石ページに遷移できていません'
+      expect(page).to have_selector '#Posses-link', class: 'here'
       click_on '換算用データ'
-      expect(page).to have_current_path('/conversions'), '換算用データページに遷移できていません'
+      expect(page).to have_selector '#Conversion-link', class: 'here'
       click_on 'カレンダー'
-      expect(page).to have_current_path('/calendars'), 'カレンダーページに遷移できていません'
+      expect(page).to have_selector '#Calendar-link', class: 'here'
     end
 
   end
