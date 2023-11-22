@@ -31,7 +31,7 @@
                   <label for="game_select" class="mb-1">ゲーム選択</label>
                   <select v-model="select" class="form-control" id="select">
                     <option value="" selected>ゲームを選択しない</option>
-                    <option v-for="initialPackage in initialPackages" :key="initialPackage.id" :value="initialPackage.id">
+                    <option v-for="(initialPackage, index) in initialPackages" :key="initialPackage.id" :value="index">
                       {{ initialPackage.name }}
                     </option>
                   </select>
@@ -119,7 +119,7 @@ export default {
   },
   watch: {
     select() {
-      const set_package = this.initialPackages[this.select - 1]
+      const set_package = this.initialPackages[this.select]
       this.stone_price = set_package.price
       this.stone_quantity = set_package.quantity
       this.game_name = set_package.name

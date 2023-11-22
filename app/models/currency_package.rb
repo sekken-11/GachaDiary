@@ -10,4 +10,6 @@ class CurrencyPackage < ApplicationRecord
   validates :quantity, presence: true
   validates :price, presence: true
 
+  enum category: { add: 0, initial: 1 }
+
 end

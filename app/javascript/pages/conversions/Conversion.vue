@@ -1,17 +1,17 @@
 <template>
 <v-btn block class="mb-3 p-2" color="info" @click="toCreate">換算用データ 作成</v-btn>
 
-<div class="bg-white rounded shadow p-3 mb-3">
+<div id="initial-packages" class="bg-white rounded shadow p-3 mb-3">
     <div class="text-center text-muted">
     <span>初期登録データ 一覧</span>
-    <button v-if="isVisibleInitialPackage" class="border-0 bg-white text-muted" @click="initialPackageUp"><i class="bi bi-chevron-up"></i></button>
-    <button v-if="!isVisibleInitialPackage" class="border-0 bg-white text-muted" @click="initialPackageDown"><i class="bi bi-chevron-down"></i></button>
+    <button id="package-up" v-if="isVisibleInitialPackage" class="border-0 bg-white text-muted" @click="initialPackageUp"><i class="bi bi-chevron-up"></i></button>
+    <button id="package-down" v-if="!isVisibleInitialPackage" class="border-0 bg-white text-muted" @click="initialPackageDown"><i class="bi bi-chevron-down"></i></button>
   </div>
   <hr>
     <div v-for="(initialPackage, index) in initialPackages"
          v-if="isVisibleInitialPackage"
          :key="initialPackage.id"
-         :id="'package-' + (index + 1)"
+         :id="'initial-package-' + (index + 1)"
          class="bg-light border shadow-sm rounded my-2 py-2"
     >
       <v-container>
@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<div class="bg-white rounded shadow p-3 mb-3">
+<div id="packages" class="bg-white rounded shadow p-3 mb-3">
     <div class="text-center text-muted">
     <span>追加データ 一覧</span>
   </div>
@@ -88,10 +88,14 @@ export default {
     computed: {
         ...mapGetters('gachas', ["currencyPackages"]),
         initialPackages() {
-          return this.currencyPackages.slice(0,12)
+          return this.currencyPackages.filter(currencyPackage => {
+            return currencyPackage.category == "initial"
+          })
         },
         userAddPackages() {
-          var packages = this.currencyPackages.slice(12)
+          var packages = this.currencyPackages.filter(currencyPackage => {
+            return currencyPackage.category == "add"
+          })
           return packages.sort((a, b) => {
             return (a.name > b.name ? 1 : -1)
           });

@@ -1,10 +1,13 @@
 require 'rails_helper'
 RSpec.describe 'ガチャ記録機能', type: :system do
+
   before do
     @login_user = create(:user)
     login_as(@login_user)
-    @package1 = create(:currency_package, name: 'ゲーム', need_one_gacha_stones: '150', price: '160', quantity: '100', user: @login_user)
-    @package2 = create(:currency_package, name: 'ゲーム2', need_one_gacha_stones: '300', price: '100', quantity: '100', user: @login_user)
+    @package1 = create(:currency_package, name: 'ゲーム', need_one_gacha_stones: '150', price: '160', quantity: '100')
+    @package2 = create(:currency_package, name: 'ゲーム2', need_one_gacha_stones: '300', price: '100', quantity: '100')
+    create(:user_package, user: @login_user, currency_package: @package1)
+    create(:user_package, user: @login_user, currency_package: @package2)
     click_link 'ガチャ記録'
   end
 
@@ -15,6 +18,7 @@ RSpec.describe 'ガチャ記録機能', type: :system do
       create(:gacha, date: '2023-07-15', count: '10', user: @login_user, currency_package: @package1)
       create(:gacha, date: '2023-08-15', count: '10', description: 'test', user: @login_user, currency_package: @package2)
       visit current_path
+      click_link 'ガチャ記録'
     end
 
     it '複数のゲームのガチャ記録が合計に反映されている' do
@@ -135,6 +139,17 @@ RSpec.describe 'ガチャ記録機能', type: :system do
         expect(page).to have_content('10回'), '検索結果が正しくない'
       end
       expect(page).not_to have_selector('#gacharecord-2'), '検索結果が正しくない'
+    end
+
+    it 'ガチャ記録に登録されている換算用データが削除されたとき、換算用データが未設定になる' do
+      click_link '換算用データ'
+      within '#package-1' do
+        click_button '削除'
+      end
+      find('#delete-button').click
+      click_link 'ガチャ記録'
+      expect(find('#gacharecord-2')).to have_content('未設定'), '換算用データが未設定になっていない'
+      expect(find('#gacharecord-3')).to have_content('未設定'), '換算用データが未設定になっていない'
     end
 
   end

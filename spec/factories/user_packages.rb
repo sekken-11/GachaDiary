@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user_package do
-    user { nil }
-    currency_package { nil }
+    association :user
+    association :currency_package
   end
 end

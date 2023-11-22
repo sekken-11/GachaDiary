@@ -3,7 +3,7 @@
   <div class="d-flex flex-column min-vh-100 smart-size">
     <Message />
     <Header class="mb-2" />
-
+{{ids}}
     <div class="py-3" v-if="no_total_record && authUser">
       <router-view />
     </div>
@@ -59,16 +59,6 @@ export default {
       || this.$route.path.match(/info$/)
       || this.$route.path.match(/terms$/)
       || this.$route.path.match(/policy$/)
-    },
-    editPathNumber() {
-      return this.$route.path
-    }
-  },
-  watch: {
-    editPathNumber() {
-      if (this.$route.path.match(/conversions\/edit\/[1-12]$/) || this.$route.path.match(/conversions\/edit\/[1-12]\/$/)) {
-        this.$router.push({ name: 'Conversion'})
-      }
     },
   },
 }

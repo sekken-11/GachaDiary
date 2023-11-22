@@ -1,7 +1,8 @@
 class Api::UsersController < ApplicationController
     def create
         user = User.new(user_params)
-        user.currency_package_ids = [*1..12]
+        ids = CurrencyPackage.where(category: 1).pluck(:id)
+        user.currency_package_ids = ids
         if user.save
           render json: user
         else

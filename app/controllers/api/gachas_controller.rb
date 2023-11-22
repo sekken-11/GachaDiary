@@ -9,7 +9,9 @@ class Api::GachasController < ApplicationController
     end
 
     def show
-        render json: @gacha, include: [:currency_package]
+        if current_user.id == @gacha.user_id
+            render json: @gacha, include: [:currency_package]
+        end
     end
 
     def create
@@ -22,6 +24,7 @@ class Api::GachasController < ApplicationController
     end
 
     def update
+        return if current_user.id != @gacha.user_id
         if @gacha.update(gacha_params)
             render json: @gacha
         else
