@@ -8,7 +8,9 @@ class Api::UserPossesStonesController < ApplicationController
     end
 
     def show
-        render json: @user_posses_stone, include: [:currency_package]
+        if current_user.id == @user_posses_stone.user_id
+            render json: @user_posses_stone, include: [:currency_package]
+        end
     end
 
     def create
@@ -21,6 +23,7 @@ class Api::UserPossesStonesController < ApplicationController
     end
 
     def update
+        return if current_user.id != @user_posses_stone.user_id
         if @user_posses_stone.update(user_posses_stone_params)
             render json: @user_posses_stone
         else
