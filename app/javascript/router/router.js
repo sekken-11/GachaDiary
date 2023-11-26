@@ -152,6 +152,11 @@ router.beforeEach((to, from, next) => {
     store.dispatch('users/fetchAuthUser').then((authUser) => {
         if (to.matched.some(record => record.meta.requiredAuth) && !authUser) {
             next({ name: 'SignIn' });
+            store.dispatch('transition/addMessage', {
+                message: "ログイン後に利用可能です",
+                messageType: "danger",
+                timeOut: 1000
+            })
         } else {
             next();
         }
