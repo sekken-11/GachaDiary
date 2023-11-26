@@ -14,18 +14,19 @@ export default {
     setDate: (state, date) => {
       state.date = date
     },
-    setMessage: (state, { message, messageType}) => {
+    setMessage: (state, { message, messageType, timeOut}) => {
       state.message = message
       state.messageType = messageType
-      setTimeout(() => (state.message = ''), 6000)
+      timeOut = timeOut || 5000
+      setTimeout(() => (state.message = ''), timeOut)
     },
   },
   actions: {
     datePick({commit}, date) {
       commit('setDate', date)
     },
-    addMessage({commit}, { message, messageType }) {
-      commit('setMessage', { message: message, messageType: messageType})
+    addMessage({commit}, { message, messageType, timeOut }) {
+      commit('setMessage', { message: message, messageType: messageType, timeOut: timeOut})
     },
   },
 }
