@@ -88,9 +88,12 @@ export default {
     computed: {
         ...mapGetters('gachas', ["currencyPackages"]),
         initialPackages() {
-          return this.currencyPackages.filter(currencyPackage => {
+          var initial_packages =  this.currencyPackages.filter(currencyPackage => {
             return currencyPackage.category == "initial"
           })
+          return initial_packages.sort((a, b) => {
+            return (a.name > b.name ? 1 : -1)
+          });
         },
         userAddPackages() {
           var packages = this.currencyPackages.filter(currencyPackage => {
