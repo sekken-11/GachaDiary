@@ -19,7 +19,7 @@ class Api::CurrencyPackagesController < ApplicationController
         @currency_package = CurrencyPackage.new(currency_package_params)
         @form = PackageChangeForm.new(currency_package_params)
         if @form.create_package(@currency_package) == "exist_and_available"
-            render json: @currency_package_exist
+            render json: @currency_package.errors, status: :bad_request
         elsif @form.create_package(@currency_package) == "exist_and_unavailable"
             render json: @currency_package_exist
         elsif @form.create_package(@currency_package) == "not_exist"
@@ -34,7 +34,7 @@ class Api::CurrencyPackagesController < ApplicationController
         @currency_package_update = CurrencyPackage.new(currency_package_params)
         @form = PackageChangeForm.new(currency_package_params)
         if @form.change_package(@currency_package) == "exist_and_available"
-            render json: @currency_package_exist
+            render json: @currency_package_exist.errors, status: :bad_request
         elsif @form.change_package(@currency_package) == "exist_and_unavailable"
             @currency_package_exist.id = @currency_package.id
             render json: @currency_package_exist

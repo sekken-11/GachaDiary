@@ -205,6 +205,7 @@ export default {
             "fetchGachas",
             "deleteGacha",
         ]),
+        ...mapActions('transition', ["addMessage"]),
         toCreate() {
             this.$router.push({ name: 'GachaRecordCreate' })
         },
@@ -304,8 +305,16 @@ export default {
             try {
                 await this.deleteGacha(gacha);
                 this.handleClose();
+                this.addMessage({
+                    message: "ガチャ記録を削除しました",
+                    messageType: "success"
+                })
             } catch (error) {
                 console.log(error);
+                this.addMessage({
+                    message: "ガチャ記録の削除に失敗しました",
+                    messageType: "danger"
+                })
             }
         },
         gachaUp() {

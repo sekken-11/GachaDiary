@@ -20,6 +20,9 @@ export default {
       timeOut = timeOut || 5000
       setTimeout(() => (state.message = ''), timeOut)
     },
+    deleteMessage: (state) => {
+      state.message = ''
+    },
   },
   actions: {
     datePick({commit}, date) {
@@ -27,6 +30,9 @@ export default {
     },
     addMessage({commit}, { message, messageType, timeOut }) {
       commit('setMessage', { message: message, messageType: messageType, timeOut: timeOut})
+    },
+    emptyMessage({commit}) {
+      commit('deleteMessage')
     },
   },
 }

@@ -79,9 +79,7 @@ export default {
     this.pageMaintain();
   },
   methods: {
-    ...mapActions('gachas', [
-      "fetchGachas",
-    ]),
+    ...mapActions('gachas', ["fetchGachas"]),
     toCreate() {
       this.$router.push({ name: 'GachaRecordCreate' })
     },
