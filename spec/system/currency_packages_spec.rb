@@ -138,7 +138,7 @@ RSpec.describe '換算用データ機能', type: :system do
         fill_in 'stone_quantity', with: "#{initial_package.quantity}"
         click_button '作成'
       end
-      expect(find('#packages')).to have_no_selector('#package-1'), '換算用データが存在しない'
+      expect(page).to have_content('換算用データの作成に失敗しました'), '換算用データが作成されている'
     end
 
   end
