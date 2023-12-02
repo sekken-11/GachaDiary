@@ -61,12 +61,21 @@ export default {
     },
     methods: {
         ...mapActions('gachas', ["createPackage",]),
+        ...mapActions('transition', ["addMessage"]),
         async handleCreatePackage(currency_package) {
             try {
                 await this.createPackage(currency_package)
                 this.$router.push({ name: 'Conversion' })
+                this.addMessage({
+                    message: "換算用データを作成しました",
+                    messageType: "success"
+                })
             } catch (error) {
-            console.log(error)
+                console.log(error)
+                this.addMessage({
+                    message: "換算用データの作成に失敗しました",
+                    messageType: "danger"
+                })
             }
         },
         isNumericRequired(value) {

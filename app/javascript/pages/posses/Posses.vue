@@ -42,9 +42,7 @@ export default {
         this.fetchPossesStones();
     },
     methods: {
-        ...mapActions('posses_stones',[
-            "fetchPossesStones",
-            ]),
+        ...mapActions('posses_stones',["fetchPossesStones"]),
         toCreate() {
             this.$router.push({ name: 'PossesCreate' })
         },

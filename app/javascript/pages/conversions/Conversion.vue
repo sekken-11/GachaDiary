@@ -88,9 +88,12 @@ export default {
     computed: {
         ...mapGetters('gachas', ["currencyPackages"]),
         initialPackages() {
-          return this.currencyPackages.filter(currencyPackage => {
+          var initial_packages =  this.currencyPackages.filter(currencyPackage => {
             return currencyPackage.category == "initial"
           })
+          return initial_packages.sort((a, b) => {
+            return (a.name > b.name ? 1 : -1)
+          });
         },
         userAddPackages() {
           var packages = this.currencyPackages.filter(currencyPackage => {
@@ -111,6 +114,7 @@ export default {
             "deletePackage",
             "fetchGachas",
         ]),
+        ...mapActions('transition', ["addMessage"]),
         toCreate() {
             this.$router.push({ name: 'ConversionCreate' })
         },
@@ -141,8 +145,16 @@ export default {
             try {
                 await this.deletePackage(currency_package);
                 this.handleClose();
+                this.addMessage({
+                    message: "換算用データを削除しました",
+                    messageType: "success"
+                })
             } catch (error) {
                 console.log(error);
+                this.addMessage({
+                    message: "換算用データの削除に失敗しました",
+                    messageType: "danger"
+                })
             }
         },
         async handleEditPackage(currency_package) {

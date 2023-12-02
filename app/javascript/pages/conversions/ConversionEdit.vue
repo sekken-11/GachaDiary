@@ -57,12 +57,21 @@ export default {
             "fetchPackage",
             "editPackage"
         ]),
+        ...mapActions('transition', ["addMessage"]),
         async handleEditPackage() {
             try {
                 await this.editPackage(this.currencyPackage)
                 this.$router.push({ name: 'Conversion' })
+                this.addMessage({
+                    message: "換算用データを編集しました",
+                    messageType: "success"
+                })
             } catch (error) {
-            console.log(error)
+                console.log(error)
+                this.addMessage({
+                    message: "換算用データの編集に失敗しました",
+                    messageType: "danger"
+                })
             }
         },
         isNumericRequired(value) {

@@ -61,4 +61,9 @@ export default {
   color: gray;
   text-decoration: none;
 }
+@media (min-width:768px) {
+  footer {
+    font-size: 130%;
+  }
+}
 </style>

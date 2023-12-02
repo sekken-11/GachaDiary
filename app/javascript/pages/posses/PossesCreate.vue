@@ -52,12 +52,21 @@ export default {
     methods: {
         ...mapActions('gachas', ["fetchPackages",]),
         ...mapActions('posses_stones', ["createPossesStone"]),
+        ...mapActions('transition', ["addMessage"]),
         async handleCreatePossesStone(posses_stone) {
             try {
                 await this.createPossesStone(posses_stone)
                 this.$router.push({ name: 'Posses' })
+                this.addMessage({
+                    message: "所持ガチャ石記録を作成しました",
+                    messageType: "success"
+                })
             } catch (error) {
-            console.log(error)
+                console.log(error)
+                this.addMessage({
+                    message: "所持ガチャ石記録の作成に失敗しました",
+                    messageType: "danger"
+                })
             }
         },
         isNumericRequired(value) {

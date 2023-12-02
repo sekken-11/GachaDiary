@@ -60,12 +60,21 @@ export default {
         "fetchGacha",
         "editGacha"
     ]),
+    ...mapActions('transition', ["addMessage"]),
     async handleEditGacha() {
         try {
             await this.editGacha(this.gacha)
             this.$router.back()
+            this.addMessage({
+                message: "ガチャ記録を編集しました",
+                messageType: "success"
+            })
         } catch (error) {
-        console.log(error)
+            console.log(error)
+            this.addMessage({
+                message: "ガチャ記録の編集に失敗しました",
+                messageType: "danger"
+            })
         }
     },
     isNumericRequired(value) {

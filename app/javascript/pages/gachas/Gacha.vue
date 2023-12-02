@@ -18,7 +18,7 @@
   >
   </v-autocomplete>
 </div>
-<div class="mb-3" id="date-form">
+<div class="" id="date-form">
   <v-row>
     <v-col cols="6">
       <div class="form-group">
@@ -28,6 +28,20 @@
     <v-col cols="6">
       <div class="form-group">
         <input id="to_date" type="date" v-model="to_date" class="form-control">
+      </div>
+    </v-col>
+  </v-row>
+</div>
+<div class="mb-3" id="count-form">
+  <v-row>
+    <v-col cols="6">
+      <div class="form-group">
+        <input id="from_count" v-model.number="from_count" class="form-control" placeholder="回数下限">
+      </div>
+    </v-col>
+    <v-col cols="6">
+      <div class="form-group">
+        <input id="to_count" v-model.number="to_count" class="form-control" placeholder="回数上限">
       </div>
     </v-col>
   </v-row>
@@ -42,7 +56,18 @@
   </select>
 </div>
 
-<GachaRecordPart :gachas="gachas" :perPage="perPage" :search="search" :select="select" :from_date="from_date" :to_date="to_date">データがありません</GachaRecordPart>
+<GachaRecordPart 
+  :gachas="gachas" 
+  :perPage="perPage" 
+  :search="search" 
+  :select="select" 
+  :from_date="from_date" 
+  :to_date="to_date"
+  :from_count="from_count"
+  :to_count="to_count"
+>
+  データがありません
+</GachaRecordPart>
 
 </template>
 
@@ -62,6 +87,8 @@ export default {
       select: this.select = this.$route.query.select || '',
       from_date: this.from_date = this.$route.query.from || '',
       to_date: this.to_date = this.$route.query.to || '',
+      from_count: this.from_count = this.$route.query.fcount || '',
+      to_count: this.to_count = this.$route.query.tcount || '',
       checked: false,
     }
   },
@@ -76,19 +103,11 @@ export default {
   },
   created() {
     this.fetchGachas();
-    this.pageMaintain();
   },
   methods: {
-    ...mapActions('gachas', [
-      "fetchGachas",
-    ]),
+    ...mapActions('gachas', ["fetchGachas"]),
     toCreate() {
       this.$router.push({ name: 'GachaRecordCreate' })
-    },
-    pageMaintain() {
-      if (this.$route.query.page) {
-        this.currentPage = this.$route.query.page
-      }
     },
   },
 }

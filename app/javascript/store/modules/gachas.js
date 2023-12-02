@@ -21,11 +21,19 @@ export default {
                 return gacha.currency_package_id == state.currency_package.id
             })
         },
-        currencyPackages: state => state.currency_packages,
+        currencyPackages(state, getters) {
+            var initials = getters.sort_packages.filter(sort_package => {
+                return sort_package.category == "initial"
+            });
+            var adds = getters.sort_packages.filter(sort_package => {
+                return sort_package.category == "add"
+            });
+            return initials.concat(adds);
+        },
         currencyPackage: state => state.currency_package,
-        totalRecords(state) {
+        totalRecords(state, getters) {
             var hash
-            const games = state.currency_packages.map(
+            const games = getters.sort_packages.map(
                 (cp) => hash = { id: cp.id, game_name: cp.name, gacha_count: 0, need_one_gacha_price: cp.price/cp.quantity*cp.need_one_gacha_stones }
             );
             games.forEach((game) => {
@@ -49,7 +57,16 @@ export default {
                 return 0
             }
         },
-        initialPackages: state => state.initial_packages,
+        initialPackages(state) {
+            return state.initial_packages.sort((a, b) => {
+                return (a.name > b.name ? 1 : -1);
+            });
+        },
+        sort_packages(state) {
+            return state.currency_packages.sort((a, b) => {
+                return (a.name > b.name ? 1 : -1);
+            });
+        }
     },
     mutations: {
         setGachas: (state, gachas) => {

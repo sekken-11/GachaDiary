@@ -49,12 +49,21 @@ export default {
             "editPossesStone",
             "fetchPossesStone",
         ]),
+        ...mapActions('transition', ["addMessage"]),
         async handleEditPossesStone() {
             try {
                 await this.editPossesStone(this.possesStone)
                 this.$router.back()
+                this.addMessage({
+                    message: "所持ガチャ石記録を編集しました",
+                    messageType: "success"
+                })
             } catch (error) {
-            console.log(error)
+                console.log(error)
+                this.addMessage({
+                    message: "所持ガチャ石記録の編集に失敗しました",
+                    messageType: "danger"
+                })
             }
         },
         isNumericRequired(value) {

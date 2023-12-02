@@ -61,7 +61,8 @@ export default {
           this.$router.push({ name: 'MyPage' })
           this.addMessage({
             message: "メールアドレスを変更しました",
-            messageType: "success"
+            messageType: "success",
+            timeOut: 10000
           })
         } catch (error) {
           console.log(error)

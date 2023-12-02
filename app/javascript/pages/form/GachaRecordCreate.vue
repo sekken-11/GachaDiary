@@ -76,12 +76,21 @@ export default {
     },
     ...mapActions('gachas', ["createGacha"]),
     ...mapActions('gachas', ["fetchPackages"]),
+    ...mapActions('transition', ["addMessage"]),
     async handleCreateGacha(gacha) {
         try {
             await this.createGacha(gacha)
             this.$router.push({ name: 'Gacha' })
+            this.addMessage({
+                message: "ガチャ記録を作成しました",
+                messageType: "success"
+            })
         } catch (error) {
-        console.log(error)
+            console.log(error)
+            this.addMessage({
+                message: "ガチャ記録の作成に失敗しました",
+                messageType: "danger"
+            })
         }
     },
     isNumericRequired(value) {

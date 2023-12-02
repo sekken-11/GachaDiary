@@ -1,7 +1,7 @@
 <template>
 <v-app class="bgcolor">
-  <div class="d-flex flex-column min-vh-100 smart-size">
-    <Message />
+  <div class="d-flex flex-column min-vh-100 smart-size" @click="">
+    <Message class="message" />
     <Header class="mb-2" />
 {{ids}}
     <div class="py-3" v-if="no_total_record && authUser">
@@ -35,7 +35,7 @@ import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import TotalRecord from './components/TotalRecord.vue';
 import Message from './components/FlashMessage.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   components: {
@@ -43,10 +43,6 @@ export default {
     Footer,
     TotalRecord,
     Message,
-  },
-  data() {
-    return {
-    }
   },
   computed: {
     ...mapGetters('users', ["authUser"]),
@@ -61,11 +57,25 @@ export default {
       || this.$route.path.match(/policy$/)
     },
   },
+  methods: {
+    ...mapActions('transition', ["emptyMessage"]),
+    deleteMessage() {
+      this.emptyMessage()
+    },
+  },
 }
 </script>
 
 <style scoped>
 .bgcolor {
   background-color: snow;
+  position: relative;
+  z-index: 1;
+}
+.message {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 2;
 }
 </style>

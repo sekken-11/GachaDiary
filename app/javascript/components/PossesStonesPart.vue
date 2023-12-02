@@ -80,7 +80,8 @@ export default {
         ...mapActions('posses_stones',[
             "deletePossesStone",
             "editPossesStone",
-            ]),
+        ]),
+        ...mapActions('transition', ["addMessage"]),
         toCreate() {
             this.$router.push({ name: 'PossesCreate' })
         },
@@ -103,16 +104,16 @@ export default {
             try {
                 await this.deletePossesStone(posses_stone);
                 this.handleClose();
+                this.addMessage({
+                    message: "所持ガチャ石記録を削除しました",
+                    messageType: "success"
+                })
             } catch (error) {
                 console.log(error);
-            }
-        },
-        async handleEditPossesStone(posses_stone) {
-            try {
-                await this.editPossesStone(posses_stone);
-                this.handleClose();
-            } catch (error) {
-                console.log(error);
+                this.addMessage({
+                    message: "所持ガチャ石記録の削除に失敗しました",
+                    messageType: "danger"
+                })
             }
         },
         possesStoneUp() {
