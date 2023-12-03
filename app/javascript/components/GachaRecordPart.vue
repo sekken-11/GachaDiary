@@ -2,13 +2,6 @@
   <div id="gacharecords" class="bg-white rounded shadow p-3 mb-3">
     <div class="text-center text-muted">
       <span>ガチャ記録 一覧</span>
-       {{$route.query}}
-       <br>
-       {{pageNumber}}
-       <br>
-       {{currentPage}}
-       <br>
-       {{search}}
       <button v-if="isVisibleGacha" class="border-0 bg-white text-muted" @click="gachaUp">
         <i class="bi bi-chevron-up"></i>
       </button>
