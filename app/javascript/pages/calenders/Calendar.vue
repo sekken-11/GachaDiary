@@ -1,10 +1,23 @@
 <template>
 <div class="mb-3">
   <v-row>
-    <v-col cols="9">
-      <Datepicker monthPicker v-model="calendarMonth" placeholder="年と月を選択" />
+    <v-col cols="4">
+      <select v-model="year" class="form-control" id="year">
+        <option value="" selected>年</option>
+        <option v-for="year in fullYear" :key="year" :value="year">
+          {{ year }}年
+        </option>
+      </select>
     </v-col>
-    <v-col cols="3">
+    <v-col cols="4">
+      <select v-model="month" class="form-control" id="month">
+        <option value="" selected>月</option>
+        <option v-for="month in fullMonth" :key="month" :value="month">
+          {{ month + 1 }}月
+        </option>
+      </select>
+    </v-col>
+    <v-col cols="4">
       <v-btn block color="success" @click="monthSelect">反映</v-btn>
     </v-col>
   </v-row>
@@ -29,8 +42,6 @@
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import Datepicker from '@vuepic/vue-datepicker'
-import '@vuepic/vue-datepicker/dist/main.css'
 import { mapGetters, mapActions } from 'vuex';
 import GachaRecordPart from '../../components/GachaRecordPart.vue';
 
@@ -39,7 +50,6 @@ export default {
   components: {
     FullCalendar,
     GachaRecordPart,
-    Datepicker,
   },
   data() {
     return {
@@ -47,7 +57,9 @@ export default {
       perPage: 5,
       date: new Date().toLocaleDateString('sv-SE'),
       search_null: '',
-      calendarMonth: '',
+      year: '',
+      month: '',
+      fullMonth: [...new Array(12).keys()],
       calendarOptions: {
         locale: 'ja',
         plugins: [dayGridPlugin, interactionPlugin],
@@ -76,6 +88,14 @@ export default {
         return gacha.date.indexOf(this.date) != -1
       })
     },
+    fullYear() {
+      let year = new Date();
+      let now = year.getFullYear();
+      let end = now + 1
+      let start = end - 9
+      var years = [...new Array(end-start).keys()].map(n => n + start);
+      return years
+    },
   },
   watch: {
     gachas() {
@@ -90,9 +110,11 @@ export default {
     ...mapActions('transition', ["datePick"]),
     ...mapActions('gachas', ["fetchGachas"]),
     monthSelect() {
-      var yearMonth = new Date(this.calendarMonth.year, this.calendarMonth.month).toLocaleDateString('sv-SE')
-      let calendarApi = this.$refs.fullCalendar.getApi();
-      calendarApi.gotoDate(yearMonth);
+      if (this.year && this.month) {
+        var yearMonth = new Date(this.year, this.month).toLocaleDateString('sv-SE')
+        let calendarApi = this.$refs.fullCalendar.getApi();
+        calendarApi.gotoDate(yearMonth);
+      }
     },
     toCreate(date) {
       this.datePick(date.toLocaleDateString('sv-SE'));
