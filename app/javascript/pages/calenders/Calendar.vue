@@ -1,10 +1,23 @@
 <template>
+<div class="mb-3">
+  <v-row>
+    <v-col cols="9">
+      <Datepicker monthPicker v-model="calendarMonth" placeholder="年と月を選択" />
+    </v-col>
+    <v-col cols="3">
+      <v-btn block color="success" @click="monthSelect">反映</v-btn>
+    </v-col>
+  </v-row>
+</div>
 <div id="calendar" class="bg-white rounded shadow p-3 mb-3">
   <div class="mb-4">
     <v-btn block color="success" @click="eventChange">表示切替</v-btn>
   </div>
   <div class="calendar">
-    <FullCalendar :options='calendarOptions' />
+    <FullCalendar 
+      :options='calendarOptions'
+      ref="fullCalendar"
+    />
   </div>
 </div>
 
@@ -16,6 +29,8 @@
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
+import Datepicker from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
 import { mapGetters, mapActions } from 'vuex';
 import GachaRecordPart from '../../components/GachaRecordPart.vue';
 
@@ -24,6 +39,7 @@ export default {
   components: {
     FullCalendar,
     GachaRecordPart,
+    Datepicker,
   },
   data() {
     return {
@@ -31,6 +47,7 @@ export default {
       perPage: 5,
       date: new Date().toLocaleDateString('sv-SE'),
       search_null: '',
+      calendarMonth: '',
       calendarOptions: {
         locale: 'ja',
         plugins: [dayGridPlugin, interactionPlugin],
@@ -72,6 +89,11 @@ export default {
   methods: {
     ...mapActions('transition', ["datePick"]),
     ...mapActions('gachas', ["fetchGachas"]),
+    monthSelect() {
+      var yearMonth = new Date(this.calendarMonth.year, this.calendarMonth.month).toLocaleDateString('sv-SE')
+      let calendarApi = this.$refs.fullCalendar.getApi();
+      calendarApi.gotoDate(yearMonth);
+    },
     toCreate(date) {
       this.datePick(date.toLocaleDateString('sv-SE'));
       this.$router.push({ name: 'GachaRecordCreate' })
