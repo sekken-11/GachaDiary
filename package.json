@@ -14,7 +14,6 @@
     "@fullcalendar/interaction": "^6.1.9",
     "@fullcalendar/vue3": "^6.1.9",
     "@mdi/js": "^7.2.96",
-    "@vuepic/vue-datepicker": "^7.3.0",
     "axios": "^1.5.0",
     "chart.js": "^4.4.0",
     "vee-validate": "^4.5.8",
