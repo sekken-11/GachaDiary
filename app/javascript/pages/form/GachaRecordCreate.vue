@@ -80,7 +80,7 @@ export default {
     async handleCreateGacha(gacha) {
         try {
             await this.createGacha(gacha)
-            this.$router.push({ name: 'Gacha' })
+            this.$router.back()
             this.addMessage({
                 message: "ガチャ記録を作成しました",
                 messageType: "success"
