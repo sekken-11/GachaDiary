@@ -110,10 +110,13 @@ export default {
     ...mapActions('transition', ["datePick"]),
     ...mapActions('gachas', ["fetchGachas"]),
     monthSelect() {
-      if (this.year && this.month) {
+      if (this.year && (this.month || this.month == 0)) {
         var yearMonth = new Date(this.year, this.month).toLocaleDateString('sv-SE')
         let calendarApi = this.$refs.fullCalendar.getApi();
         calendarApi.gotoDate(yearMonth);
+      } else if (!this.year || !this.month ) {
+        let calendarApi = this.$refs.fullCalendar.getApi();
+        calendarApi.gotoDate(new Date().toLocaleDateString('sv-SE'));
       }
     },
     toCreate(date) {
