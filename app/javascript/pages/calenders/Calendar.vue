@@ -188,6 +188,25 @@ export default {
 </script>
 
 <style>
+a {
+  text-decoration: none;
+}
+.fc-daygrid-day-number {
+  color: navy;
+  font-size: 80%;
+}
+.fc-col-header-cell-cushion {
+  color: whitesmoke;
+}
+.fc-scrollgrid-sync-inner {
+  background-color: dimgray;
+}
+.fc-daygrid-day-frame {
+  background-color: whitesmoke;
+}
+.fc-toolbar-title {
+  font-family: serif;
+}
 @media (max-width:767px) {
   .fc-daygrid-body {
     width: 100% !important;
@@ -206,6 +225,9 @@ export default {
   }
   .fc-media-screen {
     height: 500px;
+  }
+  .fc-event-title {
+    font-size: 80%;
   }
 }
 </style>
