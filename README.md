@@ -11,7 +11,7 @@ GachaDiary（ガチャダイアリー）は「スマホゲームに何円課金�
 ![](https://gyazo.com/cdf2a0d4f706f679c9dbfccd4119f58d.gif)
 ### ガチャ記録
 ![](https://gyazo.com/8598ca7a10b3b04153c21447a268ff09.gif)
-![](https://gyazo.com/86778c56fb7c4795703da48e4728ac60.gif)
+![](https://gyazo.com/09d87d36a7e24c4d96fcc46a413cfa59.gif)
 ### 所持ガチャ石
 ![](https://gyazo.com/452aef16d24533e0079484bebdc87117.gif)
 ### 換算用データ
