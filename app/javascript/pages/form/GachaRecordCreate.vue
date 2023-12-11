@@ -63,35 +63,45 @@ export default {
   },
   computed: {
     ...mapGetters('gachas', ["gachas"]),
-    ...mapGetters('gachas', ["currencyPackages"]),
+    ...mapGetters('gachas', [
+      "currencyPackages",
+      "currencyPackageId",
+    ]),
     ...mapGetters('transition', ["selectDate"]),
   },
   created() {
     this.fetchPackages();
     this.setDate();
+    if (this.currencyPackageId) {
+      this.gacha.currency_package_id = Number(this.currencyPackageId);
+    }
   },
   methods: {
     setDate() {
       this.gacha.date = this.selectDate || new Date().toLocaleDateString('sv-SE')
     },
     ...mapActions('gachas', ["createGacha"]),
-    ...mapActions('gachas', ["fetchPackages"]),
+    ...mapActions('gachas', [
+      "fetchPackages",
+      "pickPackageId",
+    ]),
     ...mapActions('transition', ["addMessage"]),
     async handleCreateGacha(gacha) {
-        try {
-            await this.createGacha(gacha)
-            this.$router.back()
-            this.addMessage({
-                message: "ガチャ記録を作成しました",
-                messageType: "success"
-            })
-        } catch (error) {
-            console.log(error)
-            this.addMessage({
-                message: "ガチャ記録の作成に失敗しました",
-                messageType: "danger"
-            })
-        }
+      try {
+        await this.createGacha(gacha)
+        this.$router.back()
+        this.pickPackageId(gacha.currency_package_id)
+        this.addMessage({
+          message: "ガチャ記録を作成しました",
+          messageType: "success"
+        })
+      } catch (error) {
+        console.log(error)
+        this.addMessage({
+          message: "ガチャ記録の作成に失敗しました",
+          messageType: "danger"
+        })
+      }
     },
     isNumericRequired(value) {
       if (!value.toString().match(/^[0-9]*$/)) {
