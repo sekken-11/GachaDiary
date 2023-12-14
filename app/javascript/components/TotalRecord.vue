@@ -25,7 +25,12 @@ export default {
     RecordPart
   },
   computed: {
-    ...mapGetters('gachas', ["gachas", "currencyPackages", "totalRecords", "totalAmount"]),
+    ...mapGetters('gachas', [
+      "gachas",
+      "currencyPackages",
+      "totalRecords",
+      "totalAmount"
+    ]),
   },
   created() {
     this.fetchGachas();
