@@ -10,6 +10,7 @@ class Api::CurrencyPackagesController < ApplicationController
   end
 
   def show
+    return if @currency_package.category == "initial"
     if current_user.currency_package_ids.include?(@currency_package.id)
       render json: @currency_package
     end

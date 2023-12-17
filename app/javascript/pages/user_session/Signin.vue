@@ -8,12 +8,12 @@
         <Form @submit="handleSignIn">
           <div v-if="error" class="text-danger my-4">{{ error }}</div>
           <div class="form-group my-4">
-            <label for="email">メールアドレス</label>
+            <label for="email" class="form-label">メールアドレス</label>
             <Field name="email" id="email" v-model="user.email" class="form-control" type="email" :rules="isEmailRequired" />
             <div class="text-danger"><ErrorMessage name="email" /></div>
           </div>
           <div class="form-group mb-4">
-            <label for="password">パスワード</label>
+            <label for="password" class="form-label">パスワード</label>
             <Field name="password" id="password" v-model="user.password" class="form-control" type="password" :rules="isSixToSixteenRequired" />
             <div class="text-danger"><ErrorMessage name="password" /></div>
           </div>

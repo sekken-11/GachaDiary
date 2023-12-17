@@ -29,7 +29,11 @@ export default {
       var adds = getters.sort_packages.filter(sort_package => {
         return sort_package.category == "add"
       });
-      return initials.concat(adds);
+      if (state.initial_package_checked) {
+        return adds
+      } else {
+        return initials.concat(adds);
+      }
     },
     currencyPackage: state => state.currency_package,
     totalRecords(state, getters) {
