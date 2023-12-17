@@ -7,7 +7,7 @@
         <Form @submit="handlePasswordResetMail">
           <div v-if="error" class="text-danger my-4">{{ error }}</div>
           <div class="form-group my-4">
-            <label for="email">メールアドレス</label>
+            <label for="email" class="form-label">メールアドレス</label>
             <Field name="email" id="email" v-model="user.email" class="form-control" type="email" :rules="isEmailRequired" />
             <div class="text-danger"><ErrorMessage name="email" /></div>
           </div>

@@ -1,27 +1,51 @@
 <template>
-<v-navigation-drawer id="sidebar" temporary location="end" theme="dark" width="280">
-  <v-list>
-    <v-list-item id="information-button" @click="toInfo" class="border-bottom border-top">
-      <v-list-item-title>このサイトについて</v-list-item-title>
-    </v-list-item>
-    <v-list-item id="mypage-button" @click="toMypage" class="border-bottom border-top" v-if="authUser">
-      <v-list-item-title>マイページ</v-list-item-title>
-    </v-list-item>
-    <v-list-item class="border-bottom border-top" @click="isVisiblePages = !isVisiblePages" id="page-choice">
-      <v-list-item-title>
-        ページ選択
-        <i v-if="isVisiblePages" class="bi bi-chevron-down ms-2"></i>
-        <i v-if="!isVisiblePages" class="bi bi-chevron-right ms-2"></i>
-      </v-list-item-title>
-    </v-list-item>
-      <v-list 
-        v-for="(menu, index) in menus" 
-        :key="menu" :id="'page-' + (index + 1)" 
+  <v-navigation-drawer
+    id="sidebar"
+    temporary
+    location="end"
+    theme="dark"
+    width="280"
+  >
+    <v-list>
+      <v-list-item
+        id="information-button"
+        @click="toInfo"
+        class="border-bottom border-top"
+      >
+        <v-list-item-title>このサイトについて</v-list-item-title>
+      </v-list-item>
+      <v-list-item
+        id="mypage-button"
+        @click="toMypage"
+        class="border-bottom border-top"
+        v-if="authUser"
+      >
+        <v-list-item-title>マイページ</v-list-item-title>
+      </v-list-item>
+      <v-list-item
+        class="border-bottom border-top"
+        @click="isVisiblePages = !isVisiblePages"
+        id="page-choice"
+      >
+        <v-list-item-title>
+          ページ選択
+          <i v-if="isVisiblePages" class="bi bi-chevron-down ms-2"></i>
+          <i v-if="!isVisiblePages" class="bi bi-chevron-right ms-2"></i>
+        </v-list-item-title>
+      </v-list-item>
+      <v-list
+        v-for="(menu, index) in menus"
+        :key="menu"
+        :id="'page-' + (index + 1)"
         class="ms-3 py-0 border-start"
-        :class="{ 'here': menu.path == $route.path }"
+        :class="{ here: menu.path == $route.path }"
         v-if="isVisiblePages && authUser"
       >
-        <v-list-item :id="menu.link + '-button'" class="border-bottom" @click="toPages(menu.link)">
+        <v-list-item
+          :id="menu.link + '-button'"
+          class="border-bottom"
+          @click="toPages(menu.link)"
+        >
           <v-list-item-title>{{ menu.name }}</v-list-item-title>
         </v-list-item>
       </v-list>
@@ -30,20 +54,29 @@
           <v-list-item-title>ログイン後に利用できます</v-list-item-title>
         </v-list-item>
       </v-list>
-    <v-list-item class="border-bottom border-top" @click="isVisibleGames = !isVisibleGames" id="game-choice">
-      <v-list-item-title>
-        ゲーム選択
-        <i v-if="isVisibleGames" class="bi bi-chevron-down ms-2"></i>
-        <i v-if="!isVisibleGames" class="bi bi-chevron-right ms-2"></i>
-      </v-list-item-title>
-    </v-list-item>
-      <v-list 
-        v-for="(totalRecord, index) in totalRecords" 
-        :key="menu" :id="'game-' + (index + 1)" 
+      <v-list-item
+        class="border-bottom border-top"
+        @click="isVisibleGames = !isVisibleGames"
+        id="game-choice"
+      >
+        <v-list-item-title>
+          ゲーム選択
+          <i v-if="isVisibleGames" class="bi bi-chevron-down ms-2"></i>
+          <i v-if="!isVisibleGames" class="bi bi-chevron-right ms-2"></i>
+        </v-list-item-title>
+      </v-list-item>
+      <v-list
+        v-for="(totalRecord, index) in totalRecords"
+        :key="menu"
+        :id="'game-' + (index + 1)"
         class="ms-3 py-0 border-start"
         v-if="isVisibleGames && authUser"
       >
-        <v-list-item :id="'game-button-' + (index + 1)" class="border-bottom" @click="toGames(totalRecord.id)">
+        <v-list-item
+          :id="'game-button-' + (index + 1)"
+          class="border-bottom"
+          @click="toGames(totalRecord.id)"
+        >
           <v-list-item-title>{{ totalRecord.game_name }}</v-list-item-title>
         </v-list-item>
       </v-list>
@@ -52,29 +85,32 @@
           <v-list-item-title>ログイン後に利用できます</v-list-item-title>
         </v-list-item>
       </v-list>
-      <v-list v-if="isVisibleGames && authUser && totalRecords.length == 0" class="ms-3 py-0 border-start">
+      <v-list
+        v-if="isVisibleGames && authUser && totalRecords.length == 0"
+        class="ms-3 py-0 border-start"
+      >
         <v-list-item class="border-bottom">
           <v-list-item-title>ゲームが登録されていません</v-list-item-title>
         </v-list-item>
       </v-list>
-  </v-list>
+    </v-list>
 
-  <template v-slot:append>
-    <div class="m-2" v-if="authUser">
-      <v-btn block color="danger" @click="handleSignOut">
-        <span class="text-white">ログアウト</span>
-      </v-btn>
-    </div>
-  </template>
-
-</v-navigation-drawer>
+    <template v-slot:append>
+      <div class="m-2" v-if="authUser">
+        <v-btn block color="danger" @click="handleSignOut">
+          <span class="text-white">ログアウト</span>
+        </v-btn>
+      </div>
+    </template>
+    
+  </v-navigation-drawer>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: 'SideBar',
+  name: "SideBar",
   data() {
     return {
       isVisiblePages: false,
@@ -85,60 +121,57 @@ export default {
         { name: "所持ガチャ石", link: "Posses", path: "/posses" },
         { name: "換算用データ", link: "Conversion", path: "/conversions" },
         { name: "カレンダー", link: "Calendar", path: "/calendars" },
-      ]
-    }
+      ],
+    };
   },
   computed: {
-    ...mapGetters('gachas', ["totalRecords"]),
-    ...mapGetters('users', ["authUser"]),
+    ...mapGetters("gachas", ["totalRecords"]),
+    ...mapGetters("users", ["authUser"]),
   },
   created() {
     this.fetchAuthUser();
   },
   methods: {
-    ...mapActions('gachas', ["gachas"]),
-    ...mapActions('users', [
-      "logoutUser",
-      "fetchAuthUser",
-    ]),
-    ...mapActions('transition', ["addMessage"]),
+    ...mapActions("gachas", ["gachas"]),
+    ...mapActions("users", ["logoutUser", "fetchAuthUser"]),
+    ...mapActions("transition", ["addMessage"]),
     toMypage() {
-      this.$router.push({ name: 'MyPage' })
+      this.$router.push({ name: "MyPage" });
     },
     toPages(link) {
-      this.$router.push({ name: link })
+      this.$router.push({ name: link });
     },
     toGames(id) {
-      this.$router.push({ name: 'GameFullData', params: { id: id } })
+      this.$router.push({ name: "GameFullData", params: { id: id } });
     },
     toInfo() {
-      this.$router.push({ name: 'Information' })
+      this.$router.push({ name: "Information" });
     },
     async handleSignOut() {
-      var result = confirm('ログアウトしますか？');
+      var result = confirm("ログアウトしますか？");
       if (result) {
         try {
-          await this.logoutUser()
-          this.$router.push({ name: 'Top' })
+          await this.logoutUser();
+          this.$router.push({ name: "Top" });
           this.addMessage({
             message: "ログアウトしました",
-            messageType: "success"
-          })
+            messageType: "success",
+          });
         } catch (error) {
-          console.log(error)
+          console.log(error);
           this.addMessage({
             message: "ログアウトできませんでした",
-            messageType: "danger"
-          })
+            messageType: "danger",
+          });
         }
       }
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-.here{
+.here {
   pointer-events: none;
 }
 </style>

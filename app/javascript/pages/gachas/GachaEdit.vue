@@ -6,23 +6,26 @@
       </v-card-item>
       <v-card-text>
         <div class="form-group m-3">
-          <label for="count">ガチャ回数</label>
+          <label for="count" class="form-label">ガチャ回数</label>
           <Field name="count" id="count" v-model.number="gacha.count" class="form-control" :rules="isNumericRequired" />
           <ErrorMessage name="count" id="count_error" class="text-danger" />
         </div>
         <div class="form-group m-3">
-          <label for="date">ガチャを引いた日付</label>
+          <label for="date" class="form-label">ガチャを引いた日付</label>
           <Field name="date" id="date" type="date" v-model="gacha.date" class="form-control" />
           <ErrorMessage name="date" id="date" class="text-danger" />
         </div>
         <div class="form-group m-3">
-          <label for="currency_package">換算用データ</label>
+          <label for="currency_package" class="form-label">換算用データ</label>
+          <br>
+          <label for="initial_package" class="my-1">初期登録データを除く</label>
+          <input type="checkbox" id="initial_package" name="initial_package" v-model="checked">
           <Field as="select" name="currency_package_id" id="currency_package" v-model.number="gacha.currency_package_id" class="form-control">
-            <option v-for="(currency_package, index) in currencyPackages" :key="index" :value="currency_package.id">{{ currency_package.name }}</option>
+            <option v-for="(currency_package, index) in checkedPackeges" :key="index" :value="currency_package.id">{{ currency_package.name }}</option>
           </Field>
         </div>
         <div class="form-group m-3">
-          <label for="description">備考</label>
+          <label for="description" class="form-label">備考</label>
           <Field as="textarea" name="description" id="description" v-model="gacha.description" style="width:100%" rows="3" />
         </div>
         <div class="text-end m-3 mt-5">
@@ -44,11 +47,25 @@ export default {
     Form,
     ErrorMessage
   },
+  data() {
+    return {
+      checked: false,
+    }
+  },
   computed: {
     ...mapGetters('gachas', [
-        "gacha", 
-        "currencyPackages"
+      "gacha", 
+      "currencyPackages",
     ]),
+    checkedPackeges() {
+      if (this.checked) {
+        return this.currencyPackages.filter(currency_package => {
+          return currency_package.category == "add"
+        }) 
+      } else {
+        return this.currencyPackages
+      }
+    },
   },
   created() {
     this.fetchPackages();
@@ -56,9 +73,9 @@ export default {
   },
   methods: {
     ...mapActions('gachas', [
-        "fetchPackages",
-        "fetchGacha",
-        "editGacha"
+      "fetchPackages",
+      "fetchGacha",
+      "editGacha",
     ]),
     ...mapActions('transition', ["addMessage"]),
     async handleEditGacha() {
