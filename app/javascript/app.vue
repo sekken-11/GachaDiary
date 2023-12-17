@@ -66,7 +66,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .bgcolor {
   background-color: snow;
   position: relative;
@@ -77,5 +77,10 @@ export default {
   position: fixed;
   top: 0;
   z-index: 2;
+}
+.form-label {
+  color: rgb(74, 74, 74);
+  font-size: 15px;
+  font-weight: bold;
 }
 </style>

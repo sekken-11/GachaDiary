@@ -34,7 +34,6 @@ import axios from '../plugins/axios'
 import store from '../store/vuex'
 import vuetify from '../plugins/vuetify'
 import vueScrollTo from 'vue-scrollto'
-import '../../assets/stylesheets/whole.scss'
 
 VueElement.prototype.$axios = axios
 
