@@ -1,7 +1,6 @@
 const CACHE_NAME = 'gacha_diary_cache';
 const urlsToCache = [
   '/',
-  '/info',
 ];
 
 self.addEventListener('install', (event) => {
