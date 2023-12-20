@@ -100,7 +100,8 @@ class PackageChangeForm
       name: name, 
       need_one_gacha_stones: need_one_gacha_stones,
       price: price,
-      quantity: quantity
+      quantity: quantity,
+      category: "add"
     )
   end
 
