@@ -1,7 +1,7 @@
 <template>
   <v-card class="shadow mb-3">
     <v-card-title class="bg-white py-3">
-      <span>換算用データ 編集</span>
+      <span class="form-title">換算用データ 編集</span>
     </v-card-title>
     <v-card-text>
       <Form @submit="handleEditPackage" id="currency_package-form">

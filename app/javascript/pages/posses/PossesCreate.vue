@@ -1,7 +1,7 @@
 <template>
   <v-card class="shadow mb-3">
     <v-card-title class="bg-white py-3">
-      <span>ゲームごとの石の所持データ作成</span>
+      <span class="form-title">ゲームごとの石の所持データ作成</span>
     </v-card-title>
     <v-card-text>
       <Form @submit="handleCreatePossesStone" id="posses-form">
