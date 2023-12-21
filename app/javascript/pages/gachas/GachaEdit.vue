@@ -2,7 +2,7 @@
   <v-card class="mb-3">
     <Form @submit="handleEditGacha" id="gacha-edit-form">
       <v-card-item class="bg-white py-3 border-bottom">
-        <span>ガチャ記録 編集</span>
+        <span class="form-title">ガチャ記録 編集</span>
       </v-card-item>
       <v-card-text>
         <div class="form-group m-3">

@@ -1,7 +1,7 @@
 <template>
   <v-card class="shadow mb-3">
     <v-card-title class="bg-white py-3">
-      <span>ゲームごとの石の所持データ 編集</span>
+      <span class="form-title">ゲームごとの石の所持データ 編集</span>
     </v-card-title>
     <v-card-text>
       <Form @submit="handleEditPossesStone" id="posses-edit-form">

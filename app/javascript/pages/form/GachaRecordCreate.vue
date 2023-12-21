@@ -5,7 +5,7 @@
         <v-card>
           <Form @submit="handleCreateGacha" id="gacha-form">
             <v-card-title class="bg-white py-3">
-              <span>ガチャ記録作成</span>
+              <span class="form-title">ガチャ記録作成</span>
             </v-card-title>
             <v-card-text>
               <div class="form-group m-3">
