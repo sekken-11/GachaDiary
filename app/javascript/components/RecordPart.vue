@@ -64,4 +64,7 @@ export default {
 .mypage {
   background-color: whitesmoke;
 }
+span {
+  color: dimgray;
+}
 </style>
