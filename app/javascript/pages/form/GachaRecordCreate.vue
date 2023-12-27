@@ -88,13 +88,20 @@ export default {
       this.gacha.currency_package_id = Number(this.currencyPackageId);
     }
   },
+  beforeRouteLeave(to, from, next) {
+    this.dateToday();
+    next();
+  },
   methods: {
     ...mapActions('gachas', ["createGacha"]),
     ...mapActions('gachas', [
       "fetchPackages",
       "pickPackageId",
     ]),
-    ...mapActions('transition', ["addMessage"]),
+    ...mapActions('transition', [
+      "addMessage",
+      "dateToday",
+    ]),
     setDate() {
       this.gacha.date = this.selectDate || new Date().toLocaleDateString('sv-SE')
     },
