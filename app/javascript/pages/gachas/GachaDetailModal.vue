@@ -66,13 +66,13 @@
 
 <script>
 export default {
-    name: 'GachaDetailModal',
-    props: ['gacha'],
-    methods: {
-        handleClose() {
-            this.$emit('Close')
-        },
+  name: 'GachaDetailModal',
+  props: ['gacha'],
+  methods: {
+    handleClose() {
+      this.$emit('Close')
     },
+  },
 }
 </script>
 

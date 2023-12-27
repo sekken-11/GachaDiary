@@ -14,6 +14,9 @@ export default {
     setDate: (state, date) => {
       state.date = date
     },
+    undoDate: (state, date) => {
+      state.date = new Date().toLocaleDateString('sv-SE')
+    },
     setMessage: (state, { message, messageType, timeOut}) => {
       state.message = message
       state.messageType = messageType
@@ -27,6 +30,9 @@ export default {
   actions: {
     datePick({commit}, date) {
       commit('setDate', date)
+    },
+    dateToday({ commit }) {
+      commit('undoDate')
     },
     addMessage({commit}, { message, messageType, timeOut }) {
       commit('setMessage', { message: message, messageType: messageType, timeOut: timeOut})
