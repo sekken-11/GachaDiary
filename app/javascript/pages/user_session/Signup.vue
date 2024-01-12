@@ -26,6 +26,11 @@
             <v-btn block type="submit" class="my-3" color="info">登録</v-btn>
           </div>
         </Form>
+        <div class="mt-3">
+          <router-link :to="{ name: 'Mailaddress' }">
+            <i class="bi bi-caret-right me-1"></i>メールアドレスの登録について
+          </router-link>
+        </div>
       </v-card-text>
     </v-card>
   </div>
