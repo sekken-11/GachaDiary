@@ -19,6 +19,7 @@ import EmailChange from '../pages/profiles/EmailChange.vue'
 import Information from '../pages/terms/Information.vue'
 import Policy from '../pages/terms/Policy.vue'
 import Terms from '../pages/terms/Terms.vue'
+import Mailaddsress from '../pages/user_session/Mailaddress.vue'
 
 import store from '../store/vuex'
 
@@ -120,6 +121,12 @@ const routes = [
     path: '/signin',
     name: 'SignIn',
     component: SignIn,
+    meta: { doNotAuth: true }
+  },
+  {
+    path: '/mailaddress',
+    name: 'Mailaddress',
+    component: Mailaddsress,
     meta: { doNotAuth: true }
   },
   {

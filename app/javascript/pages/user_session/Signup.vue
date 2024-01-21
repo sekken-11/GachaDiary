@@ -7,10 +7,15 @@
       <v-card-text>
         <Form @submit="handleSignUp">
           <div v-if="error" class="text-danger my-4">{{ error }}</div>
-          <div class="form-group my-4">
+          <div class="form-group mt-4">
             <label for="email" class="form-label">メールアドレス</label>
             <Field name="email" id="email" v-model="user.email" class="form-control" type="email" :rules="isEmailRequired" />
             <div class="text-danger"><ErrorMessage name="email" /></div>
+          </div>
+          <div class="mb-4 mt-1">
+            <router-link :to="{ name: 'Mailaddress' }">
+              <i class="bi bi-caret-right me-1"></i>メールアドレスの登録について
+            </router-link>
           </div>
           <div class="form-group mb-4">
             <label for="password" class="form-label">パスワード</label>
